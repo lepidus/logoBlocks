@@ -1,0 +1,15 @@
+
+#sidebarSponsors.block img {
+	padding-top: 10px; 
+}
+
+#sidebarSponsors.block *:first-child img {
+	padding-top: 0;
+}
+
+td.showDragHandle {
+	background-image: url(updown2.gif);
+	background-repeat: no-repeat;
+	background-position: center center;
+	cursor: move;
+}
