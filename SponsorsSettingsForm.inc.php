@@ -64,7 +64,7 @@ class SponsorsSettingsForm extends Form {
 		$journalId =& Request::getJournal()->getId();
 
 		$templateMgr =& TemplateManager::getManager();
-		$templateMgr->addJavaScript('lib/pkp/js/jquery.tablednd_0_5.js');
+		$templateMgr->addJavaScript('lib/pkp/js/lib/jquery/plugins/jquery.tablednd.js');
 		$templateMgr->assign('sponsorsDir', Request::getBasePath() . '/' . $fileManager->getJournalFilesPath($journalId) . '/sponsors'); 
 
 		parent::display();
