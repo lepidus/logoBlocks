@@ -4,6 +4,25 @@ import('plugins.BlockPlugin');
 
 class SponsorsBlockPlugin extends BlockPlugin {
 
+	function register($category, $path) {
+		$success = parent::register($category, $path);
+		if ($success && $this->getEnabled()) {
+			HookRegistry::register('Templates::Manager::Index::ManagementPages', array($this, 'addManagementLink'));
+		}
+
+		return $success;
+	}
+
+	function addManagementLink($hookName, $params) {
+		$smarty =& $params[1];
+		$output =& $params[2];
+
+		$output .= '<li>&#187; <a href="' . $this->smartyPluginUrl(array('op'=>'plugin', 'path'=>"settings"), $smarty) . '" >' . TemplateManager::smartyTranslate(array('key'=>'plugins.block.sponsors.manager.settingsLink'), $smarty) . '</a></li>';
+
+		return false;
+	}
+
+
 	/**
 	 * Install default settings on journal creation.
 	 * @return string
@@ -70,9 +89,18 @@ class SponsorsBlockPlugin extends BlockPlugin {
 					$form->readInputData();
 					if ($form->validate()) {
 						$form->execute();
-						Request::redirect(null, 'manager', 'plugin');
+
+						$form->initData();
+						$form->display();
 						return false;
 					}
+				} else if (Request::getUserVar('createGroup')) {
+					$form->readInputData();
+					if ($form->validate()) {
+						$form->createGroup();
+					}
+					$form->initData();
+					$form->display();
 				} else {
 					$form->initData();
 					$form->display();
@@ -87,7 +115,10 @@ class SponsorsBlockPlugin extends BlockPlugin {
 				$sponsor = intval($arr["sponsors"]);
 
 				$value = $this->getSetting($journalId, "sponsors");
-				$fileManager->removeJournalFile($journalId, "sponsors/".$value[$sponsor]["logo"]);
+
+				if (array_key_exists('logo', $value[$sponsor])) {
+					$fileManager->removeJournalFile($journalId, "sponsors/".$value[$sponsor]["logo"]);
+				}
 				unset($value[$sponsor]);
 				$this->updateSetting($journalId, 'sponsors', $value, 'object');
 
@@ -102,18 +133,18 @@ class SponsorsBlockPlugin extends BlockPlugin {
 	/**
 	 * Extend the {url ...} smarty to support this plugin.
 	 */
-	function smartyPluginUrl($params, &$smarty) {
-		$path = array($this->getCategory(), $this->getName());
-		if (is_array($params['path'])) {
-			$params['path'] = array_merge($path, $params['path']);
-		} elseif (!empty($params['path'])) {
-			$params['path'] = array_merge($path, array($params['path']));
-		} else {
-			$params['path'] = $path;
-		}
+	// function smartyPluginUrl($params, &$smarty) {
+	// 	$path = array($this->getCategory(), $this->getName());
+	// 	if (is_array($params['path'])) {
+	// 		$params['path'] = array_merge($path, $params['path']);
+	// 	} elseif (!empty($params['path'])) {
+	// 		$params['path'] = array_merge($path, array($params['path']));
+	// 	} else {
+	// 		$params['path'] = $path;
+	// 	}
 
-		return $smarty->smartyUrl($params, $smarty);
-	}
+	// 	return $smarty->smartyUrl($params, $smarty);
+	// }
 
 	/**
 	* Get the contents for this block.

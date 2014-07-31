@@ -26,11 +26,6 @@ $(document).ready(function() {
 	    },
 	    dragHandle: "dragHandle"
 	});
-	// $("#ordem tr").hover(function() {
- //          $(this.cells[0]).addClass('showDragHandle');
- //    }, function() {
- //          $(this.cells[0]).removeClass('showDragHandle');
- //    });
 });
 {/literal}
 </script>
@@ -67,6 +62,26 @@ $(document).ready(function() {
 
 <div class="separator"></div><br/>
 
+<form name="createGroup" method="post" enctype="multipart/form-data" action="{plugin_url path="settings"}">
+
+	<br/>
+
+	<h2>{translate key="plugins.block.sponsors.manager.settings.sponsorGroup"}</h2>
+
+	<table width="100%" class="data">
+		{foreach from=$formLocales key=key item=formLocale}
+		<tr valign="top">
+			<td width="40%" class="label">{fieldLabel name="title" required="true" key="plugins.block.sponsors.manager.settings.groupName"} ({$formLocale})</td>
+			<td width="60%" class="value"><input type="text" name="groupName[{$key|escape}]" value="{$groupName[$key]|escape}" id="title" size="40" maxlength="120" class="textField" /></td>
+		</tr>
+		{/foreach}
+	</table>
+	<input type="submit" name="createGroup" value="{translate key="plugins.block.sponsors.manager.settings.createGroup"}" class="button" /> 
+
+</form>
+
+<div class="separator"></div><br/>
+
 {if $sponsors}
 <h2>{translate key="plugins.block.sponsors.manager.settings.sponsorOrder"}</h2>
 
@@ -78,8 +93,27 @@ $(document).ready(function() {
 		{foreach from=$sponsors item=sponsor key=i}
 			<tr valign="middle">
 				<td width="20px" class="dragHandle showDragHandle"></td>
-				<td width="20%" class="value"><img class="logo" width="100px" src="{$sponsorsDir}/{$sponsor.logo}"/><input type="hidden" name="sponsors[{$i}][logo]" value="{$sponsor.logo}" /></td>
-				<td width="55%" class="value">{fieldLabel name="logo" key="plugins.block.sponsors.manager.settings.sponsorUrl"} <input type="text" name="sponsors[{$i}][link]" id="link" value="{$sponsor.link|default:""|escape}" size="40" maxlength="1200" class="textField" /></td>
+				<td width="20%" class="value">
+					{if $sponsor.logo}
+					<img class="logo" width="100px" src="{$sponsorsDir}/{$sponsor.logo}"/><input type="hidden" name="sponsors[{$i}][logo]" value="{$sponsor.logo}" />
+					{else}
+					<h2>{$sponsor.group[$currentLocale]}</h2>
+					{/if}
+				</td>
+				<td width="55%" class="value">
+					{if $sponsor.logo}
+					{fieldLabel name="logo" key="plugins.block.sponsors.manager.settings.sponsorUrl"} <input type="text" name="sponsors[{$i}][link]" id="link" value="{$sponsor.link|default:""|escape}" size="40" maxlength="1200" class="textField" />
+					{else}
+					{foreach from=$formLocales key=key item=formLocale}
+					<table width="100%">
+					<tr valign="top">
+						<td width="40%" class="label">{fieldLabel name="title" required="true" key="plugins.block.sponsors.manager.settings.groupName"} ({$formLocale})</td>
+						<td width="60%" class="value"><input type="text" name="sponsors[{$i}][group][{$key|escape}]" value="{$sponsor.group[$key]|escape}" id="title" size="40" maxlength="120" class="textField" /></td>
+					</tr>
+					</table>
+					{/foreach}
+					{/if}
+				</td>
 				<td width="20%" class="label"><a href="{plugin_url path="remover"}?sponsors={$i}">Remover</a></td>
 			</tr>
 		{/foreach}

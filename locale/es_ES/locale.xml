@@ -14,10 +14,11 @@
  
 <locale name="es_ES" full_name="Español (España)">
   <message key="plugins.block.sponsors.displayName">Bloco de patrocinadores</message>
-	<message key="plugins.block.sponsors.description">Este plugin oferece uma área para logos de patrocinadores.</message>
+	<message key="plugins.block.sponsors.description">Este plugin oferece uma área para logos de patrocinadores</message>
   <message key="plugins.block.sponsors.settings">Configurações</message>
 
   <message key="plugins.block.sponsors.title">Patrocinadores</message>
+  <message key="plugins.block.sponsors.manager.settingsLink">Configuração do Bloco de Patrocinadores</message>
 
   <message key="plugins.block.sponsors.manager.SponsorsSettings">Configurações do plugin de patrocinadores.</message>
   <message key="plugins.block.sponsors.manager.settings.description">Este plugin oferece uma área para logos de patrocinadores.</message>
@@ -28,5 +29,9 @@
   <message key="plugins.block.sponsors.manager.settings.sponsorUpload">Novo patrocinador</message>
 
   <message key="plugins.block.sponsors.uploadSuccessfulMessage">Novo patrocinador</message>
+
+  <message key="plugins.block.sponsors.manager.settings.sponsorGroup">Novo grupo de patrocinadores</message>
+  <message key="plugins.block.sponsors.manager.settings.groupName">Nome do grupo</message>
+  <message key="plugins.block.sponsors.manager.settings.createGroup">Criar grupo</message>
 
 </locale>

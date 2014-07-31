@@ -40,19 +40,20 @@ class SponsorsSettingsForm extends Form {
 
 		$this->_data = array(
  			'sponsors' => $plugin->getSetting($journalId, "sponsors"),
- 			'link' => ""
+ 			'link' => "",
+ 			'groupName' => array()
 		);
 	}
 
 	function getFieldNames() {
-		return array("sponsors", "link");
+		return array("sponsors", "link", 'groupName');
 	}
 
 	/**
 	 * Assign form data to user-submitted data.
 	 */
 	function readInputData() {
- 		$this->readUserVars(array('sponsors', 'link'));
+ 		$this->readUserVars(array('sponsors', 'link', 'groupName'));
 	}
 
 
@@ -65,6 +66,10 @@ class SponsorsSettingsForm extends Form {
 
 		$templateMgr =& TemplateManager::getManager();
 		$templateMgr->addJavaScript('lib/pkp/js/lib/jquery/plugins/jquery.tablednd.js');
+
+		$path = Request::getBaseUrl() . '/' . $this->plugin->getPluginPath() . '/sponsors_admin.css';
+		$templateMgr->addStyleSheet($path);
+
 		$templateMgr->assign('sponsorsDir', Request::getBasePath() . '/' . $fileManager->getJournalFilesPath($journalId) . '/sponsors'); 
 
 		parent::display();
@@ -109,6 +114,18 @@ class SponsorsSettingsForm extends Form {
         }
         return false;
     }
+
+    function createGroup() {
+    	$journalId =& Request::getJournal()->getId();
+    	$value = $this->plugin->getSetting($journalId, "sponsors");
+    	$group = $this->getData('groupName');
+   		$value[] = array("group" => $group);
+       	$this->plugin->updateSetting($journalId, 'sponsors', $value, 'object');
+    }
+
+	function getLocaleFieldNames() {
+		return array('groupName');
+	}
 
     private function searchArray($needle, $haystack, $column) {
     	foreach ($haystack as $value) {

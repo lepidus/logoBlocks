@@ -14,12 +14,13 @@
  
 <locale name="pt_BR" full_name="Portuguese">
   <message key="plugins.block.sponsors.displayName">Bloco de patrocinadores</message>
-	<message key="plugins.block.sponsors.description">Este plugin oferece uma área para logos de patrocinadores.</message>
+	<message key="plugins.block.sponsors.description">Este plugin oferece uma área para logos de patrocinadores</message>
   <message key="plugins.block.sponsors.settings">Configurações</message>
 
   <message key="plugins.block.sponsors.title">Patrocinadores</message>
+  <message key="plugins.block.sponsors.manager.settingsLink">Configuração do Bloco de Patrocinadores</message>
 
-  <message key="plugins.block.sponsors.manager.SponsorsSettings">Configurações do plugin de patrocinadores.</message>
+  <message key="plugins.block.sponsors.manager.SponsorsSettings">Configurações do plugin de patrocinadores</message>
   <message key="plugins.block.sponsors.manager.settings.description">Este plugin oferece uma área para logos de patrocinadores.</message>
   <message key="plugins.block.sponsors.manager.settings.sponsorLogo">Logo do patrocinador</message>
   <message key="plugins.block.sponsors.manager.settings.sponsorUrl">URL</message>
@@ -30,5 +31,9 @@
   <message key="plugins.block.sponsors.settings.logoImageInvalid">Formato de imagem inválido. Formatos aceitáveis são .gif, .jpg ou .png.</message>
 
   <message key="plugins.block.sponsors.uploadSuccessfulMessage">Novo patrocinador</message>
+
+  <message key="plugins.block.sponsors.manager.settings.sponsorGroup">Novo grupo de patrocinadores</message>
+  <message key="plugins.block.sponsors.manager.settings.groupName">Nome do grupo</message>
+  <message key="plugins.block.sponsors.manager.settings.createGroup">Criar grupo</message>
 
 </locale>

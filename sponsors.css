@@ -1,15 +1,14 @@
-
 #sidebarSponsors.block img {
 	padding-top: 10px; 
+	width: 100%;
+	max-width: 100%;
 }
 
-#sidebarSponsors.block *:first-child img {
-	padding-top: 0;
-}
-
-td.showDragHandle {
-	background-image: url(updown2.gif);
-	background-repeat: no-repeat;
-	background-position: center center;
-	cursor: move;
+#sidebarSponsors.block .group {
+	margin: 0em 1em 0.5em 0em;
+	padding-top: 0.5em;
+	font-size: 1.5em;
+	font-family: "Times New Roman", Times, Georgia, serif;
+	text-transform: uppercase;
+	font-weight: normal;
 }
