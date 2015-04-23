@@ -1,10 +1,10 @@
-#sidebarSponsors.block img {
+#sidebarPatrs.block img {
 	padding-top: 10px; 
 	width: 100%;
 	max-width: 100%;
 }
 
-#sidebarSponsors.block .group {
+#sidebarPatrs.block .group {
 	margin: 0em 1em 0.5em 0em;
 	padding-top: 0.5em;
 	font-size: 1.5em;
