@@ -2,7 +2,7 @@
  * block.tpl
  *
  *}
-<div class="block" id="sidebarSponsors" style="text-align:center">
+<div class="block" id="sidebarPatrs" style="text-align:center">
     <span class="blockTitle">{translate key="plugins.block.sponsors.title"}</span>
     <div>
         {foreach from=$sponsors item=sponsor}
