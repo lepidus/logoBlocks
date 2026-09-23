@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: en_US\n"
+
+msgid "plugins.block.sponsorsBlock.displayName"
+msgstr "Sponsors Block"
+
+msgid "plugins.block.sponsorsBlock.description"
+msgstr "Displays sponsor and indexer logos in the sidebar, with optional links and automatic resizing."
+
+msgid "plugins.block.sponsorsBlock.instructions"
+msgstr "Add one logo at a time and save. Logos appear in the order they are added. To replace a logo, mark it for removal and upload a new image."
+
+msgid "plugins.block.sponsorsBlock.title"
+msgstr "Block title"
+
+msgid "plugins.block.sponsorsBlock.name"
+msgstr "Sponsor or indexer name (alternative text)"
+
+msgid "plugins.block.sponsorsBlock.url"
+msgstr "Link (optional, starting with https:// or http://)"
+
+msgid "plugins.block.sponsorsBlock.add"
+msgstr "Add logo"
+
+msgid "plugins.block.sponsorsBlock.logo"
+msgstr "Logo image"
+
+msgid "plugins.block.sponsorsBlock.imageHelp"
+msgstr "PNG, JPEG or GIF, up to 5 MB and 12 million pixels. Images are saved as PNG at 150 px wide with proportional height (up to 3000 px). Transparency is preserved; GIFs use only the first frame. After an error, select the file again before saving."
+
+msgid "plugins.block.sponsorsBlock.requiredName"
+msgstr "Enter a title of up to 200 characters."
+
+msgid "plugins.block.sponsorsBlock.invalidEntry"
+msgstr "Enter a name (up to 200 characters) and a valid HTTP or HTTPS link, or leave the link empty."
+
+msgid "plugins.block.sponsorsBlock.invalidImage"
+msgstr "Unable to read the image. Use PNG, JPEG or GIF up to 5 MB and 12 million pixels, with a final proportional height up to 3000 px. Also check the server upload limits."
+
+msgid "plugins.block.sponsorsBlock.imageRequired"
+msgstr "Select an image for the new logo."
+
+msgid "plugins.block.sponsorsBlock.gdRequired"
+msgstr "Resizing requires the PHP GD extension on the server."
+
+msgid "plugins.block.sponsorsBlock.writeError"
+msgstr "Unable to save the logo. Check permissions on the journal public directory and select the image again."
+
+msgid "plugins.block.sponsorsBlock.networkError"
+msgstr "Unable to save. Check your connection and the server upload limit, then try again."
+
+
+msgid "plugins.block.sponsorsBlock.logos"
+msgstr "Registered logos"
+
+msgid "plugins.block.sponsorsBlock.empty"
+msgstr "No logos yet. Click “Add logo” to get started."
+
+msgid "plugins.block.sponsorsBlock.link"
+msgstr "Link"
+
+msgid "plugins.block.sponsorsBlock.noLink"
+msgstr "No link"
+
+msgid "plugins.block.sponsorsBlock.gridHelp"
+msgstr "Use “Add logo” or the row actions to edit and delete. Logo changes are saved immediately. The Save button below saves the block title and the option to display logos above the footer."
+
+msgid "plugins.block.sponsorsBlock.replaceHelp"
+msgstr "To replace the image, select a new file. Leave the field empty to keep the current logo."
+
+msgid "plugins.block.sponsorsBlock.notFound"
+msgstr "This logo is no longer available. Reopen the settings and try again."
+
+msgid "plugins.block.sponsorsBlock.showAboveFooter"
+msgstr "Also display logos above the footer"

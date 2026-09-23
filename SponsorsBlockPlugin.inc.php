@@ -1,172 +1,145 @@
 <?php
-
-import('plugins.BlockPlugin');
+/** Sidebar logos for OJS 3.3. Distributed under the GNU GPL v3. */
+import('lib.pkp.classes.plugins.BlockPlugin');
 
 class SponsorsBlockPlugin extends BlockPlugin {
+    function getDisplayName() {
+        return __('plugins.block.sponsorsBlock.displayName');
+    }
 
-	function register($category, $path) {
-		$success = parent::register($category, $path);
-		if ($success && $this->getEnabled()) {
-			HookRegistry::register('Templates::Manager::Index::ManagementPages', array($this, 'addManagementLink'));
-		}
+    function getDescription() {
+        return __('plugins.block.sponsorsBlock.description');
+    }
 
-		return $success;
-	}
+    function getActions($request, $verb) {
+        $actions = parent::getActions($request, $verb);
+        if ($request->getContext() && $this->getEnabled()) {
+            import('lib.pkp.classes.linkAction.request.AjaxModal');
+            array_unshift($actions, new LinkAction('settings', new AjaxModal(
+                $request->getRouter()->url($request, null, null, 'manage', null, array(
+                    'verb' => 'settings', 'plugin' => $this->getName(), 'category' => 'blocks'
+                )), $this->getDisplayName()), __('manager.plugins.settings'), null));
+        }
+        return $actions;
+    }
 
-	function addManagementLink($hookName, $params) {
-		$smarty =& $params[1];
-		$output =& $params[2];
+    function manage($args, $request) {
+        if (!in_array($request->getUserVar('verb'), array('settings', 'grid'), true)) {
+            return parent::manage($args, $request);
+        }
+        if (!$request->getContext() || !$this->getEnabled()) {
+            return new JSONMessage(false);
+        }
+        if ($request->getUserVar('verb') === 'grid') {
+            // Block plugins are not loaded before component routing. Use the
+            // plugin management endpoint, already authorized by PluginAccessPolicy.
+            $this->import('controllers.grid.SponsorsBlockGridHandler');
+            $grid = new SponsorsBlockGridHandler($this);
+            $operation = $request->getUserVar('gridOp');
+            if (!is_string($operation) || !in_array($operation, array('fetchGrid', 'fetchRows', 'fetchRow', 'addLogo', 'editLogo', 'updateLogo', 'deleteLogo'), true)) {
+                return new JSONMessage(false);
+            }
+            $grid->initialize($request);
+            return $grid->$operation($args, $request);
+        }
+        $this->import('SponsorsBlockSettingsForm');
+        $form = new SponsorsBlockSettingsForm($this, $request->getContext()->getId());
+        if ($request->getUserVar('save')) {
+            $form->readInputData();
+            if ($form->validate() && $form->execute()) {
+                return new JSONMessage(true);
+            }
+        } else {
+            $form->initData();
+        }
+        return new JSONMessage(true, $form->fetch($request));
+    }
 
-		$output .= '<li>&#187; <a href="' . $this->smartyPluginUrl(array('op'=>'plugin', 'path'=>"settings"), $smarty) . '" >' . TemplateManager::smartyTranslate(array('key'=>'plugins.block.sponsors.manager.settingsLink'), $smarty) . '</a></li>';
+    function getLogos($contextId) {
+        $logos = $this->getSetting($contextId, 'logos');
+        return is_array($logos) ? $logos : array();
+    }
 
-		return false;
-	}
+    function getGridUrl($request, $operation, $params = array()) {
+        return $request->getRouter()->url($request, null,
+            'grid.settings.plugins.SettingsPluginGridHandler', 'manage', null,
+            array_merge($params, array('category' => 'blocks', 'plugin' => $this->getName(),
+                'verb' => 'grid', 'gridOp' => $operation)));
+    }
 
+    function getBlockTitles($contextId) {
+        $title = $this->getSetting($contextId, 'title');
+        if (is_array($title)) {
+            return $title;
+        }
+        // Preserve titles saved before multilingual settings were introduced.
+        return array(AppLocale::getPrimaryLocale() =>
+            !$title || in_array($title, array('Sponsors Block', 'Bloco de patrocinadores'), true)
+                ? 'Index to:' : $title);
+    }
 
-	/**
-	 * Install default settings on journal creation.
-	 * @return string
-	 */
-	function getContextSpecificPluginSettingsFile() {
-		return $this->getPluginPath() . '/settings.xml';
-	}
+    function getBlockTitle($contextId) {
+        $titles = $this->getBlockTitles($contextId);
+        foreach (array(AppLocale::getLocale(), AppLocale::getPrimaryLocale()) as $locale) {
+            if (isset($titles[$locale]) && is_string($titles[$locale]) && trim($titles[$locale]) !== '') {
+                return $titles[$locale];
+            }
+        }
+        return 'Index to:';
+    }
 
-	/**
-	 * Get the display name of this plugin.
-	 * @return String
-	 */
-	function getDisplayName() {
-		return __('plugins.block.sponsors.displayName');
-	}
+    function getPublicUrl($request, $contextId) {
+        import('classes.file.PublicFileManager');
+        $manager = new PublicFileManager();
+        return $request->getBaseUrl() . '/' . $manager->getContextFilesPath($contextId);
+    }
 
-	/**
-	 * Get a description of the plugin.
-	 */
-	function getDescription() {
-		return __('plugins.block.sponsors.description');
-	}
+    function getContents($templateMgr, $request = null) {
+        $request = $request ?: Application::get()->getRequest();
+        $context = $request->getContext();
+        if (!$context || !$this->getEnabled($context->getId())) {
+            return '';
+        }
+        $logos = $this->getLogos($context->getId());
+        if (!$logos) {
+            return '';
+        }
+        if ($this->getSetting($context->getId(), 'showAboveFooter')) {
+            // Block plugins load when the sidebar is rendered. An output filter
+            // can insert the additional strip before the native footer afterward.
+            $templateMgr->registerFilter('output', array($this, 'displayAboveFooter'));
+        }
+        $templateMgr->assign(array(
+            'sponsorsBlockTitle' => $this->getBlockTitle($context->getId()),
+            'sponsorsBlockLogos' => $logos,
+            'sponsorsBlockPublicUrl' => $this->getPublicUrl($request, $context->getId()),
+        ));
+        return parent::getContents($templateMgr, $request);
+    }
 
-	/**
-	 * Display verbs for the management interface.
-	 * @return array
-	 */
-	function getManagementVerbs() {
-		return array(
-			array(
-				'settings',
-				__('plugins.block.sponsors.settings')
-			)
-		);
-	}
-
-	/**
-	 * Execute a management verb on this plugin
-	 * @param $verb string
-	 * @param $args array
-	 * @param $message string If a message is returned from this by-ref
-	 *  argument then it will be displayed as a notification if (and only
-	 *  if) the method returns false.
-	 * @return boolean will redirect to the plugin category page if false,
-	 *  otherwise will remain on the same page
-	 */
-	function manage($verb, $args, &$message) {
-		switch ($verb) {
-			case 'settings':
-				$templateMgr =& TemplateManager::getManager();
-				$templateMgr->register_function('plugin_url', array(&$this, 'smartyPluginUrl'));
-				$journal =& Request::getJournal();
-
-				$this->import('SponsorsSettingsForm');
-				$form = new SponsorsSettingsForm($this, $journal->getId());
-				if (Request::getUserVar('uploadLogo')) {
-					$form->readInputData();
-					if (!$form->upload()) {
-						$form->addError('logo', __('plugins.block.sponsors.settings.logoImageInvalid'));
-					}
-					$form->initData();
-					$form->display();
-				} else if (Request::getUserVar('saveOrder')) {
-					$form->readInputData();
-					if ($form->validate()) {
-						$form->execute();
-
-						$form->initData();
-						$form->display();
-						return false;
-					}
-				} else if (Request::getUserVar('createGroup')) {
-					$form->readInputData();
-					if ($form->validate()) {
-						$form->createGroup();
-					}
-					$form->initData();
-					$form->display();
-				} else {
-					$form->initData();
-					$form->display();
-				}
-				return true;
-			case 'remover':
-				import('classes.file.PublicFileManager');
-		        $fileManager = new PublicFileManager();
-				$arr = Request::getQueryArray();// sponsors={$i}
-				$journal =& Request::getJournal();
-				$journalId =& $journal->getId();
-				$sponsor = intval($arr["sponsors"]);
-
-				$value = $this->getSetting($journalId, "sponsors");
-
-				if (array_key_exists('logo', $value[$sponsor])) {
-					$fileManager->removeJournalFile($journalId, "sponsors/".$value[$sponsor]["logo"]);
-				}
-				unset($value[$sponsor]);
-				$this->updateSetting($journalId, 'sponsors', $value, 'object');
-
-				Request::redirect(null, 'manager', 'plugin', array($this->getCategory(), $this->getName(), "settings"));
-				return false;
-			default:
-				// Unknown management verb, delegate to parent
-				return parent::manage($verb, $args, $message);
-		}
-	}
-
-	/**
-	 * Extend the {url ...} smarty to support this plugin.
-	 */
-	// function smartyPluginUrl($params, &$smarty) {
-	// 	$path = array($this->getCategory(), $this->getName());
-	// 	if (is_array($params['path'])) {
-	// 		$params['path'] = array_merge($path, $params['path']);
-	// 	} elseif (!empty($params['path'])) {
-	// 		$params['path'] = array_merge($path, array($params['path']));
-	// 	} else {
-	// 		$params['path'] = $path;
-	// 	}
-
-	// 	return $smarty->smartyUrl($params, $smarty);
-	// }
-
-	/**
-	* Get the contents for this block.
-	* @param $templateMgr object
-	* @return array
-	**/
-	function getContents(&$templateMgr) {
-		$fileManager = new PublicFileManager();
-		$journal =& Request::getJournal();
-		if ($journal){
-			$journalId =& $journal->getId();
-			$sponsors = $this->getSetting($journalId, "sponsors");
-			if ($sponsors){
-				$path = Request::getBaseUrl() . '/' . $this->getPluginPath() . '/sponsors.css';
-				$templateMgr->addStyleSheet($path);
-
-				$templateMgr->assign_by_ref('sponsors', $sponsors);
-				$templateMgr->assign('sponsorsDir', Request::getBasePath() . '/' . $fileManager->getJournalFilesPath($journalId) . '/sponsors'); 
-				return parent::getContents($templateMgr);
-			}
-		}
-	}
+    function displayAboveFooter($output, $templateMgr) {
+        // Ignore AJAX fragments and nested fetches (including our own template).
+        if (stripos($output, '</body>') === false || strpos($output, 'id="sponsorsBlockAboveFooter"') !== false) {
+            return $output;
+        }
+        $request = Application::get()->getRequest();
+        $context = $request->getContext();
+        if (!$context || !$this->getEnabled($context->getId())
+            || !$this->getSetting($context->getId(), 'showAboveFooter')) {
+            return $output;
+        }
+        $logos = $this->getLogos($context->getId());
+        // Use the footer wrapper from OJS 3.3's frontend footer template.
+        $pattern = '/<div\\b[^>]*\\bclass=["\'][^"\']*\\bpkp_structure_footer_wrapper\\b[^"\']*["\'][^>]*>/i';
+        if (!$logos || !preg_match($pattern, $output, $match, PREG_OFFSET_CAPTURE)) {
+            return $output;
+        }
+        $templateMgr->assign(array(
+            'sponsorsBlockTitle' => $this->getBlockTitle($context->getId()),
+            'sponsorsBlockLogos' => $logos,
+            'sponsorsBlockPublicUrl' => $this->getPublicUrl($request, $context->getId()),
+        ));
+        $strip = $templateMgr->fetch($this->getTemplateResource('aboveFooter.tpl'));
+        return substr_replace($output, $strip, $match[0][1], 0);
+    }
 }
-
-?>

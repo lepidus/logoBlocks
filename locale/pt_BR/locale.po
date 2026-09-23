@@ -1,0 +1,77 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: pt_BR\n"
+
+msgid "plugins.block.sponsorsBlock.displayName"
+msgstr "Bloco de patrocinadores"
+
+msgid "plugins.block.sponsorsBlock.description"
+msgstr "Exibe logos de patrocinadores e indexadores na barra lateral, com links opcionais e redimensionamento automático."
+
+msgid "plugins.block.sponsorsBlock.instructions"
+msgstr "Adicione um logo por vez e salve. Os logos aparecem na ordem de inclusão. Para substituir um logo, marque sua remoção e envie a nova imagem."
+
+msgid "plugins.block.sponsorsBlock.title"
+msgstr "Título do bloco"
+
+msgid "plugins.block.sponsorsBlock.name"
+msgstr "Nome do patrocinador ou indexador (texto alternativo)"
+
+msgid "plugins.block.sponsorsBlock.url"
+msgstr "Link (opcional, começando com https:// ou http://)"
+
+msgid "plugins.block.sponsorsBlock.add"
+msgstr "Adicionar logo"
+
+msgid "plugins.block.sponsorsBlock.logo"
+msgstr "Imagem do logo"
+
+msgid "plugins.block.sponsorsBlock.imageHelp"
+msgstr "PNG, JPEG ou GIF, até 5 MB e 12 milhões de pixels. A imagem será salva em PNG com largura de 150 px e altura proporcional (até 3000 px). A transparência é preservada; GIFs usam somente o primeiro quadro. Em caso de erro, selecione o arquivo novamente antes de salvar."
+
+msgid "plugins.block.sponsorsBlock.requiredName"
+msgstr "Informe um título de até 200 caracteres."
+
+msgid "plugins.block.sponsorsBlock.invalidEntry"
+msgstr "Informe o nome (até 200 caracteres) e um link HTTP ou HTTPS válido, ou deixe o link vazio."
+
+msgid "plugins.block.sponsorsBlock.invalidImage"
+msgstr "Não foi possível ler a imagem. Use PNG, JPEG ou GIF de até 5 MB e 12 milhões de pixels, com altura proporcional final de até 3000 px. Verifique também os limites de upload do servidor."
+
+msgid "plugins.block.sponsorsBlock.imageRequired"
+msgstr "Selecione a imagem do novo logo."
+
+msgid "plugins.block.sponsorsBlock.gdRequired"
+msgstr "O redimensionamento requer a extensão GD do PHP no servidor."
+
+msgid "plugins.block.sponsorsBlock.writeError"
+msgstr "Não foi possível salvar o logo. Verifique as permissões do diretório público da revista e selecione a imagem novamente."
+
+msgid "plugins.block.sponsorsBlock.networkError"
+msgstr "Não foi possível salvar. Verifique sua conexão e o limite de upload do servidor e tente novamente."
+
+
+msgid "plugins.block.sponsorsBlock.logos"
+msgstr "Logos cadastrados"
+
+msgid "plugins.block.sponsorsBlock.empty"
+msgstr "Nenhum logo cadastrado. Clique em “Adicionar logo” para começar."
+
+msgid "plugins.block.sponsorsBlock.link"
+msgstr "Link"
+
+msgid "plugins.block.sponsorsBlock.noLink"
+msgstr "Sem link"
+
+msgid "plugins.block.sponsorsBlock.gridHelp"
+msgstr "Use “Adicionar logo” ou as ações de cada linha para editar e excluir. As alterações nos logos são salvas imediatamente. O botão Salvar abaixo grava o título e a opção de exibição acima do rodapé."
+
+msgid "plugins.block.sponsorsBlock.replaceHelp"
+msgstr "Para substituir a imagem, selecione um novo arquivo. Deixe o campo vazio para manter o logo atual."
+
+msgid "plugins.block.sponsorsBlock.notFound"
+msgstr "Este logo não está mais disponível. Reabra as configurações e tente novamente."
+
+msgid "plugins.block.sponsorsBlock.showAboveFooter"
+msgstr "Exibir os logos também acima do rodapé"
