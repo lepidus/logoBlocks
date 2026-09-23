@@ -1,5 +1,5 @@
 <?php
-/** Run: php plugins/blocks/sponsorsBlock/tests/image.php */
+/** Run: php plugins/blocks/sponsors/tests/image.php */
 require_once dirname(__DIR__) . '/SponsorsBlockImage.inc.php';
 
 function check($condition, $message) {

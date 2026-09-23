@@ -6,7 +6,7 @@
         <ul style="display: flex; flex-wrap: wrap; align-items: center; gap: 30px; list-style: none; margin: 0; padding: 0;">
             {foreach from=$sponsorsBlockLogos item=logo}
                 <li style="margin: 0; padding: 0; max-width: 100%;">
-                    {if $logo.url}<a href="{$logo.url|escape}">{/if}
+                    {if $logo.url}<a href="{$logo.url|escape}" target="_blank" rel="noopener noreferrer">{/if}
                     <img src="{$sponsorsBlockPublicUrl|escape}/{$logo.file|escape}" alt="{$logo.name|escape}" width="150" style="display: block; width: 150px; max-width: 100%; height: auto;" loading="lazy">
                     {if $logo.url}</a>{/if}
                 </li>

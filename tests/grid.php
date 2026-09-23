@@ -1,6 +1,6 @@
 <?php
 /** Focused tests with real OJS grid/form classes and in-memory request/settings doubles.
- * Run from any directory: php plugins/blocks/sponsorsBlock/tests/grid.php
+ * Run from any directory: php plugins/blocks/sponsors/tests/grid.php
  * These tests do not replace a browser or database integration test.
  */
 define('BASE_SYS_DIR', dirname(__DIR__, 4));
@@ -233,3 +233,13 @@ try {
     foreach (glob($compileDirectory . '/*') as $file) { unlink($file); }
     rmdir($compileDirectory);
 }
+
+// The enabled-plugin loader resolves the directory from version.xml's product.
+import('lib.pkp.classes.plugins.PluginRegistry');
+$manifest = simplexml_load_file(dirname(__DIR__) . '/version.xml');
+check((string) $manifest->application === basename(dirname(__DIR__)), 'Manifest product does not match plugin directory');
+$loadedPlugin = PluginRegistry::_instantiatePlugin('blocks', dirname(__DIR__, 2),
+    (string) $manifest->application, (string) $manifest->class);
+check($loadedPlugin instanceof SponsorsBlockPlugin, 'OJS cannot instantiate the plugin from its registered product');
+check($loadedPlugin->getName() === 'sponsorsblockplugin', 'Renaming the folder changed the settings key');
+echo "PASS: manifest directory, native plugin loader and existing settings identity\n";
