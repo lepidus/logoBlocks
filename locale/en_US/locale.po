@@ -75,3 +75,18 @@ msgstr "This logo is no longer available. Reopen the settings and try again."
 
 msgid "plugins.block.sponsorsBlock.showAboveFooter"
 msgstr "Also display logos above the footer"
+
+msgid "plugins.block.sponsorsBlock.orderHelp"
+msgstr "Drag logos by the dotted handle to change their order. The sequence is saved automatically and used in the sidebar and above the footer. You can also focus the handle and use the up and down arrow keys."
+
+msgid "plugins.block.sponsorsBlock.moveLogo"
+msgstr "Move logo"
+
+msgid "plugins.block.sponsorsBlock.orderSaving"
+msgstr "Saving order…"
+
+msgid "plugins.block.sponsorsBlock.orderSaved"
+msgstr "Order saved."
+
+msgid "plugins.block.sponsorsBlock.invalidOrder"
+msgstr "Unable to confirm the new order. The previous order has been restored on screen. Reopen the settings to refresh the list before trying again."

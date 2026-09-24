@@ -15,6 +15,7 @@
         {/fbvFormSection}
     {/fbvFormArea}
     <p>{translate key="plugins.block.sponsorsBlock.gridHelp"}</p>
+    <p>{translate key="plugins.block.sponsorsBlock.orderHelp"}</p>
     {load_url_in_div id="sponsorsBlockGridContainer" url=$sponsorsBlockGridUrl}
     {fbvFormButtons}
 </form>

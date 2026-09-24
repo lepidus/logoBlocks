@@ -36,7 +36,7 @@ class SponsorsBlockPlugin extends BlockPlugin {
             $this->import('controllers.grid.SponsorsBlockGridHandler');
             $grid = new SponsorsBlockGridHandler($this);
             $operation = $request->getUserVar('gridOp');
-            if (!is_string($operation) || !in_array($operation, array('fetchGrid', 'fetchRows', 'fetchRow', 'addLogo', 'editLogo', 'updateLogo', 'deleteLogo'), true)) {
+            if (!is_string($operation) || !in_array($operation, array('fetchGrid', 'fetchRows', 'fetchRow', 'addLogo', 'editLogo', 'updateLogo', 'deleteLogo', 'saveSequence'), true)) {
                 return new JSONMessage(false);
             }
             $grid->initialize($request);

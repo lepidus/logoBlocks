@@ -82,7 +82,7 @@ $grid->initialize($request);
 $grid->setUrls($request);
 check(count($grid->getColumns()) === 3, 'Expected name, preview and link columns');
 foreach ($grid->getUrls() as $url) {
-    check(strpos($url, 'op=manage') !== false && strpos($url, 'category=blocks') !== false && strpos($url, 'gridOp=fetch') !== false, 'Refresh bypasses plugin endpoint');
+    check(strpos($url, 'op=manage') !== false && strpos($url, 'category=blocks') !== false && (strpos($url, 'gridOp=fetch') !== false || strpos($url, 'gridOp=saveSequence') !== false), 'Refresh bypasses plugin endpoint');
 }
 $row = $grid->getRowInstance();
 $row->setId('first');
@@ -243,3 +243,29 @@ $loadedPlugin = PluginRegistry::_instantiatePlugin('blocks', dirname(__DIR__, 2)
 check($loadedPlugin instanceof SponsorsBlockPlugin, 'OJS cannot instantiate the plugin from its registered product');
 check($loadedPlugin->getName() === 'sponsorsblockplugin', 'Renaming the folder changed the settings key');
 echo "PASS: manifest directory, native plugin loader and existing settings identity\n";
+
+$orderPlugin = new GridTestPlugin();
+$orderPlugin->settings = array(1 => array('logos' => array('a' => $logo, 'b' => array_merge($logo, array('name' => 'Second')), 'c' => array_merge($logo, array('name' => 'Third')))), 2 => array('logos' => array('foreign' => $logo)));
+$orderGrid = new SponsorsBlockGridHandler($orderPlugin);
+$request->vars = array('data' => '["c","a","b"]');
+$original = $orderPlugin->getLogos(1);
+check($orderGrid->saveSequence(array(), $request)->getStatus(), 'Reordering failed');
+check(array_keys($orderPlugin->getLogos(1)) === array('c', 'a', 'b'), 'Sequence was not saved');
+foreach ($original as $id => $entry) {
+    check($orderPlugin->getLogos(1)[$id] === $entry, 'Reordering changed logo metadata');
+}
+check($orderPlugin->getLogos(2) === array('foreign' => $logo), 'Reordering changed another journal');
+$saved = $orderPlugin->getLogos(1);
+foreach (array('invalid', '{}', '["a","a","b"]', '["foreign","a","b"]', '["a","b"]', '["a","b","c","new"]', '[[],"a","b"]') as $input) {
+    $request->vars = array('data' => $input);
+    check(!$orderGrid->saveSequence(array(), $request)->getStatus(), 'Invalid or stale sequence accepted');
+    check($orderPlugin->getLogos(1) === $saved, 'Rejected request changed the sequence');
+}
+$request->vars = array('data' => '["a","b","c"]');
+foreach (array('post', 'csrf') as $guard) {
+    $request->$guard = false;
+    check(!$orderGrid->saveSequence(array(), $request)->getStatus(), 'Unprotected ordering accepted');
+    check($orderPlugin->getLogos(1) === $saved, 'Unprotected request changed the sequence');
+    $request->$guard = true;
+}
+echo "PASS: automatic sequence persistence, metadata preservation, stale/foreign IDs and POST/CSRF\n";

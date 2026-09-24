@@ -75,3 +75,18 @@ msgstr "Este logo não está mais disponível. Reabra as configurações e tente
 
 msgid "plugins.block.sponsorsBlock.showAboveFooter"
 msgstr "Exibir os logos também acima do rodapé"
+
+msgid "plugins.block.sponsorsBlock.orderHelp"
+msgstr "Arraste os logos pela alça de pontos para mudar a ordem. A sequência é salva automaticamente e usada na lateral e acima do rodapé. Você também pode focar a alça e usar as setas para cima e para baixo."
+
+msgid "plugins.block.sponsorsBlock.moveLogo"
+msgstr "Mover logo"
+
+msgid "plugins.block.sponsorsBlock.orderSaving"
+msgstr "Salvando ordem…"
+
+msgid "plugins.block.sponsorsBlock.orderSaved"
+msgstr "Ordem salva."
+
+msgid "plugins.block.sponsorsBlock.invalidOrder"
+msgstr "Não foi possível confirmar a nova ordem. A ordem anterior foi restaurada na tela. Reabra as configurações para atualizar a lista antes de tentar novamente."

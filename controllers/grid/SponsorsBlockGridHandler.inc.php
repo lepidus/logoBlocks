@@ -15,6 +15,7 @@ class SponsorsBlockGridHandler extends GridHandler {
     function initialize($request, $args = null) {
         parent::initialize($request, $args);
         $this->setId('sponsorsBlock-logos');
+        $this->setTemplate($this->plugin->getTemplateResource('sortableGrid.tpl'));
         $this->setTitle('plugins.block.sponsorsBlock.logos');
         $this->setEmptyRowText('plugins.block.sponsorsBlock.empty');
         $logos = $this->plugin->getLogos($request->getContext()->getId());
@@ -30,7 +31,8 @@ class SponsorsBlockGridHandler extends GridHandler {
             __('plugins.block.sponsorsBlock.add'), 'modal_add_item'),
             __('plugins.block.sponsorsBlock.add'), 'add_item'));
         $provider = new SponsorsBlockGridCellProvider();
-        $this->addColumn(new GridColumn('name', 'plugins.block.sponsorsBlock.name', null, null, $provider));
+        $nameTitle = str_replace(' (', '<br>(', htmlspecialchars(__('plugins.block.sponsorsBlock.name'), ENT_QUOTES, 'UTF-8'));
+        $this->addColumn(new GridColumn('name', 'plugins.block.sponsorsBlock.name', $nameTitle, null, $provider));
         $this->addColumn(new GridColumn('image', 'plugins.block.sponsorsBlock.logo', null,
             $this->plugin->getTemplateResource('logoCell.tpl'), $provider));
         $this->addColumn(new GridColumn('url', 'plugins.block.sponsorsBlock.link', null, null, $provider));
@@ -42,7 +44,34 @@ class SponsorsBlockGridHandler extends GridHandler {
             'fetchGridUrl' => $this->plugin->getGridUrl($request, 'fetchGrid'),
             'fetchRowsUrl' => $this->plugin->getGridUrl($request, 'fetchRows'),
             'fetchRowUrl' => $this->plugin->getGridUrl($request, 'fetchRow'),
+            'saveSequenceUrl' => $this->plugin->getGridUrl($request, 'saveSequence'),
         )));
+    }
+
+    public function getJSHandler() {
+        return '$.pkp.controllers.grid.SponsorsBlockGridHandler';
+    }
+
+    function saveSequence($args, $request) {
+        if (!$request->isPost() || !$request->checkCSRF()) {
+            return new JSONMessage(false);
+        }
+        $input = $request->getUserVar('data');
+        $order = is_string($input) ? json_decode($input) : null;
+        $contextId = $request->getContext()->getId();
+        $logos = $this->plugin->getLogos($contextId);
+        if (!is_array($order) || count($order) !== count($logos)) {
+            return new JSONMessage(false, __('plugins.block.sponsorsBlock.invalidOrder'));
+        }
+        $ordered = array();
+        foreach ($order as $id) {
+            if (!is_string($id) || !isset($logos[$id]) || isset($ordered[$id])) {
+                return new JSONMessage(false, __('plugins.block.sponsorsBlock.invalidOrder'));
+            }
+            $ordered[$id] = $logos[$id];
+        }
+        $this->plugin->updateSetting($contextId, 'logos', $ordered, 'object');
+        return new JSONMessage(true);
     }
 
     function getRowInstance() {

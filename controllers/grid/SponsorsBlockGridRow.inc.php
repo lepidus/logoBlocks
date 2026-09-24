@@ -10,7 +10,7 @@ class SponsorsBlockGridRow extends GridRow {
     }
 
     function initialize($request, $template = null) {
-        parent::initialize($request, $template);
+        parent::initialize($request, $this->plugin->getTemplateResource('sortableRow.tpl'));
         $params = array('logoId' => $this->getId());
         import('lib.pkp.classes.linkAction.request.AjaxModal');
         $this->addAction(new LinkAction('editLogo', new AjaxModal(
