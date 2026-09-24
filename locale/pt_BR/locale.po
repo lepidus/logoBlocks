@@ -65,7 +65,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "Sem link"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Use “Adicionar logo” ou as ações de cada linha para editar e excluir. As alterações nos logos são salvas imediatamente. O botão Salvar abaixo grava o título e a opção de exibição acima do rodapé."
+msgstr "Use “Adicionar logo” ou as ações de cada linha para editar e excluir. As alterações nos logos são salvas imediatamente. O botão Salvar abaixo grava o título e as opções de exibição acima do rodapé e de escala de cinza."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "Para substituir a imagem, selecione um novo arquivo. Deixe o campo vazio para manter o logo atual."
@@ -90,3 +90,6 @@ msgstr "Ordem salva."
 
 msgid "plugins.block.sponsorsBlock.invalidOrder"
 msgstr "Não foi possível confirmar a nova ordem. A ordem anterior foi restaurada na tela. Reabra as configurações para atualizar a lista antes de tentar novamente."
+
+msgid "plugins.block.sponsorsBlock.grayscaleLogos"
+msgstr "Ativar escala de cinza nos logos (coloridos ao passar o mouse ou focar o link)"

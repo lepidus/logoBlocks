@@ -1,4 +1,16 @@
-<div class="pkp_block block_sponsorsBlock">
+{if $sponsorsBlockGrayscale}
+    <style>
+        .block_sponsorsBlock_grayscale img {ldelim}
+            filter: grayscale(100%);
+        {rdelim}
+        .block_sponsorsBlock_grayscale img:hover,
+        .block_sponsorsBlock_grayscale a:hover img,
+        .block_sponsorsBlock_grayscale a:focus img {ldelim}
+            filter: grayscale(0%);
+        {rdelim}
+    </style>
+{/if}
+<div class="pkp_block block_sponsorsBlock{if $sponsorsBlockGrayscale} block_sponsorsBlock_grayscale{/if}">
     <h2 class="title">{$sponsorsBlockTitle|escape}</h2>
     <div class="content">
         <ul style="list-style: none; margin: 0; padding: 0;">

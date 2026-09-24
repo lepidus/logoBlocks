@@ -17,5 +17,10 @@
             {fbvElement type="checkbox" id="showAboveFooter" value="1" checked=$showAboveFooter label="plugins.block.sponsorsBlock.showAboveFooter"}
         {/fbvFormSection}
     {/fbvFormArea}
+    {fbvFormArea id="sponsorsBlockAppearanceArea"}
+        {fbvFormSection list=true}
+            {fbvElement type="checkbox" id="grayscaleLogos" value="1" checked=$grayscaleLogos label="plugins.block.sponsorsBlock.grayscaleLogos"}
+        {/fbvFormSection}
+    {/fbvFormArea}
     {fbvFormButtons}
 </form>

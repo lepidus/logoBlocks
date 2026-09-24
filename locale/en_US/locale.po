@@ -65,7 +65,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "No link"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Use “Add logo” or the row actions to edit and delete. Logo changes are saved immediately. The Save button below saves the block title and the option to display logos above the footer."
+msgstr "Use “Add logo” or the row actions to edit and delete. Logo changes are saved immediately. The Save button below saves the block title and the above-footer and grayscale display options."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "To replace the image, select a new file. Leave the field empty to keep the current logo."
@@ -90,3 +90,6 @@ msgstr "Order saved."
 
 msgid "plugins.block.sponsorsBlock.invalidOrder"
 msgstr "Unable to confirm the new order. The previous order has been restored on screen. Reopen the settings to refresh the list before trying again."
+
+msgid "plugins.block.sponsorsBlock.grayscaleLogos"
+msgstr "Enable grayscale logos (show colors on hover or link focus)"

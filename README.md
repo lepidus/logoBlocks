@@ -10,7 +10,7 @@ Exibe na barra lateral da revista logos de patrocinadores ou indexadores, cada u
 4. Repita a inclusão para cada logo. Novos logos são adicionados ao final da lista. Para reordenar, arraste a alça de pontos à esquerda de cada logo. A ordenação está disponível assim que as configurações abrem, sem botão de ativação, e é salva automaticamente ao soltar. A mesma sequência vale para a grade, a lateral e a faixa acima do rodapé. Também é possível focar a alça e usar as setas para cima e para baixo. Uma mensagem informa o resultado da gravação; em caso de falha, a ordem anterior é restaurada na tela. O nome é usado como texto alternativo para acessibilidade.
 5. Em **Configurações → Website → Aparência → Configuração → Barra lateral**, coloque o bloco na barra lateral e salve. A localização e a apresentação dependem do tema da revista.
 
-Use as ações de cada linha da grade para **Editar** ou **Excluir** um logo. Na edição, é possível alterar o nome e o link e substituir a imagem, mantendo sua posição. Deixe o campo de arquivo vazio para preservar a imagem atual. A exclusão pede confirmação. Cada operação atualiza a grade e é salva imediatamente; o botão **Salvar** da tela principal grava o título e a opção de exibição acima do rodapé. A remoção também apaga o arquivo correspondente. Desabilitar o plugin oculta o bloco e preserva os dados. Um bloco sem logos não é exibido.
+Use as ações de cada linha da grade para **Editar** ou **Excluir** um logo. Na edição, é possível alterar o nome e o link e substituir a imagem, mantendo sua posição. Deixe o campo de arquivo vazio para preservar a imagem atual. A exclusão pede confirmação. Cada operação atualiza a grade e é salva imediatamente; o botão **Salvar** da tela principal grava o título e as opções de exibição acima do rodapé e de escala de cinza. A remoção também apaga o arquivo correspondente. Desabilitar o plugin oculta o bloco e preserva os dados. Um bloco sem logos não é exibido.
 
 ## Mudança do nome da pasta
 
@@ -23,6 +23,10 @@ A classe `SponsorsBlockPlugin` e a chave interna `sponsorsblockplugin` foram man
 Nas configurações do plugin, marque **Exibir os logos também acima do rodapé** e salve. A opção vem desmarcada e é independente por revista. Quando ativada, mantém os logos na lateral e acrescenta uma faixa horizontal acima do rodapé, com quebra de linha em telas menores, o mesmo título traduzido e os mesmos links.
 
 Mantenha o bloco na barra lateral em **Website → Aparência**: o OJS carrega este plugin quando renderiza a barra lateral. A faixa adicional aparece nas páginas que carregam o bloco e usam o rodapé padrão do OJS 3.3 (ou um tema que preserve `pkp_structure_footer_wrapper`). Páginas sem barra lateral não carregam a faixa. Desmarcar a opção remove somente a faixa adicional.
+
+## Logos em escala de cinza
+
+Nas configurações do plugin, marque **Ativar escala de cinza nos logos** e salve. A opção vem desmarcada e vale somente para a revista atual. Os logos na lateral e acima do rodapé ficam cinzas e recuperam as cores ao passar o mouse ou focar seu link pelo teclado. Ao sair, voltam a ficar cinzas. O efeito é aplicado por CSS e preserva os arquivos das imagens. Desmarque e salve para manter as cores sempre visíveis.
 
 ## Imagens e requisitos
 

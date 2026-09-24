@@ -64,7 +64,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "Aucun lien"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Utilisez « Ajouter un logo » ou les actions de chaque ligne pour modifier et supprimer. Les modifications des logos sont enregistrées immédiatement. Le bouton Enregistrer ci-dessous enregistre le titre du bloc et l’option d’affichage des logos au-dessus du pied de page."
+msgstr "Utilisez « Ajouter un logo » ou les actions de chaque ligne pour modifier et supprimer. Les modifications des logos sont enregistrées immédiatement. Le bouton Enregistrer ci-dessous enregistre le titre du bloc et les options d’affichage au-dessus du pied de page et en niveaux de gris."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "Pour remplacer l’image, sélectionnez un nouveau fichier. Laissez le champ vide pour conserver le logo actuel."
@@ -89,3 +89,6 @@ msgstr "Ordre enregistré."
 
 msgid "plugins.block.sponsorsBlock.invalidOrder"
 msgstr "Impossible de confirmer le nouvel ordre. L’ordre précédent a été rétabli à l’écran. Ouvrez de nouveau les paramètres pour actualiser la liste avant de réessayer."
+
+msgid "plugins.block.sponsorsBlock.grayscaleLogos"
+msgstr "Activer les logos en niveaux de gris (couleurs au survol ou à la prise de focus du lien)"

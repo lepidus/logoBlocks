@@ -64,7 +64,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "Sin enlace"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Utilice «Añadir logo» o las acciones de cada fila para editar y eliminar. Los cambios en los logos se guardan inmediatamente. El botón Guardar de abajo guarda el título del bloque y la opción de mostrar los logos encima del pie de página."
+msgstr "Utilice «Añadir logo» o las acciones de cada fila para editar y eliminar. Los cambios en los logos se guardan inmediatamente. El botón Guardar de abajo guarda el título del bloque y las opciones de visualización encima del pie de página y en escala de grises."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "Para sustituir la imagen, seleccione un nuevo archivo. Deje el campo vacío para conservar el logo actual."
@@ -89,3 +89,6 @@ msgstr "Orden guardado."
 
 msgid "plugins.block.sponsorsBlock.invalidOrder"
 msgstr "No se pudo confirmar el nuevo orden. Se ha restaurado el orden anterior en pantalla. Vuelva a abrir la configuración para actualizar la lista antes de intentarlo de nuevo."
+
+msgid "plugins.block.sponsorsBlock.grayscaleLogos"
+msgstr "Activar la escala de grises en los logos (mostrar colores al pasar el cursor o enfocar el enlace)"

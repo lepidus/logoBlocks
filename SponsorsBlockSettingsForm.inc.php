@@ -17,11 +17,12 @@ class SponsorsBlockSettingsForm extends Form {
 
     function initData() {
         $this->setData('title', $this->plugin->getBlockTitles($this->contextId));
+        $this->setData('grayscaleLogos', (bool) $this->plugin->getSetting($this->contextId, 'grayscaleLogos'));
         $this->setData('showAboveFooter', (bool) $this->plugin->getSetting($this->contextId, 'showAboveFooter'));
     }
 
     function readInputData() {
-        $this->readUserVars(array('title', 'showAboveFooter'));
+        $this->readUserVars(array('title', 'showAboveFooter', 'grayscaleLogos'));
     }
 
     function validate($callHooks = true) {
@@ -52,6 +53,8 @@ class SponsorsBlockSettingsForm extends Form {
         $this->plugin->updateSetting($this->contextId, 'title', $titles, 'object');
         $this->plugin->updateSetting($this->contextId, 'showAboveFooter',
             in_array($this->getData('showAboveFooter'), array('1', 1, true), true), 'bool');
+        $this->plugin->updateSetting($this->contextId, 'grayscaleLogos',
+            in_array($this->getData('grayscaleLogos'), array('1', 1, true), true), 'bool');
         return true;
     }
 }

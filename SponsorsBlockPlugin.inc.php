@@ -119,6 +119,7 @@ class SponsorsBlockPlugin extends BlockPlugin {
         $templateMgr->assign(array(
             'sponsorsBlockTitle' => $this->getBlockTitle($context->getId()),
             'sponsorsBlockLogos' => $logos,
+            'sponsorsBlockGrayscale' => (bool) $this->getSetting($context->getId(), 'grayscaleLogos'),
             'sponsorsBlockPublicUrl' => $this->getPublicUrl($request, $context->getId()),
         ));
         return parent::getContents($templateMgr, $request);
@@ -144,6 +145,7 @@ class SponsorsBlockPlugin extends BlockPlugin {
         $templateMgr->assign(array(
             'sponsorsBlockTitle' => $this->getBlockTitle($context->getId()),
             'sponsorsBlockLogos' => $logos,
+            'sponsorsBlockGrayscale' => (bool) $this->getSetting($context->getId(), 'grayscaleLogos'),
             'sponsorsBlockPublicUrl' => $this->getPublicUrl($request, $context->getId()),
         ));
         $strip = $templateMgr->fetch($this->getTemplateResource('aboveFooter.tpl'));
