@@ -1,0 +1,91 @@
+msgid ""
+msgstr ""
+"Content-Type: text/plain; charset=UTF-8\n"
+"Language: fr_CA\n"
+
+msgid "plugins.block.sponsorsBlock.displayName"
+msgstr "Bloc des commanditaires"
+
+msgid "plugins.block.sponsorsBlock.description"
+msgstr "Affiche les logos des commanditaires et des indexeurs dans la barre latérale, avec des liens facultatifs et un redimensionnement automatique."
+
+msgid "plugins.block.sponsorsBlock.instructions"
+msgstr "Ajoutez un logo à la fois et enregistrez. Les logos apparaissent dans leur ordre d’ajout. Pour remplacer un logo, marquez-le pour suppression et téléversez une nouvelle image."
+
+msgid "plugins.block.sponsorsBlock.title"
+msgstr "Titre du bloc"
+
+msgid "plugins.block.sponsorsBlock.name"
+msgstr "Nom du commanditaire ou de l’indexeur (texte de remplacement)"
+
+msgid "plugins.block.sponsorsBlock.url"
+msgstr "Lien (facultatif, commençant par https:// ou http://)"
+
+msgid "plugins.block.sponsorsBlock.add"
+msgstr "Ajouter un logo"
+
+msgid "plugins.block.sponsorsBlock.logo"
+msgstr "Image du logo"
+
+msgid "plugins.block.sponsorsBlock.imageHelp"
+msgstr "PNG, JPEG ou GIF, jusqu’à 5 Mo et 12 millions de pixels. Les images sont enregistrées au format PNG avec une largeur de 150 px et une hauteur proportionnelle (jusqu’à 3000 px). La transparence est conservée; seule la première image des GIF est utilisée. Après une erreur, sélectionnez de nouveau le fichier avant d’enregistrer."
+
+msgid "plugins.block.sponsorsBlock.requiredName"
+msgstr "Saisissez un titre de 200 caractères maximum."
+
+msgid "plugins.block.sponsorsBlock.invalidEntry"
+msgstr "Saisissez un nom (200 caractères maximum) et un lien HTTP ou HTTPS valide, ou laissez le lien vide."
+
+msgid "plugins.block.sponsorsBlock.invalidImage"
+msgstr "Impossible de lire l’image. Utilisez un fichier PNG, JPEG ou GIF de 5 Mo et 12 millions de pixels maximum, avec une hauteur proportionnelle finale de 3000 px maximum. Vérifiez également les limites de téléversement du serveur."
+
+msgid "plugins.block.sponsorsBlock.imageRequired"
+msgstr "Sélectionnez une image pour le nouveau logo."
+
+msgid "plugins.block.sponsorsBlock.gdRequired"
+msgstr "Le redimensionnement nécessite l’extension GD de PHP sur le serveur."
+
+msgid "plugins.block.sponsorsBlock.writeError"
+msgstr "Impossible d’enregistrer le logo. Vérifiez les permissions du répertoire public de la revue et sélectionnez de nouveau l’image."
+
+msgid "plugins.block.sponsorsBlock.networkError"
+msgstr "Impossible d’enregistrer. Vérifiez votre connexion et la limite de téléversement du serveur, puis réessayez."
+
+msgid "plugins.block.sponsorsBlock.logos"
+msgstr "Logos enregistrés"
+
+msgid "plugins.block.sponsorsBlock.empty"
+msgstr "Aucun logo pour le moment. Cliquez sur « Ajouter un logo » pour commencer."
+
+msgid "plugins.block.sponsorsBlock.link"
+msgstr "Lien"
+
+msgid "plugins.block.sponsorsBlock.noLink"
+msgstr "Aucun lien"
+
+msgid "plugins.block.sponsorsBlock.gridHelp"
+msgstr "Utilisez « Ajouter un logo » ou les actions de chaque ligne pour modifier et supprimer. Les modifications des logos sont enregistrées immédiatement. Le bouton Enregistrer ci-dessous enregistre le titre du bloc et l’option d’affichage des logos au-dessus du pied de page."
+
+msgid "plugins.block.sponsorsBlock.replaceHelp"
+msgstr "Pour remplacer l’image, sélectionnez un nouveau fichier. Laissez le champ vide pour conserver le logo actuel."
+
+msgid "plugins.block.sponsorsBlock.notFound"
+msgstr "Ce logo n’est plus disponible. Ouvrez de nouveau les paramètres et réessayez."
+
+msgid "plugins.block.sponsorsBlock.showAboveFooter"
+msgstr "Afficher également les logos au-dessus du pied de page"
+
+msgid "plugins.block.sponsorsBlock.orderHelp"
+msgstr "Faites glisser les logos à l’aide de la poignée à points pour modifier leur ordre. L’ordre est enregistré automatiquement et utilisé dans la barre latérale et au-dessus du pied de page. Vous pouvez également placer le focus sur la poignée et utiliser les touches fléchées haut et bas."
+
+msgid "plugins.block.sponsorsBlock.moveLogo"
+msgstr "Déplacer le logo"
+
+msgid "plugins.block.sponsorsBlock.orderSaving"
+msgstr "Enregistrement de l’ordre…"
+
+msgid "plugins.block.sponsorsBlock.orderSaved"
+msgstr "Ordre enregistré."
+
+msgid "plugins.block.sponsorsBlock.invalidOrder"
+msgstr "Impossible de confirmer le nouvel ordre. L’ordre précédent a été rétabli à l’écran. Ouvrez de nouveau les paramètres pour actualiser la liste avant de réessayer."
