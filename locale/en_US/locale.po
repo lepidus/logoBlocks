@@ -28,7 +28,7 @@ msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Logo image"
 
 msgid "plugins.block.sponsorsBlock.imageHelp"
-msgstr "PNG, JPEG or GIF, up to 5 MB and 12 million pixels. Images are saved as PNG at 150 px wide with proportional height (up to 3000 px). Transparency is preserved; GIFs use only the first frame. After an error, select the file again before saving."
+msgstr "Uniform outer margins of any color or transparent margins are automatically cropped before resizing. PNG, JPEG or GIF, up to 5 MB and 12 million pixels. Images are saved as PNG at 150 px wide with proportional height (up to 3000 px). Transparency is preserved; GIFs use only the first frame. After an error, select the file again before saving."
 
 msgid "plugins.block.sponsorsBlock.requiredName"
 msgstr "Enter a title of up to 200 characters."

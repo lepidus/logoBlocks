@@ -28,7 +28,7 @@ msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Imagen del logo"
 
 msgid "plugins.block.sponsorsBlock.imageHelp"
-msgstr "PNG, JPEG o GIF, hasta 5 MB y 12 millones de píxeles. Las imágenes se guardan como PNG con un ancho de 150 px y altura proporcional (hasta 3000 px). Se conserva la transparencia; los GIF utilizan solo el primer fotograma. Si ocurre un error, seleccione el archivo de nuevo antes de guardar."
+msgstr "Los márgenes exteriores de color uniforme (cualquier color) o transparentes se recortan automáticamente antes de redimensionar. PNG, JPEG o GIF, hasta 5 MB y 12 millones de píxeles. Las imágenes se guardan como PNG con un ancho de 150 px y altura proporcional (hasta 3000 px). Se conserva la transparencia; los GIF utilizan solo el primer fotograma. Si ocurre un error, seleccione el archivo de nuevo antes de guardar."
 
 msgid "plugins.block.sponsorsBlock.requiredName"
 msgstr "Introduzca un título de hasta 200 caracteres."

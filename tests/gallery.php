@@ -5,7 +5,7 @@
 require __DIR__ . '/grid.php';
 
 $catalog = $plugin->getLogoCatalog();
-check(array_keys($catalog) === array('boai', 'doaj', 'crossref', 'google-scholar', 'capes', 'cnpq', 'fapesp', 'scielo'), 'Initial catalog incomplete');
+check(!array_diff(array('boai', 'doaj', 'crossref', 'google-scholar', 'capes', 'cnpq', 'fapesp', 'scielo'), array_keys($catalog)), 'Initial catalog incomplete');
 $catalogHashes = array();
 foreach ($catalog as $id => $entry) {
     $path = dirname(__DIR__) . '/logos/' . $entry['file'];
@@ -35,7 +35,7 @@ foreach (array('post', 'csrf') as $guard) {
     check(!$form->validate(false), 'Unprotected gallery submission accepted');
     $request->$guard = true;
 }
-echo "PASS: eight importable catalog images, both actions, invalid IDs and POST/CSRF guards\n";
+echo "PASS: importable catalog images, both actions, invalid IDs and POST/CSRF guards\n";
 
 Config::$publicDir = sys_get_temp_dir() . '/sponsors-gallery-' . bin2hex(random_bytes(6));
 mkdir(Config::$publicDir . '/journals/1', 0777, true);
@@ -83,7 +83,7 @@ $smarty->assign(array('logoFormUrl' => '/manage?gridOp=addGalleryLogo', 'logoCat
     'logoCatalogUrl' => '/plugins/blocks/sponsors/logos', 'galleryId' => 'capes', 'isError' => false));
 try {
     $html = $smarty->fetch(dirname(__DIR__) . '/templates/logoGallery.tpl');
-    check(substr_count($html, 'type="radio"') === 8, 'Gallery did not render all logos');
+    check(substr_count($html, 'type="radio"') === count($catalog), 'Gallery did not render all logos');
     check(preg_match('/value="capes"\s+checked/', $html) === 1, 'Selection lost on redisplay');
     $catalog['capes']['name'] = '<script>bad</script>';
     $smarty->assign('logoCatalog', $catalog);

@@ -1,6 +1,6 @@
 # Bloco de patrocinadores — OJS 3.3
 
-Exibe na barra lateral da revista logos de patrocinadores ou indexadores, cada um com link opcional. O próprio plugin redimensiona as imagens para **150 px de largura e altura proporcional**, sem precisar de um editor de imagens. Cada revista tem seu próprio título e sua própria lista de logos.
+Exibe na barra lateral da revista logos de patrocinadores ou indexadores, cada um com link opcional. O próprio plugin recorta as margens vazias das logos e redimensiona as imagens para **150 px de largura e altura proporcional**, sem precisar de um editor de imagens. Cada revista tem seu próprio título e sua própria lista de logos.
 
 ## Instalação e uso
 
@@ -35,6 +35,12 @@ Mantenha o bloco na barra lateral em **Website → Aparência**: o OJS carrega e
 ## Logos em escala de cinza
 
 Nas configurações do plugin, marque **Ativar escala de cinza nos logos** e salve. A opção vem desmarcada e vale somente para a revista atual. Os logos na lateral e acima do rodapé ficam cinzas e recuperam as cores ao passar o mouse ou focar seu link pelo teclado. Ao sair, voltam a ficar cinzas. O efeito é aplicado por CSS e preserva os arquivos das imagens. Desmarque e salve para manter as cores sempre visíveis.
+
+## Recorte automático das margens
+
+Ao enviar ou substituir uma imagem, ou escolher uma logo da galeria, o plugin recorta as margens externas de cor uniforme, seja branca, preta ou qualquer outra cor. O fundo é identificado pela concordância de pelo menos três cantos, com tolerância a pequenas variações de compressão. O recorte acontece antes do redimensionamento. Em imagens com transparência, recorta somente as margens totalmente transparentes, preservando também desenhos brancos. O recorte mantém uma folga de um pixel da imagem original e a proporção do conteúdo restante.
+
+Não remove o fundo dentro da logo. Fundos com gradientes, texturas ou cantos sem uma cor predominante podem não ser recortados. Imagens de cor única ou totalmente transparentes mantêm suas proporções. Elementos com cor muito próxima à do fundo podem ser considerados parte da margem. Os arquivos originais da galeria são preservados. Para aplicar o recorte a uma logo já cadastrada, substitua sua imagem em **Editar**; alterar apenas nome ou link preserva a imagem atual.
 
 ## Imagens e requisitos
 
