@@ -11,25 +11,25 @@
 </style>
 <script>
 $(function() {ldelim}
-    $('#sponsorsBlockGalleryForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
+	$('#sponsorsBlockGalleryForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
 {rdelim});
 </script>
 <form class="pkp_form" id="sponsorsBlockGalleryForm" method="post" action="{$logoFormUrl|escape}">
-    {csrf}
-    {include file="common/formErrors.tpl"}
-    <p id="sponsorsGalleryHelp">{translate key="plugins.block.sponsorsBlock.galleryHelp"}</p>
-    <div class="sponsors-logo-gallery" role="radiogroup" aria-labelledby="sponsorsGalleryHelp">
-        {foreach from=$logoCatalog key=id item=entry}
-            <label class="sponsors-gallery-choice">
-                <input type="radio" name="galleryId" value="{$id|escape}" {if $galleryId == $id}checked{/if} required>
-                <span class="sponsors-gallery-card">
-                    <img src="{$logoCatalogUrl|escape}/{$entry.file|escape}" alt="">
-                    <strong>{$entry.name|escape}</strong>
-                </span>
-            </label>
-        {foreachelse}
-            <p>{translate key="plugins.block.sponsorsBlock.galleryEmpty"}</p>
-        {/foreach}
-    </div>
-    {fbvFormButtons submitText="plugins.block.sponsorsBlock.useLogo"}
+	{csrf}
+	{include file="common/formErrors.tpl"}
+	<p id="sponsorsGalleryHelp">{translate key="plugins.block.sponsorsBlock.galleryHelp"}</p>
+	<div class="sponsors-logo-gallery" role="radiogroup" aria-labelledby="sponsorsGalleryHelp">
+		{foreach from=$logoCatalog key=id item=entry}
+			<label class="sponsors-gallery-choice">
+				<input type="radio" name="galleryId" value="{$id|escape}" {if $galleryId == $id}checked{/if} required>
+				<span class="sponsors-gallery-card">
+					<img src="{$logoCatalogUrl|escape}/{$entry.file|escape}" alt="">
+					<strong>{$entry.name|escape}</strong>
+				</span>
+			</label>
+		{foreachelse}
+			<p>{translate key="plugins.block.sponsorsBlock.galleryEmpty"}</p>
+		{/foreach}
+	</div>
+	{fbvFormButtons submitText="plugins.block.sponsorsBlock.useLogo"}
 </form>

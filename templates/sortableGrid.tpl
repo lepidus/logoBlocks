@@ -25,85 +25,85 @@
 <script>
 {literal}
 (function ($) {
-    if ($.pkp.controllers.grid.SponsorsBlockGridHandler) return;
-    $.pkp.controllers.grid.SponsorsBlockGridHandler = function ($grid, options) {
-        this.parent($grid, options);
-        $grid.addClass('sponsors-sortable-grid');
-        var $focusedHandle = null;
-        var $body = $grid.find('tbody').not('.empty').first();
-        var $messages = $grid.prevAll('.sponsors-order-messages').first();
-        var $status = $('<p class="sponsors-order-status" role="status" aria-live="polite"></p>').appendTo($grid);
-        var saving = false;
-        var previousRows = [];
-        var rows = function () { return $body.children('.sponsors-logo-row').not('.ui-sortable-placeholder'); };
-        var restore = function () {
-            previousRows.forEach(function (row) { $body.append(row); });
-        };
-        var lock = function (value) {
-            saving = value;
-            $grid.toggleClass('is-saving', value).attr('aria-busy', value ? 'true' : 'false');
-            $grid.find('.sponsors-drag-handle').prop('disabled', value);
-            if ($body.hasClass('ui-sortable')) $body.sortable(value ? 'disable' : 'enable');
-        };
-        var persist = function () {
-            var ids = rows().map(function () { return $(this).attr('data-logo-id'); }).get();
-            lock(true);
-            $status.removeClass('is-error').text($messages.attr('data-saving'));
-            $.ajax({
-                url: options.saveSequenceUrl, type: 'POST', dataType: 'json',
-                data: {data: JSON.stringify(ids), csrfToken: options.csrfToken}
-            }).done(function (response) {
-                if (response && response.status === true) {
-                    $status.text($messages.attr('data-saved'));
-                } else {
-                    restore();
-                    $status.addClass('is-error').text($messages.attr('data-error'));
-                }
-            }).fail(function () {
-                restore();
-                $status.addClass('is-error').text($messages.attr('data-error'));
-            }).always(function () {
-                lock(false);
-                if ($focusedHandle) { $focusedHandle.trigger('focus'); $focusedHandle = null; }
-            });
-        };
-        // Block row actions while a sequence is being saved, including keyboard clicks.
-        $grid[0].addEventListener('click', function (event) {
-            if (saving && $(event.target).closest('.pkp_controllers_linkAction').length) {
-                event.preventDefault(); event.stopImmediatePropagation();
-            }
-        }, true);
-        $grid.on('click.sponsorsActions', '.sponsors-toggle-actions', function () {
-            var $toggle = $(this);
-            var expanded = $toggle.attr('aria-expanded') !== 'true';
-            $toggle.attr('aria-expanded', expanded ? 'true' : 'false');
-            $toggle.closest('.sponsors-logo-row').find('.sponsors-logo-actions').prop('hidden', !expanded);
-        });
-        if ($.fn.sortable) {
-            $body.sortable({
-                placeholder: 'sponsors-sort-placeholder', items: '> .sponsors-logo-row', handle: '.sponsors-drag-handle',
-                cancel: 'input,textarea,select,option', axis: 'y', tolerance: 'pointer',
-                start: function () { previousRows = rows().get(); },
-                helper: function (event, $row) {
-                    $row.children().each(function () { $(this).width($(this).width()); });
-                    return $row;
-                },
-                update: persist
-            });
-        }
-        $grid.on('keydown.sponsorsOrder', '.sponsors-drag-handle', function (event) {
-            if (saving || (event.key !== 'ArrowUp' && event.key !== 'ArrowDown')) return;
-            event.preventDefault();
-            var $row = $(this).closest('.sponsors-logo-row');
-            var $neighbor = event.key === 'ArrowUp' ? $row.prev('.sponsors-logo-row') : $row.next('.sponsors-logo-row');
-            if (!$neighbor.length) return;
-            previousRows = rows().get();
-            if (event.key === 'ArrowUp') $row.insertBefore($neighbor); else $row.insertAfter($neighbor);
-            $focusedHandle = $(this);
-            persist();
-        });
-    };
-    $.pkp.classes.Helper.inherits($.pkp.controllers.grid.SponsorsBlockGridHandler, $.pkp.controllers.grid.GridHandler);
+	if ($.pkp.controllers.grid.SponsorsBlockGridHandler) return;
+	$.pkp.controllers.grid.SponsorsBlockGridHandler = function ($grid, options) {
+		this.parent($grid, options);
+		$grid.addClass('sponsors-sortable-grid');
+		var $focusedHandle = null;
+		var $body = $grid.find('tbody').not('.empty').first();
+		var $messages = $grid.prevAll('.sponsors-order-messages').first();
+		var $status = $('<p class="sponsors-order-status" role="status" aria-live="polite"></p>').appendTo($grid);
+		var saving = false;
+		var previousRows = [];
+		var rows = function () { return $body.children('.sponsors-logo-row').not('.ui-sortable-placeholder'); };
+		var restore = function () {
+			previousRows.forEach(function (row) { $body.append(row); });
+		};
+		var lock = function (value) {
+			saving = value;
+			$grid.toggleClass('is-saving', value).attr('aria-busy', value ? 'true' : 'false');
+			$grid.find('.sponsors-drag-handle').prop('disabled', value);
+			if ($body.hasClass('ui-sortable')) $body.sortable(value ? 'disable' : 'enable');
+		};
+		var persist = function () {
+			var ids = rows().map(function () { return $(this).attr('data-logo-id'); }).get();
+			lock(true);
+			$status.removeClass('is-error').text($messages.attr('data-saving'));
+			$.ajax({
+				url: options.saveSequenceUrl, type: 'POST', dataType: 'json',
+				data: {data: JSON.stringify(ids), csrfToken: options.csrfToken}
+			}).done(function (response) {
+				if (response && response.status === true) {
+					$status.text($messages.attr('data-saved'));
+				} else {
+					restore();
+					$status.addClass('is-error').text($messages.attr('data-error'));
+				}
+			}).fail(function () {
+				restore();
+				$status.addClass('is-error').text($messages.attr('data-error'));
+			}).always(function () {
+				lock(false);
+				if ($focusedHandle) { $focusedHandle.trigger('focus'); $focusedHandle = null; }
+			});
+		};
+		// Block row actions while a sequence is being saved, including keyboard clicks.
+		$grid[0].addEventListener('click', function (event) {
+			if (saving && $(event.target).closest('.pkp_controllers_linkAction').length) {
+				event.preventDefault(); event.stopImmediatePropagation();
+			}
+		}, true);
+		$grid.on('click.sponsorsActions', '.sponsors-toggle-actions', function () {
+			var $toggle = $(this);
+			var expanded = $toggle.attr('aria-expanded') !== 'true';
+			$toggle.attr('aria-expanded', expanded ? 'true' : 'false');
+			$toggle.closest('.sponsors-logo-row').find('.sponsors-logo-actions').prop('hidden', !expanded);
+		});
+		if ($.fn.sortable) {
+			$body.sortable({
+				placeholder: 'sponsors-sort-placeholder', items: '> .sponsors-logo-row', handle: '.sponsors-drag-handle',
+				cancel: 'input,textarea,select,option', axis: 'y', tolerance: 'pointer',
+				start: function () { previousRows = rows().get(); },
+				helper: function (event, $row) {
+					$row.children().each(function () { $(this).width($(this).width()); });
+					return $row;
+				},
+				update: persist
+			});
+		}
+		$grid.on('keydown.sponsorsOrder', '.sponsors-drag-handle', function (event) {
+			if (saving || (event.key !== 'ArrowUp' && event.key !== 'ArrowDown')) return;
+			event.preventDefault();
+			var $row = $(this).closest('.sponsors-logo-row');
+			var $neighbor = event.key === 'ArrowUp' ? $row.prev('.sponsors-logo-row') : $row.next('.sponsors-logo-row');
+			if (!$neighbor.length) return;
+			previousRows = rows().get();
+			if (event.key === 'ArrowUp') $row.insertBefore($neighbor); else $row.insertAfter($neighbor);
+			$focusedHandle = $(this);
+			persist();
+		});
+	};
+	$.pkp.classes.Helper.inherits($.pkp.controllers.grid.SponsorsBlockGridHandler, $.pkp.controllers.grid.GridHandler);
 })(jQuery);
 {/literal}
 </script>

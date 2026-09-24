@@ -1,42 +1,42 @@
 {
-    "boai": {
-        "name": "BOAI",
-        "url": "https://www.budapestopenaccessinitiative.org/",
-        "file": "boai.jpg"
-    },
-    "doaj": {
-        "name": "DOAJ",
-        "url": "https://doaj.org/",
-        "file": "doaj.jpg"
-    },
-    "crossref": {
-        "name": "Crossref",
-        "url": "https://www.crossref.org/",
-        "file": "crossref.jpg"
-    },
-    "google-scholar": {
-        "name": "Google Scholar",
-        "url": "https://scholar.google.com/",
-        "file": "google-scholar.png"
-    },
-    "capes": {
-        "name": "CAPES",
-        "url": "https://www.gov.br/capes/",
-        "file": "capes.png"
-    },
-    "cnpq": {
-        "name": "CNPq",
-        "url": "https://www.gov.br/cnpq/",
-        "file": "cnpq.png"
-    },
-    "fapesp": {
-        "name": "FAPESP",
-        "url": "https://fapesp.br/",
-        "file": "fapesp.png"
-    },
-    "scielo": {
-        "name": "SciELO",
-        "url": "https://www.scielo.org/",
-        "file": "scielo.png"
-    }
+	"boai": {
+		"name": "BOAI",
+		"url": "https://www.budapestopenaccessinitiative.org/",
+		"file": "boai.jpg"
+	},
+	"doaj": {
+		"name": "DOAJ",
+		"url": "https://doaj.org/",
+		"file": "doaj.jpg"
+	},
+	"crossref": {
+		"name": "Crossref",
+		"url": "https://www.crossref.org/",
+		"file": "crossref.jpg"
+	},
+	"google-scholar": {
+		"name": "Google Scholar",
+		"url": "https://scholar.google.com/",
+		"file": "google-scholar.png"
+	},
+	"capes": {
+		"name": "CAPES",
+		"url": "https://www.gov.br/capes/",
+		"file": "capes.png"
+	},
+	"cnpq": {
+		"name": "CNPq",
+		"url": "https://www.gov.br/cnpq/",
+		"file": "cnpq.png"
+	},
+	"fapesp": {
+		"name": "FAPESP",
+		"url": "https://fapesp.br/",
+		"file": "fapesp.png"
+	},
+	"scielo": {
+		"name": "SciELO",
+		"url": "https://www.scielo.org/",
+		"file": "scielo.png"
+	}
 }
