@@ -36,7 +36,7 @@ class SponsorsBlockPlugin extends BlockPlugin {
             $this->import('controllers.grid.SponsorsBlockGridHandler');
             $grid = new SponsorsBlockGridHandler($this);
             $operation = $request->getUserVar('gridOp');
-            if (!is_string($operation) || !in_array($operation, array('fetchGrid', 'fetchRows', 'fetchRow', 'addLogo', 'editLogo', 'updateLogo', 'deleteLogo', 'saveSequence'), true)) {
+            if (!is_string($operation) || !in_array($operation, array('fetchGrid', 'fetchRows', 'fetchRow', 'addLogo', 'chooseLogo', 'addGalleryLogo', 'editLogo', 'updateLogo', 'deleteLogo', 'saveSequence'), true)) {
                 return new JSONMessage(false);
             }
             $grid->initialize($request);
@@ -58,6 +58,12 @@ class SponsorsBlockPlugin extends BlockPlugin {
     function getLogos($contextId) {
         $logos = $this->getSetting($contextId, 'logos');
         return is_array($logos) ? $logos : array();
+    }
+
+    /** Bundled catalog: request parameters can select IDs, never file paths. */
+    function getLogoCatalog() {
+        $catalog = json_decode(file_get_contents(__DIR__ . '/logos/catalog.json'), true);
+        return is_array($catalog) ? $catalog : array();
     }
 
     function getGridUrl($request, $operation, $params = array()) {

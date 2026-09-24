@@ -22,7 +22,7 @@ msgid "plugins.block.sponsorsBlock.url"
 msgstr "Link (opcional, começando com https:// ou http://)"
 
 msgid "plugins.block.sponsorsBlock.add"
-msgstr "Adicionar logo"
+msgstr "Adicionar nova logo"
 
 msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Imagem do logo"
@@ -56,7 +56,7 @@ msgid "plugins.block.sponsorsBlock.logos"
 msgstr "Logos cadastrados"
 
 msgid "plugins.block.sponsorsBlock.empty"
-msgstr "Nenhum logo cadastrado. Clique em “Adicionar logo” para começar."
+msgstr "Nenhum logo cadastrado. Escolha uma logo da galeria ou adicione uma nova."
 
 msgid "plugins.block.sponsorsBlock.link"
 msgstr "Link"
@@ -65,7 +65,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "Sem link"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Use “Adicionar logo” ou as ações de cada linha para editar e excluir. As alterações nos logos são salvas imediatamente. O botão Salvar abaixo grava o título e as opções de exibição acima do rodapé e de escala de cinza."
+msgstr "Use “Escolher logo” para acessar a galeria ou “Adicionar nova logo” para enviar uma imagem. Use as ações de cada linha para editar e excluir. As alterações nos logos são salvas imediatamente. O botão Salvar abaixo grava o título e as opções de exibição."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "Para substituir a imagem, selecione um novo arquivo. Deixe o campo vazio para manter o logo atual."
@@ -93,3 +93,18 @@ msgstr "Não foi possível confirmar a nova ordem. A ordem anterior foi restaura
 
 msgid "plugins.block.sponsorsBlock.grayscaleLogos"
 msgstr "Ativar escala de cinza nos logos (coloridos ao passar o mouse ou focar o link)"
+
+msgid "plugins.block.sponsorsBlock.choose"
+msgstr "Escolher logo"
+
+msgid "plugins.block.sponsorsBlock.galleryHelp"
+msgstr "Selecione uma logo e clique em “Usar logo”. O nome e o link serão preenchidos automaticamente; você pode editá-los depois."
+
+msgid "plugins.block.sponsorsBlock.galleryRequired"
+msgstr "Selecione uma logo disponível na galeria."
+
+msgid "plugins.block.sponsorsBlock.galleryEmpty"
+msgstr "Nenhuma logo disponível na galeria."
+
+msgid "plugins.block.sponsorsBlock.useLogo"
+msgstr "Usar logo"

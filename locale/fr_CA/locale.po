@@ -22,7 +22,7 @@ msgid "plugins.block.sponsorsBlock.url"
 msgstr "Lien (facultatif, commençant par https:// ou http://)"
 
 msgid "plugins.block.sponsorsBlock.add"
-msgstr "Ajouter un logo"
+msgstr "Ajouter un nouveau logo"
 
 msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Image du logo"
@@ -55,7 +55,7 @@ msgid "plugins.block.sponsorsBlock.logos"
 msgstr "Logos enregistrés"
 
 msgid "plugins.block.sponsorsBlock.empty"
-msgstr "Aucun logo pour le moment. Cliquez sur « Ajouter un logo » pour commencer."
+msgstr "Aucun logo enregistré. Choisissez un logo dans la galerie ou ajoutez-en un nouveau."
 
 msgid "plugins.block.sponsorsBlock.link"
 msgstr "Lien"
@@ -64,7 +64,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "Aucun lien"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Utilisez « Ajouter un logo » ou les actions de chaque ligne pour modifier et supprimer. Les modifications des logos sont enregistrées immédiatement. Le bouton Enregistrer ci-dessous enregistre le titre du bloc et les options d’affichage au-dessus du pied de page et en niveaux de gris."
+msgstr "Utilisez « Choisir un logo » pour ouvrir la galerie ou « Ajouter un nouveau logo » pour téléverser une image. Utilisez les actions de chaque ligne pour modifier et supprimer. Les changements des logos sont enregistrés immédiatement. Le bouton Enregistrer ci-dessous enregistre le titre et les options d’affichage."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "Pour remplacer l’image, sélectionnez un nouveau fichier. Laissez le champ vide pour conserver le logo actuel."
@@ -92,3 +92,18 @@ msgstr "Impossible de confirmer le nouvel ordre. L’ordre précédent a été r
 
 msgid "plugins.block.sponsorsBlock.grayscaleLogos"
 msgstr "Activer les logos en niveaux de gris (couleurs au survol ou à la prise de focus du lien)"
+
+msgid "plugins.block.sponsorsBlock.choose"
+msgstr "Choisir un logo"
+
+msgid "plugins.block.sponsorsBlock.galleryHelp"
+msgstr "Sélectionnez un logo et cliquez sur « Utiliser le logo ». Le nom et le lien seront remplis automatiquement; vous pourrez les modifier ensuite."
+
+msgid "plugins.block.sponsorsBlock.galleryRequired"
+msgstr "Sélectionnez un logo disponible dans la galerie."
+
+msgid "plugins.block.sponsorsBlock.galleryEmpty"
+msgstr "Aucun logo disponible dans la galerie."
+
+msgid "plugins.block.sponsorsBlock.useLogo"
+msgstr "Utiliser le logo"

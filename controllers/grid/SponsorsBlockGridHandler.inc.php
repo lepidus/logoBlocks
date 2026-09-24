@@ -26,6 +26,10 @@ class SponsorsBlockGridHandler extends GridHandler {
         unset($logo);
         $this->setGridDataElements($logos);
         import('lib.pkp.classes.linkAction.request.AjaxModal');
+        $this->addAction(new LinkAction('chooseLogo', new AjaxModal(
+            $this->plugin->getGridUrl($request, 'chooseLogo'),
+            __('plugins.block.sponsorsBlock.choose'), 'modal_add_item'),
+            __('plugins.block.sponsorsBlock.choose'), 'add_item'));
         $this->addAction(new LinkAction('addLogo', new AjaxModal(
             $this->plugin->getGridUrl($request, 'addLogo'),
             __('plugins.block.sponsorsBlock.add'), 'modal_add_item'),
@@ -80,6 +84,23 @@ class SponsorsBlockGridHandler extends GridHandler {
 
     function addLogo($args, $request) {
         return $this->showLogoForm($request, null);
+    }
+
+    function chooseLogo($args, $request) {
+        $this->plugin->import('SponsorsBlockLogoForm');
+        $form = new SponsorsBlockLogoForm($this->plugin, $request->getContext()->getId(), null, true);
+        $form->initData();
+        return new JSONMessage(true, $form->fetch($request));
+    }
+
+    function addGalleryLogo($args, $request) {
+        $this->plugin->import('SponsorsBlockLogoForm');
+        $form = new SponsorsBlockLogoForm($this->plugin, $request->getContext()->getId(), null, true);
+        $form->readInputData();
+        if ($form->validate() && $form->execute()) {
+            return DAO::getDataChangedEvent();
+        }
+        return new JSONMessage(true, $form->fetch($request));
     }
 
     function editLogo($args, $request) {
