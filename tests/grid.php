@@ -172,16 +172,24 @@ try {
     rmdir(Config::$publicDir);
 }
 
+$defaults = array('en_US' => 'Indexers', 'es_ES' => 'Indexadores', 'fr_CA' => 'Indexeurs', 'pt_BR' => 'Indexadores');
+check($plugin->getBlockTitles(99) === $defaults, 'Default titles incorrect');
+$plugin->settings[99]['title'] = array('pt_BR' => 'Personalizado');
+check($plugin->getBlockTitles(99) === array_replace($defaults, array('pt_BR' => 'Personalizado')), 'Missing translations or custom title lost');
 $plugin->settings[1]['title'] = 'Existing title';
 $titleForm = new SponsorsBlockSettingsForm($plugin, 1);
 $titleForm->initData();
-check($titleForm->getData('title') === array('en_US' => 'Existing title'), 'Legacy title was lost');
+check($titleForm->getData('title') === array_replace($defaults, array('en_US' => 'Existing title')), 'Legacy title was lost');
 $titleForm->setData('title', array('en_US' => ' Index to: ', 'pt_BR' => ' Indexado em: '));
 check($titleForm->validate(false) && $titleForm->execute(), 'Multilingual title save failed');
 check($plugin->getBlockTitle(1) === 'Index to:', 'English title incorrect');
 AppLocale::$locale = 'pt_BR';
 check($plugin->getBlockTitle(1) === 'Indexado em:', 'Portuguese title incorrect');
 AppLocale::$locale = 'fr_CA';
+check($plugin->getBlockTitle(1) === 'Indexeurs', 'French default title incorrect');
+AppLocale::$locale = 'es_ES';
+check($plugin->getBlockTitle(1) === 'Indexadores', 'Spanish default title incorrect');
+AppLocale::$locale = 'de_DE';
 check($plugin->getBlockTitle(1) === 'Index to:', 'Missing translation did not fall back to primary locale');
 foreach (array(array('en_US' => '', 'pt_BR' => 'Título'), array('en_US' => 'Valid', 'pt_BR' => str_repeat('x', 201)), array('en_US' => array('invalid')), 'not-localized') as $titles) {
     $titleForm = new SponsorsBlockSettingsForm($plugin, 1);

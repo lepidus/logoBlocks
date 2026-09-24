@@ -68,14 +68,21 @@ class SponsorsBlockPlugin extends BlockPlugin {
     }
 
     function getBlockTitles($contextId) {
+        $defaults = array(
+            'en_US' => 'Indexers',
+            'es_ES' => 'Indexadores',
+            'fr_CA' => 'Indexeurs',
+            'pt_BR' => 'Indexadores',
+        );
         $title = $this->getSetting($contextId, 'title');
         if (is_array($title)) {
-            return $title;
+            return array_replace($defaults, $title);
         }
         // Preserve titles saved before multilingual settings were introduced.
-        return array(AppLocale::getPrimaryLocale() =>
-            !$title || in_array($title, array('Sponsors Block', 'Bloco de patrocinadores'), true)
-                ? 'Index to:' : $title);
+        if ($title && !in_array($title, array('Sponsors Block', 'Bloco de patrocinadores'), true)) {
+            $defaults[AppLocale::getPrimaryLocale()] = $title;
+        }
+        return $defaults;
     }
 
     function getBlockTitle($contextId) {
@@ -85,7 +92,7 @@ class SponsorsBlockPlugin extends BlockPlugin {
                 return $titles[$locale];
             }
         }
-        return 'Index to:';
+        return 'Indexers';
     }
 
     function getPublicUrl($request, $contextId) {

@@ -9,13 +9,13 @@
     {fbvFormArea id="sponsorsBlockTitleArea"}
         {fbvElement type="text" id="title" value=$title label="plugins.block.sponsorsBlock.title" multilingual=true required=true maxlength="200"}
     {/fbvFormArea}
+    <p>{translate key="plugins.block.sponsorsBlock.gridHelp"}</p>
+    <p>{translate key="plugins.block.sponsorsBlock.orderHelp"}</p>
+    {load_url_in_div id="sponsorsBlockGridContainer" url=$sponsorsBlockGridUrl}
     {fbvFormArea id="sponsorsBlockPlacementArea"}
         {fbvFormSection list=true}
             {fbvElement type="checkbox" id="showAboveFooter" value="1" checked=$showAboveFooter label="plugins.block.sponsorsBlock.showAboveFooter"}
         {/fbvFormSection}
     {/fbvFormArea}
-    <p>{translate key="plugins.block.sponsorsBlock.gridHelp"}</p>
-    <p>{translate key="plugins.block.sponsorsBlock.orderHelp"}</p>
-    {load_url_in_div id="sponsorsBlockGridContainer" url=$sponsorsBlockGridUrl}
     {fbvFormButtons}
 </form>

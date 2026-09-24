@@ -7,7 +7,7 @@
             {foreach from=$sponsorsBlockLogos item=logo}
                 <li style="margin: 0; padding: 0; max-width: 100%;">
                     {if $logo.url}<a href="{$logo.url|escape}" target="_blank" rel="noopener noreferrer">{/if}
-                    <img src="{$sponsorsBlockPublicUrl|escape}/{$logo.file|escape}" alt="{$logo.name|escape}" width="150" style="display: block; width: 150px; max-width: 100%; height: auto;" loading="lazy">
+                    <img src="{$sponsorsBlockPublicUrl|escape}/{$logo.file|escape}" alt="{$logo.name|escape}" title="{$logo.name|escape}" width="150" style="display: block; width: 150px; max-width: 100%; height: auto;" loading="lazy">
                     {if $logo.url}</a>{/if}
                 </li>
             {/foreach}
