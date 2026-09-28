@@ -1,42 +1,110 @@
 {
-	"boai": {
-		"name": "BOAI",
-		"url": "https://www.budapestopenaccessinitiative.org/",
-		"file": "boai.jpg"
+	"base": {
+		"name": "BASE",
+		"file": "base.png"
+	},
+	"diadorim": {
+		"name": "Diadorim",
+		"file": "diadorim.png"
+	},
+	"dialnet": {
+		"name": "Dialnet",
+		"file": "dialnet.png"
+	},
+	"dimensions": {
+		"name": "Dimensions",
+		"file": "dimensions.png"
 	},
 	"doaj": {
 		"name": "DOAJ",
-		"url": "https://doaj.org/",
 		"file": "doaj.jpg"
 	},
-	"crossref": {
-		"name": "Crossref",
-		"url": "https://www.crossref.org/",
-		"file": "crossref.jpg"
+	"ebsco": {
+		"name": "EBSCO",
+		"file": "ebsco.png"
+	},
+	"erihplus": {
+		"name": "ErihPlus",
+		"file": "erihplus.png"
 	},
 	"google-scholar": {
-		"name": "Google Scholar",
-		"url": "https://scholar.google.com/",
+		"name": "Google Acadêmico",
 		"file": "google-scholar.png"
 	},
-	"capes": {
-		"name": "CAPES",
-		"url": "https://www.gov.br/capes/",
-		"file": "capes.png"
+	"latindex": {
+		"name": "Latindex",
+		"file": "latindex.png"
 	},
-	"cnpq": {
-		"name": "CNPq",
-		"url": "https://www.gov.br/cnpq/",
-		"file": "cnpq.png"
+	"lilacs": {
+		"name": "LILACS",
+		"file": "lilacs.png"
 	},
-	"fapesp": {
-		"name": "FAPESP",
-		"url": "https://fapesp.br/",
-		"file": "fapesp.png"
+	"livre": {
+		"name": "LiVRe",
+		"file": "livre.png"
+	},
+	"loremipsum": {
+		"name": "Lorem Ipsum",
+		"file": "loremIpsum.jpg"
+	},
+	"meta": {
+		"name": "Meta",
+		"file": "meta.jpg"
+	},
+	"miar": {
+		"name": "MIAR",
+		"file": "miar.png"
+	},
+	"miguilim": {
+		"name": "Miguilim",
+		"file": "miguilim.png"
+	},
+	"oasisbr": {
+		"name": "OasisBR",
+		"file": "oasisbr.png"
+	},
+	"openaire": {
+		"name": "OpenAIRE",
+		"file": "openaire.png"
+	},
+	"openalex": {
+		"name": "OpenAlex",
+		"file": "openalex.jpg"
+	},
+	"psycinfo": {
+		"name": "PsycINFO",
+		"file": "psycinfo.png"
+	},
+	"pubmed-medline": {
+		"name": "PubMed/Medline",
+		"file": "pubmed-medline.png"
+	},
+	"redalyc": {
+		"name": "Redalyc",
+		"file": "redalyc.png"
+	},
+	"repec": {
+		"name": "RePEc",
+		"file": "repec.png"
+	},
+	"road": {
+		"name": "ROAD",
+		"file": "road.png"
 	},
 	"scielo": {
 		"name": "SciELO",
-		"url": "https://www.scielo.org/",
 		"file": "scielo.png"
+	},
+	"scopus": {
+		"name": "Scopus",
+		"file": "scopus.png"
+	},
+	"sherpa-romeo": {
+		"name": "Sherpa Romeo",
+		"file": "sherpa-romeo.png"
+	},
+	"web-of-science": {
+		"name": "Web of Science",
+		"file": "web-of-science.png"
 	}
 }
