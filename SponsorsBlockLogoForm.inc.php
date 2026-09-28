@@ -26,6 +26,7 @@ class SponsorsBlockLogoForm extends Form
     public function initData()
     {
         $this->setData('galleryId', '');
+        $this->setData('crop', false);
         $logos = $this->plugin->getLogos($this->contextId);
         $logo = $this->logoId !== null && isset($logos[$this->logoId]) ? $logos[$this->logoId] : array('name' => '', 'url' => '');
         $this->setData('name', $logo['name']);
@@ -34,7 +35,7 @@ class SponsorsBlockLogoForm extends Form
 
     public function readInputData()
     {
-        $this->readUserVars(array('name', 'url', 'galleryId'));
+        $this->readUserVars(array('name', 'url', 'galleryId', 'crop'));
     }
 
     public function validate($callHooks = true)
@@ -42,22 +43,8 @@ class SponsorsBlockLogoForm extends Form
         if (!parent::validate($callHooks)) {
             return false;
         }
-        if ($this->gallery) {
-            $catalog = $this->plugin->getLogoCatalog();
-            $id = $this->getData('galleryId');
-            if (!is_string($id) || !isset($catalog[$id])) {
-                $this->addError('galleryId', __('plugins.block.sponsorsBlock.galleryRequired'));
-                return false;
-            }
-            $entry = $catalog[$id];
-            $this->setData('name', $entry['name']);
-            $this->setData('url', $entry['url']);
-            try {
-                $this->image = SponsorsBlockImage::resize(__DIR__ . '/logos/' . $entry['file']);
-            } catch (RuntimeException $e) {
-                $this->addError('galleryId', __($e->getMessage()));
-                return false;
-            }
+        if (!$this->prepareImage()) {
+            return false;
         }
         foreach (array('name', 'url') as $field) {
             $value = $this->getData($field);
@@ -76,8 +63,37 @@ class SponsorsBlockLogoForm extends Form
         if ($this->logoId !== null && !isset($logos[$this->logoId])) {
             $this->addError('name', __('plugins.block.sponsorsBlock.notFound'));
         }
+        return $this->isValid();
+    }
+
+    /** Preview uses the same validation and image bytes as saving, without persistence. */
+    public function getImagePreview()
+    {
+        if (!parent::validate() || !$this->prepareImage() || $this->image === null) {
+            return null;
+        }
+        return 'data:image/png;base64,' . base64_encode($this->image);
+    }
+
+    private function prepareImage()
+    {
+        $crop = $this->getData('crop') === '1';
         if ($this->gallery) {
-            return $this->isValid();
+            $catalog = $this->plugin->getLogoCatalog();
+            $id = $this->getData('galleryId');
+            if (!is_string($id) || !isset($catalog[$id])) {
+                $this->addError('galleryId', __('plugins.block.sponsorsBlock.galleryRequired'));
+                return false;
+            }
+            $entry = $catalog[$id];
+            $this->setData('name', $entry['name']);
+            try {
+                $this->image = SponsorsBlockImage::resize(__DIR__ . '/logos/' . $entry['file'], false);
+            } catch (RuntimeException $e) {
+                $this->addError('galleryId', __($e->getMessage()));
+                return false;
+            }
+            return true;
         }
         $upload = isset($_FILES['logo']) ? $_FILES['logo'] : null;
         if ($upload && (!isset($upload['error']) || $upload['error'] !== UPLOAD_ERR_NO_FILE)) {
@@ -86,7 +102,7 @@ class SponsorsBlockLogoForm extends Form
                 $this->addError('logo', __('plugins.block.sponsorsBlock.invalidImage'));
             } else {
                 try {
-                    $this->image = SponsorsBlockImage::resize($upload['tmp_name']);
+                    $this->image = SponsorsBlockImage::resize($upload['tmp_name'], $crop);
                 } catch (RuntimeException $e) {
                     $this->addError('logo', __($e->getMessage()));
                 }
@@ -107,6 +123,8 @@ class SponsorsBlockLogoForm extends Form
                 $this->gallery ? 'addGalleryLogo' : 'updateLogo',
                 $this->logoId === null ? array() : array('logoId' => $this->logoId)
             ),
+            'logoPreviewUrl' => $this->plugin->getGridUrl($request, 'previewLogo'),
+            'logoPreviewTemplate' => $this->plugin->getTemplateResource('logoPreview.tpl'),
             'currentLogoUrl' => $logo ? $this->plugin->getPublicUrl($request, $this->contextId) . '/' . $logo['file'] : '',
         ));
         if ($this->gallery) {

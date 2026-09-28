@@ -131,6 +131,18 @@ class SponsorsBlockGridHandler extends GridHandler
         return new JSONMessage(true, $form->fetch($request));
     }
 
+    public function previewLogo($args, $request)
+    {
+        if (!$request->isPost() || !$request->checkCSRF()) {
+            return new JSONMessage(false);
+        }
+        $this->plugin->import('SponsorsBlockLogoForm');
+        $form = new SponsorsBlockLogoForm($this->plugin, $request->getContext()->getId(), null, $request->getUserVar('galleryId') !== null);
+        $form->readInputData();
+        $preview = $form->getImagePreview();
+        return new JSONMessage($preview !== null, $preview);
+    }
+
     public function editLogo($args, $request)
     {
         $id = $this->getLogoId($request);

@@ -7,7 +7,7 @@ class SponsorsBlockImage
     public const MAX_PIXELS = 12000000;
     public const BACKGROUND_TOLERANCE = 10;
 
-    public static function resize($path)
+    public static function resize($path, $crop = true)
     {
         if (!function_exists('imagecreatefromstring')) {
             throw new RuntimeException('plugins.block.sponsorsBlock.gdRequired');
@@ -22,7 +22,9 @@ class SponsorsBlockImage
         if (!$source) {
             throw new RuntimeException('plugins.block.sponsorsBlock.invalidImage');
         }
-        list($left, $top, $width, $height) = self::contentBounds($source);
+        list($left, $top, $width, $height) = $crop
+            ? self::contentBounds($source)
+            : array(0, 0, $size[0], $size[1]);
         $outputHeight = max(1, (int) round($height * 150 / $width));
         if ($outputHeight > 3000) {
             imagedestroy($source);

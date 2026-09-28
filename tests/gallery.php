@@ -7,8 +7,18 @@ require __DIR__ . '/grid.php';
 
 $catalog = $plugin->getLogoCatalog();
 check(!array_diff(array('boai', 'doaj', 'crossref', 'google-scholar', 'capes', 'cnpq', 'fapesp', 'scielo'), array_keys($catalog)), 'Initial catalog incomplete');
+$required = array('Google Acadêmico', 'DOAJ', 'Scopus', 'Web of Science', 'SciELO', 'Redalyc', 'Latindex', 'LILACS', 'EBSCO', 'RePEc', 'OpenAIRE', 'OpenAlex', 'ErihPlus', 'ROAD', 'Dialnet', 'BASE', 'PubMed/Medline', 'Dimensions', 'PsycINFO', 'Miguilim', 'OasisBR', 'Sherpa Romeo', 'LiVRe', 'Diadorim', 'MIAR');
+$names = array_column($catalog, 'name');
+check(!array_diff($required, $names), 'Requested indexers missing');
+check(count($names) === count(array_unique($names)), 'Duplicate catalog names');
+$sorted = $names;
+usort($sorted, 'strnatcasecmp');
+check($names === $sorted, 'Gallery catalog is not alphabetical');
+check($catalog['google-scholar']['name'] === 'Google Acadêmico', 'Google Scholar entry must be reused');
+echo "PASS: all 25 requested indexers, no duplicate names and alphabetical gallery order\n";
 $catalogHashes = array();
 foreach ($catalog as $id => $entry) {
+    check(!array_key_exists('url', $entry), 'Catalog must not contain predefined links');
     $path = dirname(__DIR__) . '/logos/' . $entry['file'];
     $catalogHashes[$id] = hash_file('sha256', $path);
     $size = getimagesizefromstring(SponsorsBlockImage::resize($path));
@@ -38,18 +48,34 @@ foreach (array('post', 'csrf') as $guard) {
 }
 echo "PASS: importable catalog images, both actions, invalid IDs and POST/CSRF guards\n";
 
+foreach (array('javascript:alert(1)', 'ftp://example.org', 'invalid', 'https://') as $url) {
+    $form = new SponsorsBlockLogoForm($plugin, 1, null, true);
+    $form->setData('galleryId', 'capes');
+    $form->setData('url', $url);
+    check(!$form->validate(false), 'Invalid gallery page link accepted');
+    check($form->getData('url') === $url, 'Invalid link lost on redisplay');
+}
+foreach (array('', '  https://example.org/journal  ', null) as $url) {
+    $form = new SponsorsBlockLogoForm($plugin, 1, null, true);
+    $form->setData('galleryId', 'capes');
+    $form->setData('url', $url);
+    check($form->validate(false), 'Optional or valid gallery link rejected');
+    check($form->getData('url') === ($url === null ? '' : trim($url)), 'Gallery link default or explicit value lost');
+}
+echo "PASS: editor-provided and empty gallery links; unsafe URLs rejected\n";
+
 Config::$publicDir = sys_get_temp_dir() . '/sponsors-gallery-' . bin2hex(random_bytes(6));
 mkdir(Config::$publicDir . '/journals/1', 0777, true);
 try {
     foreach ($catalog as $catalogId => $entry) {
         $form = new SponsorsBlockLogoForm($plugin, 1, null, true);
-        $request->vars = array('galleryId' => $catalogId, 'name' => 'Tampered', 'url' => 'javascript:alert(1)');
+        $request->vars = array('galleryId' => $catalogId, 'name' => 'Tampered', 'url' => 'https://example.org/journal/' . $catalogId);
         $form->readInputData();
         check($form->validate(false) && $form->execute(), 'Catalog selection failed');
         $logos = $plugin->getLogos(1);
         $id = array_key_last($logos);
         $added = $logos[$id];
-        check($added['name'] === $entry['name'] && $added['url'] === $entry['url'], 'Client overrode catalog metadata');
+        check($added['name'] === $entry['name'] && $added['url'] === 'https://example.org/journal/' . $catalogId, 'Catalog name or custom page link not preserved');
         $path = Config::$publicDir . '/journals/1/' . $added['file'];
         check(is_file($path) && getimagesize($path)[0] === 150, 'Journal copy missing or incorrectly sized');
         $edit = new SponsorsBlockLogoForm($plugin, 1, $id);
@@ -85,11 +111,15 @@ foreach (array('csrf', 'translate', 'fbvFormButtons') as $tag) {
     });
 }
 $smarty->assign(array('logoFormUrl' => '/manage?gridOp=addGalleryLogo', 'logoCatalog' => $catalog,
-    'logoCatalogUrl' => '/plugins/blocks/sponsors/logos', 'galleryId' => 'capes', 'isError' => false));
+    'logoPreviewTemplate' => dirname(__DIR__) . '/templates/logoPreview.tpl',
+    'logoPreviewUrl' => '/manage?gridOp=previewLogo', 'crop' => false, 'currentLogoUrl' => '',
+    'logoCatalogUrl' => '/plugins/blocks/sponsors/logos', 'galleryId' => 'capes', 'url' => 'https://example.org/journal', 'isError' => false));
 try {
     $html = $smarty->fetch(dirname(__DIR__) . '/templates/logoGallery.tpl');
+    check(preg_match('/<input\b[^>]*name="crop"/', $html) === 0 && strpos($html, 'sponsors-preview-result') === false, 'Gallery must not render an extra preview or crop control');
     check(substr_count($html, 'type="radio"') === count($catalog), 'Gallery did not render all logos');
-    check(preg_match('/value="capes"\s+checked/', $html) === 1, 'Selection lost on redisplay');
+    check(preg_match('/value="capes"[^>]*\schecked/', $html) === 1, 'Selection lost on redisplay');
+    check(strpos($html, 'value="https://example.org/journal"') !== false, 'Page link lost on redisplay');
     $catalog['capes']['name'] = '<script>bad</script>';
     $smarty->assign('logoCatalog', $catalog);
     check(strpos($smarty->fetch(dirname(__DIR__) . '/templates/logoGallery.tpl'), '<script>bad</script>') === false, 'Catalog label not escaped');

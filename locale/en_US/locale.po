@@ -19,16 +19,16 @@ msgid "plugins.block.sponsorsBlock.name"
 msgstr "Sponsor or indexer name (alternative text)"
 
 msgid "plugins.block.sponsorsBlock.url"
-msgstr "Link (optional, starting with https:// or http://)"
+msgstr "Link (optional)"
 
 msgid "plugins.block.sponsorsBlock.add"
-msgstr "Add new logo"
+msgstr "+ Add logo"
 
 msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Logo image"
 
 msgid "plugins.block.sponsorsBlock.imageHelp"
-msgstr "Uniform outer margins of any color or transparent margins are automatically cropped before resizing. PNG, JPEG or GIF, up to 5 MB and 12 million pixels. Images are saved as PNG at 150 px wide with proportional height (up to 3000 px). Transparency is preserved; GIFs use only the first frame. After an error, select the file again before saving."
+msgstr "PNG, JPEG or GIF, up to 5 MB and 12 million pixels. Images are saved as PNG at 150 px wide with proportional height (up to 3000 px). Transparency is preserved; GIFs use only the first frame. After an error, select the file again before saving."
 
 msgid "plugins.block.sponsorsBlock.requiredName"
 msgstr "Enter a title of up to 200 characters."
@@ -65,7 +65,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "No link"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Use “Choose logo” to open the gallery or “Add new logo” to upload an image. Use row actions to edit and delete. Logo changes are saved immediately. The Save button below saves the title and display options."
+msgstr "Use “Logo gallery” to open the gallery or “+ Add logo” to upload an image. Use row actions to edit and delete. Logo changes are saved immediately. The Save button below saves the title and display options."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "To replace the image, select a new file. Leave the field empty to keep the current logo."
@@ -74,10 +74,10 @@ msgid "plugins.block.sponsorsBlock.notFound"
 msgstr "This logo is no longer available. Reopen the settings and try again."
 
 msgid "plugins.block.sponsorsBlock.showAboveFooter"
-msgstr "Also display logos above the footer"
+msgstr "Also display the block above the footer."
 
 msgid "plugins.block.sponsorsBlock.orderHelp"
-msgstr "Drag logos by the dotted handle to change their order. The sequence is saved automatically and used in the sidebar and above the footer. You can also focus the handle and use the up and down arrow keys."
+msgstr "Drag logos by the dotted handle to change their order"
 
 msgid "plugins.block.sponsorsBlock.moveLogo"
 msgstr "Move logo"
@@ -92,13 +92,13 @@ msgid "plugins.block.sponsorsBlock.invalidOrder"
 msgstr "Unable to confirm the new order. The previous order has been restored on screen. Reopen the settings to refresh the list before trying again."
 
 msgid "plugins.block.sponsorsBlock.grayscaleLogos"
-msgstr "Enable grayscale logos (show colors on hover or link focus)"
+msgstr "Enable monochrome mode, logos become colorful when interacting."
 
 msgid "plugins.block.sponsorsBlock.choose"
-msgstr "Choose logo"
+msgstr "Logo gallery"
 
 msgid "plugins.block.sponsorsBlock.galleryHelp"
-msgstr "Select a logo and click “Use logo”. Its name and link will be filled in automatically; you can edit them afterwards."
+msgstr "Enter the specific link to the journal profile or the corresponding page."
 
 msgid "plugins.block.sponsorsBlock.galleryRequired"
 msgstr "Select an available logo from the gallery."
@@ -108,3 +108,39 @@ msgstr "No logos available in the gallery."
 
 msgid "plugins.block.sponsorsBlock.useLogo"
 msgstr "Use logo"
+
+msgid "plugins.block.sponsorsBlock.crop"
+msgstr "Crop borders"
+
+msgid "plugins.block.sponsorsBlock.cropHelp"
+msgstr "Select to remove uniform-color or transparent margins. The preview shows the result before saving. When editing, select a new image to apply cropping."
+
+msgid "plugins.block.sponsorsBlock.preview"
+msgstr "Image preview"
+
+msgid "plugins.block.sponsorsBlock.previewLoading"
+msgstr "Preparing preview…"
+
+msgid "plugins.block.sponsorsBlock.previewError"
+msgstr "The preview could not be generated. Check the image format and size and select it again."
+
+msgid "plugins.block.sponsorsBlock.selectLogo"
+msgstr "Select logo"
+
+msgid "plugins.block.sponsorsBlock.imageSummary"
+msgstr "Suggested formats: PNG, JPEG or GIF.\nResizes to 150 px wide."
+
+msgid "plugins.block.sponsorsBlock.cropSummary"
+msgstr "Removes transparent or uniform-color margins."
+
+msgid "plugins.block.sponsorsBlock.urlPlaceholder"
+msgstr "https://example.org/profile"
+
+msgid "plugins.block.sponsorsBlock.customization"
+msgstr "Customization"
+
+msgid "plugins.block.sponsorsBlock.linkHelp"
+msgstr "Enter the specific link to the journal profile or the corresponding page."
+
+msgid "plugins.block.sponsorsBlock.urlWithHelp"
+msgstr "Link (optional) — Enter the specific link to the journal profile or the corresponding page."

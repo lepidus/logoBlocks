@@ -11,14 +11,27 @@
 </style>
 <script>
 $(function() {ldelim}
-	$('#sponsorsBlockGalleryForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
+	var $form = $('#sponsorsBlockGalleryForm');
+	$form.pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
+{literal}
+	var $linkArea = $form.find('.sponsors-gallery-link');
+	var $url = $linkArea.find('[name="url"]');
+	var selectedId = $form.find('[name="galleryId"]:checked').val();
+	var links = Object.create(null);
+	$linkArea.prop('hidden', !selectedId);
+	$form.on('change', '[name="galleryId"]', function() {
+		if (selectedId) { links[selectedId] = $url.val(); }
+		selectedId = this.value;
+		$url.val(Object.prototype.hasOwnProperty.call(links, selectedId) ? links[selectedId] : '');
+		$linkArea.prop('hidden', false);
+	});
+{/literal}
 {rdelim});
 </script>
 <form class="pkp_form" id="sponsorsBlockGalleryForm" method="post" action="{$logoFormUrl|escape}">
 	{csrf}
 	{include file="common/formErrors.tpl"}
-	<p id="sponsorsGalleryHelp">{translate key="plugins.block.sponsorsBlock.galleryHelp"}</p>
-	<div class="sponsors-logo-gallery" role="radiogroup" aria-labelledby="sponsorsGalleryHelp">
+	<div class="sponsors-logo-gallery" role="radiogroup" aria-label="{translate|escape key="plugins.block.sponsorsBlock.choose"}">
 		{foreach from=$logoCatalog key=id item=entry}
 			<label class="sponsors-gallery-choice">
 				<input type="radio" name="galleryId" value="{$id|escape}" {if $galleryId == $id}checked{/if} required>
@@ -31,5 +44,10 @@ $(function() {ldelim}
 			<p>{translate key="plugins.block.sponsorsBlock.galleryEmpty"}</p>
 		{/foreach}
 	</div>
-	{fbvFormButtons submitText="plugins.block.sponsorsBlock.useLogo"}
+	<div class="sponsors-gallery-link" {if !$galleryId}hidden{/if}>
+		<p><label for="sponsorsGalleryUrl">{translate key="plugins.block.sponsorsBlock.url"}</label></p>
+		<input type="text" inputmode="url" id="sponsorsGalleryUrl" name="url" aria-describedby="sponsorsGalleryHelp" value="{$url|escape}" style="box-sizing: border-box; width: 100%;" placeholder="{translate key="plugins.block.sponsorsBlock.urlPlaceholder"}">
+		<p id="sponsorsGalleryHelp">{translate key="plugins.block.sponsorsBlock.galleryHelp"}</p>
+	</div>
+	{fbvFormButtons submitText="common.save"}
 </form>

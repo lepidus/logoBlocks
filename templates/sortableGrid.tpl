@@ -1,7 +1,10 @@
 <style>
 {literal}
-.pkp_controllers_grid.sponsors-sortable-grid > table { border-collapse: separate; border-spacing: 0 12px; background: #edf0f2; padding: 0 10px 4px; border: 0; }
-.sponsors-sortable-grid > table > thead > tr > th:first-child { white-space: nowrap; }
+.pkp_controllers_grid.sponsors-sortable-grid > table { border-collapse: separate; border-spacing: 0 12px; background: #fff; padding: 0 10px 4px; border: 0; }
+.pkp_controllers_grid.sponsors-sortable-grid { background: #fff; }
+.pkp_controllers_grid.sponsors-sortable-grid > .header h4 { font-size: 14px; }
+/* Keep native column headers available to assistive technology. */
+.sponsors-sortable-grid > table > thead { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
 .sponsors-sortable-grid .sponsors-logo-row > td { background: #fff; border-top: 1px solid #dfe4e8; border-bottom: 1px solid #dfe4e8; padding: 14px 16px; vertical-align: middle; overflow-wrap: anywhere; }
 .sponsors-sortable-grid .sponsors-logo-row > td:first-child { border-left: 1px solid #dfe4e8; border-radius: 10px 0 0 10px; }
 .sponsors-sortable-grid .sponsors-logo-row > td:last-child { border-right: 1px solid #dfe4e8; border-radius: 0 10px 10px 0; }

@@ -21,6 +21,8 @@ try {
         call_user_func('image' . $format, $image, $path);
         imagedestroy($image);
         clearstatcache(true, $path);
+        $uncropped = getimagesizefromstring(SponsorsBlockImage::resize($path, false));
+        check($uncropped[0] === 150 && $uncropped[1] === 60, 'Disabled crop changed original proportions');
         $result = SponsorsBlockImage::resize($path);
         $size = getimagesizefromstring($result);
         check($size[0] === 150 && $size[1] >= 49 && $size[1] <= 52 && $size[2] === IMAGETYPE_PNG, $format . ': wrong dimensions or format');

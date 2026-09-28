@@ -34,20 +34,17 @@ $(function() {
 });
 {/literal}
 </script>
-<form class="pkp_form" id="sponsorsBlockLogoForm" method="post" enctype="multipart/form-data" action="{$logoFormUrl|escape}">
+<form class="pkp_form" id="sponsorsBlockLogoForm" method="post" enctype="multipart/form-data" action="{$logoFormUrl|escape}" data-preview-url="{$logoPreviewUrl|escape}">
 	{csrf}
 	{include file="common/formErrors.tpl"}
 	<p class="sponsorsBlockNetworkError pkp_form_error" role="alert" style="display: none;">{translate key="plugins.block.sponsorsBlock.networkError"}</p>
 	{fbvFormArea id="sponsorsBlockLogoDetails"}
 		{fbvElement type="text" id="name" value=$name label="plugins.block.sponsorsBlock.name" required=true maxlength="200"}
-		{fbvElement type="text" id="url" value=$url label="plugins.block.sponsorsBlock.url"}
+		{fbvElement type="text" id="url" value=$url label="plugins.block.sponsorsBlock.urlWithHelp" placeholder="plugins.block.sponsorsBlock.urlPlaceholder"}
 		{if $currentLogoUrl}
-			<p><img src="{$currentLogoUrl|escape}" alt="{$name|escape}" width="150" style="max-width: 100%; height: auto;"></p>
 			<p>{translate key="plugins.block.sponsorsBlock.replaceHelp"}</p>
 		{/if}
-		<p><label for="logo">{translate key="plugins.block.sponsorsBlock.logo"}</label>
-		<input type="file" name="logo" id="logo" accept="image/png,image/jpeg,image/gif"></p>
-		<p>{translate key="plugins.block.sponsorsBlock.imageHelp"}</p>
 	{/fbvFormArea}
-	{fbvFormButtons}
+	{include file=$logoPreviewTemplate previewFormId="sponsorsBlockLogoForm"}
+	{fbvFormButtons submitText="common.save"}
 </form>
