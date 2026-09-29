@@ -33,17 +33,21 @@
 		$('#sponsorsBlockSettingsForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
 	{rdelim});
 </script>
-<form class="pkp_form" id="sponsorsBlockSettingsForm" method="post" action="{url router=$smarty.const.ROUTE_COMPONENT op="manage" category="blocks" plugin=$pluginName verb="settings" save=true}">
+<form class="pkp_form" id="sponsorsBlockSettingsForm" method="post" action="{$sponsorsSettingsUrl|escape}">
 	{csrf}
 	{include file="common/formErrors.tpl"}
 	{fbvFormArea id="sponsorsBlockTitleArea"}
 		{fbvElement type="text" id="title" value=$title label="plugins.block.sponsorsBlock.title" multilingual=true required=true maxlength="200"}
 	{/fbvFormArea}
-	{load_url_in_div id="sponsorsBlockGridContainer" url=$sponsorsBlockGridUrl}
+	{if $sponsorsNewBlock}
+		<p>{translate key="plugins.block.sponsorsBlock.createHelp"}</p>
+	{else}
+		{load_url_in_div id="sponsorsBlockGridContainer" url=$sponsorsBlockGridUrl}
+	{/if}
 	<section id="sponsorsBlockCustomizationArea" aria-labelledby="sponsorsBlockCustomizationTitle">
 		<h3 id="sponsorsBlockCustomizationTitle">{translate key="plugins.block.sponsorsBlock.customization"}</h3>
 		{fbvFormSection list=true}
-			{fbvElement type="checkbox" id="showAboveFooter" value="1" checked=$showAboveFooter label="plugins.block.sponsorsBlock.showAboveFooter"}
+			{fbvElement type="select" id="placement" from=$sponsorsBlockPlacementOptions selected=$placement label="plugins.block.sponsorsBlock.placementRequired" required=true}
 		{/fbvFormSection}
 		{fbvFormSection list=true}
 			{fbvElement type="checkbox" id="grayscaleLogos" value="1" checked=$grayscaleLogos label="plugins.block.sponsorsBlock.grayscaleLogos"}

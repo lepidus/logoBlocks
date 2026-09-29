@@ -22,7 +22,7 @@ msgid "plugins.block.sponsorsBlock.url"
 msgstr "Link (optional)"
 
 msgid "plugins.block.sponsorsBlock.add"
-msgstr "+ Add logo"
+msgstr "Add logo"
 
 msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Logo image"
@@ -65,7 +65,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "No link"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Use “Logo gallery” to open the gallery or “+ Add logo” to upload an image. Use row actions to edit and delete. Logo changes are saved immediately. The Save button below saves the title and display options."
+msgstr "Use “Logo gallery” to open the gallery or “Add logo” to upload an image. Use row actions to edit and delete. Logo changes are saved immediately. The Save button below saves the title and display options."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "To replace the image, select a new file. Leave the field empty to keep the current logo."
@@ -137,10 +137,55 @@ msgid "plugins.block.sponsorsBlock.urlPlaceholder"
 msgstr "https://example.org/profile"
 
 msgid "plugins.block.sponsorsBlock.customization"
-msgstr "Customization"
+msgstr "Block customization"
 
 msgid "plugins.block.sponsorsBlock.linkHelp"
 msgstr "Enter the specific link to the journal profile or the corresponding page."
 
 msgid "plugins.block.sponsorsBlock.urlWithHelp"
 msgstr "Link (optional) — Enter the specific link to the journal profile or the corresponding page."
+
+msgid "plugins.block.sponsorsBlock.blocks"
+msgstr "Block list"
+
+msgid "plugins.block.sponsorsBlock.defaultBlockNotice"
+msgstr "Indexers: this is the system’s default block and cannot be deleted."
+
+msgid "plugins.block.sponsorsBlock.addBlock"
+msgstr "Add block"
+
+msgid "plugins.block.sponsorsBlock.createHelp"
+msgstr "Save the block name. Then click the pencil to add and organize its logos."
+
+msgid "plugins.block.sponsorsBlock.visibility"
+msgstr "Show this block in the journal"
+
+msgid "plugins.block.sponsorsBlock.visibilityError"
+msgstr "Could not save. Please try again."
+
+msgid "plugins.block.sponsorsBlock.editBlock"
+msgstr "Edit"
+
+msgid "plugins.block.sponsorsBlock.deleteBlock"
+msgstr "Delete"
+
+msgid "plugins.block.sponsorsBlock.confirmDeleteBlock"
+msgstr "Are you sure you want to delete this block and all of its logos?"
+
+msgid "plugins.block.sponsorsBlock.placementSidebar"
+msgstr "Show in the journal sidebar"
+
+msgid "plugins.block.sponsorsBlock.placementFooter"
+msgstr "Show in the journal footer"
+
+msgid "plugins.block.sponsorsBlock.placementBoth"
+msgstr "Show in both locations"
+
+msgid "plugins.block.sponsorsBlock.placementRequired"
+msgstr "Select where to display the block."
+
+msgid "plugins.block.sponsorsBlock.moveBlock"
+msgstr "Move block"
+
+msgid "plugins.block.sponsorsBlock.blockOrderHelp"
+msgstr "Drag the handle to reorder blocks or use the up and down arrow keys."

@@ -158,7 +158,7 @@ class SponsorsBlockLogoForm extends Form
             }
         }
         $logos[$id] = array('file' => $file, 'name' => $this->getData('name'), 'url' => $this->getData('url'));
-        $this->plugin->updateSetting($this->contextId, 'logos', $logos, 'object');
+        $this->plugin->updateBlockSetting($this->contextId, 'logos', $logos, 'object');
         if ($oldFile !== null && $oldFile !== $file) {
             $manager->removeContextFile($this->contextId, $oldFile);
         }

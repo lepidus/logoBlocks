@@ -49,5 +49,5 @@ $(function() {ldelim}
 		<input type="text" inputmode="url" id="sponsorsGalleryUrl" name="url" aria-describedby="sponsorsGalleryHelp" value="{$url|escape}" style="box-sizing: border-box; width: 100%;" placeholder="{translate key="plugins.block.sponsorsBlock.urlPlaceholder"}">
 		<p id="sponsorsGalleryHelp">{translate key="plugins.block.sponsorsBlock.galleryHelp"}</p>
 	</div>
-	{fbvFormButtons submitText="common.save"}
+	{if $logoCatalog}{fbvFormButtons submitText="common.save"}{/if}
 </form>

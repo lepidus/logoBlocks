@@ -135,6 +135,11 @@ class GridTestPlugin extends SponsorsBlockPlugin
     {
         $this->settings[$contextId][$name] = $value;
     }
+    public function deleteBlockSetting($contextId, $name)
+    {
+        unset($this->settings[$contextId]['logoBlock_' . $this->getBlockId() . '_' . $name]);
+        return true;
+    }
     public function getEnabled($contextId = null)
     {
         return true;
@@ -212,7 +217,7 @@ $titleForm->setData('title', array('en_US' => 'Index to:', 'pt_BR' => 'Indexado 
 $before = $plugin->getLogos(1);
 check($titleForm->validate(false) && $titleForm->execute(), 'Title save failed');
 check($before === $plugin->getLogos(1), 'Title save overwrote grid data');
-$request->vars = array('verb' => 'grid', 'gridOp' => 'execute');
+$request->vars = array('verb' => 'grid', 'blockId' => 'indexers', 'gridOp' => 'execute');
 check(!$plugin->manage(array(), $request)->getStatus(), 'Unlisted grid operation accepted');
 $request->vars = array('logoId' => 'foreign');
 check(!$grid->deleteLogo(array(), $request)->getStatus(), 'Other journal deletion accepted');
@@ -303,8 +308,8 @@ $page = 'string:<html><body><aside>{sponsors_test_sidebar}</aside><div class="pk
 try {
     $form = new SponsorsBlockSettingsForm($plugin, 1);
     $form->initData();
-    check($form->getData('showAboveFooter') === false, 'Footer option should default to off');
-    $form->setData('showAboveFooter', '1');
+    check($form->getData('placement') === 'sidebar', 'Footer option should default to off');
+    $form->setData('placement', 'both');
     check($form->validate(false) && $form->execute(), 'Could not save footer option');
     $html = $smarty->fetch($page);
     check(substr_count($html, 'id="sponsorsBlockAboveFooter"') === 1, 'Footer strip missing or duplicated');
@@ -318,7 +323,7 @@ try {
     $request->contextId = 2;
     check(strpos($smarty->fetch($page), 'id="sponsorsBlockAboveFooter"') === false, 'Option leaked into another journal');
     $request->contextId = 1;
-    $form->setData('showAboveFooter', null);
+    $form->setData('placement', 'sidebar');
     check($form->validate(false) && $form->execute(), 'Could not disable footer option');
     $html = $smarty->fetch($page);
     check(strpos($html, 'id="sponsorsBlockAboveFooter"') === false && strpos($html, '<img ') !== false, 'Disabling option affected sidebar');

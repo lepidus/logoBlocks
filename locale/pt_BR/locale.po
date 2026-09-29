@@ -22,7 +22,7 @@ msgid "plugins.block.sponsorsBlock.url"
 msgstr "Link (opcional)"
 
 msgid "plugins.block.sponsorsBlock.add"
-msgstr "+ Adicionar logo"
+msgstr "Adicionar logo"
 
 msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Imagem do logo"
@@ -65,7 +65,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "Sem link"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Use “Galeria de logos” para acessar a galeria ou “+ Adicionar logo” para enviar uma imagem. Use as ações de cada linha para editar e excluir. As alterações nos logos são salvas imediatamente. O botão Salvar abaixo grava o título e as opções de exibição."
+msgstr "Use “Galeria de logos” para acessar a galeria ou “Adicionar logo” para enviar uma imagem. Use as ações de cada linha para editar e excluir. As alterações nos logos são salvas imediatamente. O botão Salvar abaixo grava o título e as opções de exibição."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "Para substituir a imagem, selecione um novo arquivo. Deixe o campo vazio para manter o logo atual."
@@ -137,10 +137,55 @@ msgid "plugins.block.sponsorsBlock.urlPlaceholder"
 msgstr "https://exemplo.org/perfil"
 
 msgid "plugins.block.sponsorsBlock.customization"
-msgstr "Personalização"
+msgstr "Personalização do bloco"
 
 msgid "plugins.block.sponsorsBlock.linkHelp"
 msgstr "Insira o link específico do perfil do periódico, ou da página correspondente."
 
 msgid "plugins.block.sponsorsBlock.urlWithHelp"
 msgstr "Link (opcional): Insira o endereço específico do perfil do periódico, ou da página correspondente."
+
+msgid "plugins.block.sponsorsBlock.blocks"
+msgstr "Lista de blocos"
+
+msgid "plugins.block.sponsorsBlock.defaultBlockNotice"
+msgstr "Indexadores: é o bloco padrão do sistema e não pode ser excluído."
+
+msgid "plugins.block.sponsorsBlock.addBlock"
+msgstr "Adicionar bloco"
+
+msgid "plugins.block.sponsorsBlock.createHelp"
+msgstr "Salve o nome do bloco. Depois, clique no lápis para adicionar e organizar suas logos."
+
+msgid "plugins.block.sponsorsBlock.visibility"
+msgstr "Exibir este bloco na revista"
+
+msgid "plugins.block.sponsorsBlock.visibilityError"
+msgstr "Não foi possível salvar. Tente novamente."
+
+msgid "plugins.block.sponsorsBlock.editBlock"
+msgstr "Editar"
+
+msgid "plugins.block.sponsorsBlock.deleteBlock"
+msgstr "Deletar"
+
+msgid "plugins.block.sponsorsBlock.confirmDeleteBlock"
+msgstr "Tem certeza de que deseja deletar este bloco e todas as suas logos?"
+
+msgid "plugins.block.sponsorsBlock.placementSidebar"
+msgstr "Exibir na lateral da revista"
+
+msgid "plugins.block.sponsorsBlock.placementFooter"
+msgstr "Exibir no rodapé da revista"
+
+msgid "plugins.block.sponsorsBlock.placementBoth"
+msgstr "Exibir em ambos os lugares"
+
+msgid "plugins.block.sponsorsBlock.placementRequired"
+msgstr "Selecione onde exibir o bloco."
+
+msgid "plugins.block.sponsorsBlock.moveBlock"
+msgstr "Mover bloco"
+
+msgid "plugins.block.sponsorsBlock.blockOrderHelp"
+msgstr "Arraste pela alça para ordenar os blocos ou use as setas para cima e para baixo."

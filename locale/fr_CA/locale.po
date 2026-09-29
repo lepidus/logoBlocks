@@ -22,7 +22,7 @@ msgid "plugins.block.sponsorsBlock.url"
 msgstr "Lien (facultatif)"
 
 msgid "plugins.block.sponsorsBlock.add"
-msgstr "+ Ajouter un logo"
+msgstr "Ajouter un logo"
 
 msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Image du logo"
@@ -64,7 +64,7 @@ msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "Aucun lien"
 
 msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Utilisez « Galerie de logos » pour ouvrir la galerie ou « + Ajouter un logo » pour téléverser une image. Utilisez les actions de chaque ligne pour modifier et supprimer. Les changements des logos sont enregistrés immédiatement. Le bouton Enregistrer ci-dessous enregistre le titre et les options d’affichage."
+msgstr "Utilisez « Galerie de logos » pour ouvrir la galerie ou « Ajouter un logo » pour téléverser une image. Utilisez les actions de chaque ligne pour modifier et supprimer. Les changements des logos sont enregistrés immédiatement. Le bouton Enregistrer ci-dessous enregistre le titre et les options d’affichage."
 
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "Pour remplacer l’image, sélectionnez un nouveau fichier. Laissez le champ vide pour conserver le logo actuel."
@@ -136,10 +136,55 @@ msgid "plugins.block.sponsorsBlock.urlPlaceholder"
 msgstr "https://exemple.org/profil"
 
 msgid "plugins.block.sponsorsBlock.customization"
-msgstr "Personnalisation"
+msgstr "Personnalisation du bloc"
 
 msgid "plugins.block.sponsorsBlock.linkHelp"
 msgstr "Saisissez le lien spécifique du profil de la revue ou de la page correspondante."
 
 msgid "plugins.block.sponsorsBlock.urlWithHelp"
 msgstr "Lien (facultatif) — Saisissez le lien spécifique du profil de la revue ou de la page correspondante."
+
+msgid "plugins.block.sponsorsBlock.blocks"
+msgstr "Liste des blocs"
+
+msgid "plugins.block.sponsorsBlock.defaultBlockNotice"
+msgstr "Indexeurs : il s’agit du bloc par défaut du système et il ne peut pas être supprimé."
+
+msgid "plugins.block.sponsorsBlock.addBlock"
+msgstr "Ajouter un bloc"
+
+msgid "plugins.block.sponsorsBlock.createHelp"
+msgstr "Enregistrez le nom du bloc. Cliquez ensuite sur le crayon pour ajouter et organiser ses logos."
+
+msgid "plugins.block.sponsorsBlock.visibility"
+msgstr "Afficher ce bloc dans la revue"
+
+msgid "plugins.block.sponsorsBlock.visibilityError"
+msgstr "Impossible d’enregistrer. Veuillez réessayer."
+
+msgid "plugins.block.sponsorsBlock.editBlock"
+msgstr "Modifier"
+
+msgid "plugins.block.sponsorsBlock.deleteBlock"
+msgstr "Supprimer"
+
+msgid "plugins.block.sponsorsBlock.confirmDeleteBlock"
+msgstr "Voulez-vous vraiment supprimer ce bloc et tous ses logos?"
+
+msgid "plugins.block.sponsorsBlock.placementSidebar"
+msgstr "Afficher dans la barre latérale de la revue"
+
+msgid "plugins.block.sponsorsBlock.placementFooter"
+msgstr "Afficher dans le pied de page de la revue"
+
+msgid "plugins.block.sponsorsBlock.placementBoth"
+msgstr "Afficher aux deux endroits"
+
+msgid "plugins.block.sponsorsBlock.placementRequired"
+msgstr "Sélectionnez où afficher le bloc."
+
+msgid "plugins.block.sponsorsBlock.moveBlock"
+msgstr "Déplacer le bloc"
+
+msgid "plugins.block.sponsorsBlock.blockOrderHelp"
+msgstr "Faites glisser la poignée pour réordonner les blocs ou utilisez les flèches haut et bas."
