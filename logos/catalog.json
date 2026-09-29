@@ -43,14 +43,6 @@
 		"name": "LiVRe",
 		"file": "livre.png"
 	},
-	"loremipsum": {
-		"name": "Lorem Ipsum",
-		"file": "loremIpsum.jpg"
-	},
-	"meta": {
-		"name": "Meta",
-		"file": "meta.jpg"
-	},
 	"miar": {
 		"name": "MIAR",
 		"file": "miar.png"
