@@ -4,7 +4,7 @@ msgstr ""
 "Language: es_ES\n"
 
 msgid "plugins.block.sponsorsBlock.displayName"
-msgstr "Bloque de patrocinadores"
+msgstr "Bloques de logos"
 
 msgid "plugins.block.sponsorsBlock.description"
 msgstr "Muestra los logos de patrocinadores e indexadores en la barra lateral, con enlaces opcionales y ajuste automático de tamaño."

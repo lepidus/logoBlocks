@@ -4,7 +4,7 @@ msgstr ""
 "Language: fr_CA\n"
 
 msgid "plugins.block.sponsorsBlock.displayName"
-msgstr "Bloc des commanditaires"
+msgstr "Blocs de logos"
 
 msgid "plugins.block.sponsorsBlock.description"
 msgstr "Affiche les logos des commanditaires et des indexeurs dans la barre latérale, avec des liens facultatifs et un redimensionnement automatique."

@@ -4,7 +4,7 @@ msgstr ""
 "Language: en_US\n"
 
 msgid "plugins.block.sponsorsBlock.displayName"
-msgstr "Sponsors Block"
+msgstr "Logo Blocks"
 
 msgid "plugins.block.sponsorsBlock.description"
 msgstr "Displays sponsor and indexer logos in the sidebar, with optional links and automatic resizing."
