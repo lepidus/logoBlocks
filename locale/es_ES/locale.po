@@ -85,7 +85,7 @@ msgid "plugins.block.sponsorsBlock.choose"
 msgstr "Galería de logos"
 
 msgid "plugins.block.sponsorsBlock.galleryHelp"
-msgstr "Introduzca el enlace específico del perfil de la revista o de la página correspondiente."
+msgstr "Introduzca la dirección específica del perfil de la revista o de la página correspondiente."
 
 msgid "plugins.block.sponsorsBlock.galleryRequired"
 msgstr "Seleccione un logo disponible en la galería."
@@ -121,7 +121,7 @@ msgid "plugins.block.sponsorsBlock.customization"
 msgstr "Personalización del bloque"
 
 msgid "plugins.block.sponsorsBlock.urlWithHelp"
-msgstr "Enlace (opcional) — Introduzca el enlace específico del perfil de la revista o de la página correspondiente."
+msgstr "Enlace (opcional) — Introduzca la dirección específica del perfil de la revista o de la página correspondiente."
 
 msgid "plugins.block.sponsorsBlock.blocks"
 msgstr "Lista de bloques"

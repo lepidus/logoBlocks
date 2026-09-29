@@ -86,7 +86,7 @@ msgid "plugins.block.sponsorsBlock.choose"
 msgstr "Galeria de logos"
 
 msgid "plugins.block.sponsorsBlock.galleryHelp"
-msgstr "Insira o link específico do perfil do periódico, ou da página correspondente."
+msgstr "Insira o endereço específico do perfil do periódico, ou da página correspondente."
 
 msgid "plugins.block.sponsorsBlock.galleryRequired"
 msgstr "Selecione uma logo disponível na galeria."
