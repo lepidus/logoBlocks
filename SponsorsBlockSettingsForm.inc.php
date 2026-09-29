@@ -60,8 +60,11 @@ class SponsorsBlockSettingsForm extends Form
                 'footer' => 'plugins.block.sponsorsBlock.placementFooter',
                 'both' => 'plugins.block.sponsorsBlock.placementBoth',
             ),
-            'sponsorsSettingsUrl' => $this->plugin->getManageUrl($request, $this->newBlock ? 'addBlock' : 'editBlock',
-                array('blockId' => $this->plugin->getBlockId(), 'save' => 1)),
+            'sponsorsSettingsUrl' => $this->plugin->getManageUrl(
+                $request,
+                $this->newBlock ? 'addBlock' : 'editBlock',
+                array('blockId' => $this->plugin->getBlockId(), 'save' => 1)
+            ),
             'sponsorsBlockGridUrl' => $this->plugin->getGridUrl($request, 'fetchGrid'),
         ));
         return parent::fetch($request, $template, $display);

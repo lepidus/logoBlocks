@@ -71,9 +71,14 @@ class SponsorsBlockPlugin extends BlockPlugin
 
     public function getManageUrl($request, $verb, $params = array())
     {
-        return $request->getRouter()->url($request, null,
-            'grid.settings.plugins.SettingsPluginGridHandler', 'manage', null,
-            array_merge($params, array('category' => 'blocks', 'plugin' => $this->getName(), 'verb' => $verb)));
+        return $request->getRouter()->url(
+            $request,
+            null,
+            'grid.settings.plugins.SettingsPluginGridHandler',
+            'manage',
+            null,
+            array_merge($params, array('category' => 'blocks', 'plugin' => $this->getName(), 'verb' => $verb))
+        );
     }
 
     public function getDisplayName()

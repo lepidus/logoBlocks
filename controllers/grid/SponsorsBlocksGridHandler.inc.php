@@ -35,7 +35,8 @@ class SponsorsBlocksGridHandler extends GridHandler
         import('lib.pkp.classes.linkAction.request.AjaxModal');
         $this->addAction(new LinkAction('addBlock', new AjaxModal(
             $this->plugin->getManageUrl($request, 'addBlock'),
-            __('plugins.block.sponsorsBlock.addBlock'), 'modal_add_item'
+            __('plugins.block.sponsorsBlock.addBlock'),
+            'modal_add_item'
         ), __('plugins.block.sponsorsBlock.addBlock'), 'add_item'));
         $this->addColumn(new GridColumn('title', 'plugins.block.sponsorsBlock.title'));
     }

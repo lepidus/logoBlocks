@@ -11,7 +11,7 @@ $settings = array(1 => array('title' => array('en_US' => 'Indexers'), 'logos' =>
 $plugin = new GridTestPlugin();
 $plugin->pluginPath = dirname(__DIR__);
 // Scoped plugin copies share the persistence double, just as they share the DAO.
-$plugin->settings =& $settings;
+$plugin->settings = & $settings;
 $request->contextId = 1;
 $request->vars = array('verb' => 'addBlock', 'save' => '1', 'placement' => 'sidebar', 'title' => array('en_US' => 'Sponsors', 'pt_BR' => 'Patrocinadores'));
 $before = $settings;
