@@ -9,9 +9,6 @@ msgstr "Logo Blocks"
 msgid "plugins.block.sponsorsBlock.description"
 msgstr "Displays sponsor and indexer logos in the sidebar, with optional links and automatic resizing."
 
-msgid "plugins.block.sponsorsBlock.instructions"
-msgstr "Add one logo at a time and save. Logos appear in the order they are added. To replace a logo, mark it for removal and upload a new image."
-
 msgid "plugins.block.sponsorsBlock.title"
 msgstr "Block title"
 
@@ -26,9 +23,6 @@ msgstr "Add logo"
 
 msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Logo image"
-
-msgid "plugins.block.sponsorsBlock.imageHelp"
-msgstr "PNG, JPEG or GIF, up to 5 MB and 12 million pixels. Images are saved as PNG at 150 px wide with proportional height (up to 3000 px). Transparency is preserved; GIFs use only the first frame. After an error, select the file again before saving."
 
 msgid "plugins.block.sponsorsBlock.requiredName"
 msgstr "Enter a title of up to 200 characters."
@@ -64,17 +58,11 @@ msgstr "Link"
 msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "No link"
 
-msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Use “Logo gallery” to open the gallery or “Add logo” to upload an image. Use row actions to edit and delete. Logo changes are saved immediately. The Save button below saves the title and display options."
-
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "To replace the image, select a new file. Leave the field empty to keep the current logo."
 
 msgid "plugins.block.sponsorsBlock.notFound"
 msgstr "This logo is no longer available. Reopen the settings and try again."
-
-msgid "plugins.block.sponsorsBlock.showAboveFooter"
-msgstr "Also display the block above the footer."
 
 msgid "plugins.block.sponsorsBlock.orderHelp"
 msgstr "Drag logos by the dotted handle to change their order"
@@ -106,14 +94,8 @@ msgstr "Select an available logo from the gallery."
 msgid "plugins.block.sponsorsBlock.galleryEmpty"
 msgstr "No logos available in the gallery."
 
-msgid "plugins.block.sponsorsBlock.useLogo"
-msgstr "Use logo"
-
 msgid "plugins.block.sponsorsBlock.crop"
 msgstr "Crop borders"
-
-msgid "plugins.block.sponsorsBlock.cropHelp"
-msgstr "Select to remove uniform-color or transparent margins. The preview shows the result before saving. When editing, select a new image to apply cropping."
 
 msgid "plugins.block.sponsorsBlock.preview"
 msgstr "Image preview"
@@ -138,9 +120,6 @@ msgstr "https://example.org/profile"
 
 msgid "plugins.block.sponsorsBlock.customization"
 msgstr "Block customization"
-
-msgid "plugins.block.sponsorsBlock.linkHelp"
-msgstr "Enter the specific link to the journal profile or the corresponding page."
 
 msgid "plugins.block.sponsorsBlock.urlWithHelp"
 msgstr "Link (optional) — Enter the specific link to the journal profile or the corresponding page."

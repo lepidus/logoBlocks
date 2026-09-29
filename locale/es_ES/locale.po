@@ -9,9 +9,6 @@ msgstr "Bloques de logos"
 msgid "plugins.block.sponsorsBlock.description"
 msgstr "Muestra los logos de patrocinadores e indexadores en la barra lateral, con enlaces opcionales y ajuste automático de tamaño."
 
-msgid "plugins.block.sponsorsBlock.instructions"
-msgstr "Añada un logo a la vez y guarde. Los logos aparecen en el orden en que se añaden. Para sustituir un logo, márquelo para eliminarlo y suba una nueva imagen."
-
 msgid "plugins.block.sponsorsBlock.title"
 msgstr "Título del bloque"
 
@@ -26,9 +23,6 @@ msgstr "Añadir logo"
 
 msgid "plugins.block.sponsorsBlock.logo"
 msgstr "Imagen del logo"
-
-msgid "plugins.block.sponsorsBlock.imageHelp"
-msgstr "PNG, JPEG o GIF, hasta 5 MB y 12 millones de píxeles. Las imágenes se guardan como PNG con un ancho de 150 px y altura proporcional (hasta 3000 px). Se conserva la transparencia; los GIF utilizan solo el primer fotograma. Si ocurre un error, seleccione el archivo de nuevo antes de guardar."
 
 msgid "plugins.block.sponsorsBlock.requiredName"
 msgstr "Introduzca un título de hasta 200 caracteres."
@@ -63,17 +57,11 @@ msgstr "Enlace"
 msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "Sin enlace"
 
-msgid "plugins.block.sponsorsBlock.gridHelp"
-msgstr "Use “Galería de logos” para abrir la galería o “Añadir logo” para subir una imagen. Use las acciones de cada fila para editar y eliminar. Los cambios en los logos se guardan inmediatamente. El botón Guardar inferior guarda el título y las opciones de visualización."
-
 msgid "plugins.block.sponsorsBlock.replaceHelp"
 msgstr "Para sustituir la imagen, seleccione un nuevo archivo. Deje el campo vacío para conservar el logo actual."
 
 msgid "plugins.block.sponsorsBlock.notFound"
 msgstr "Este logo ya no está disponible. Vuelva a abrir la configuración e inténtelo de nuevo."
-
-msgid "plugins.block.sponsorsBlock.showAboveFooter"
-msgstr "Mostrar el bloque también encima del pie de página."
 
 msgid "plugins.block.sponsorsBlock.orderHelp"
 msgstr "Arrastre los logos por el asa de puntos para cambiar su orden"
@@ -105,14 +93,8 @@ msgstr "Seleccione un logo disponible en la galería."
 msgid "plugins.block.sponsorsBlock.galleryEmpty"
 msgstr "No hay logos disponibles en la galería."
 
-msgid "plugins.block.sponsorsBlock.useLogo"
-msgstr "Usar logo"
-
 msgid "plugins.block.sponsorsBlock.crop"
 msgstr "Recortar bordes"
-
-msgid "plugins.block.sponsorsBlock.cropHelp"
-msgstr "Marque para eliminar márgenes de color uniforme o transparentes. La vista previa muestra el resultado antes de guardar. Al editar, seleccione una nueva imagen para aplicar el recorte."
 
 msgid "plugins.block.sponsorsBlock.preview"
 msgstr "Vista previa de la imagen"
@@ -137,9 +119,6 @@ msgstr "https://ejemplo.org/perfil"
 
 msgid "plugins.block.sponsorsBlock.customization"
 msgstr "Personalización del bloque"
-
-msgid "plugins.block.sponsorsBlock.linkHelp"
-msgstr "Introduzca el enlace específico del perfil de la revista o de la página correspondiente."
 
 msgid "plugins.block.sponsorsBlock.urlWithHelp"
 msgstr "Enlace (opcional) — Introduzca el enlace específico del perfil de la revista o de la página correspondiente."
