@@ -51,6 +51,8 @@
 	$.pkp.controllers.grid.SponsorsBlocksGridHandler = function ($grid, options) {
 		this.parent($grid, options);
 		$grid.addClass('sponsors-sortable-blocks');
+		// Keep the notice inside the element replaced when the grid refreshes.
+		$grid.prevAll('.sponsors-blocks-default-note').first().prependTo($grid);
 		var $focusedHandle = null;
 		var $body = $grid.find('tbody').not('.empty').first();
 		var $messages = $grid.prevAll('.sponsors-block-order-messages').first();
