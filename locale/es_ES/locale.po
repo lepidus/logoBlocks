@@ -167,3 +167,6 @@ msgstr "Mover bloque"
 
 msgid "plugins.block.sponsorsBlock.blockOrderHelp"
 msgstr "Arrastre el asa para ordenar los bloques o use las flechas arriba y abajo."
+
+msgid "plugins.block.sponsorsBlock.updateLogo"
+msgstr "Actualizar logo"

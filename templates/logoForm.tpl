@@ -41,9 +41,6 @@ $(function() {
 	{fbvFormArea id="sponsorsBlockLogoDetails"}
 		{fbvElement type="text" id="name" value=$name label="plugins.block.sponsorsBlock.name" required=true maxlength="200"}
 		{fbvElement type="text" id="url" value=$url label="plugins.block.sponsorsBlock.urlWithHelp" placeholder="plugins.block.sponsorsBlock.urlPlaceholder"}
-		{if $currentLogoUrl}
-			<p>{translate key="plugins.block.sponsorsBlock.replaceHelp"}</p>
-		{/if}
 	{/fbvFormArea}
 	{include file=$logoPreviewTemplate previewFormId="sponsorsBlockLogoForm"}
 	{fbvFormButtons submitText="common.save"}

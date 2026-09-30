@@ -1,10 +1,18 @@
 <style>
 {literal}
 .sponsors-logo-preview { margin: 24px 0; }
+.sponsors-logo-editor { display: flex; align-items: flex-start; gap: 24px; }
+.sponsors-current-logo { flex: 0 0 200px; }
+.sponsors-current-logo img { display: block; width: 150px; height: auto; max-width: 100%; max-height: 150px; object-fit: contain; }
+.pkp_form .sponsors-update-logo { display: block; margin-top: 12px; }
+.sponsors-logo-upload { flex: 1; min-width: 0; }
+.sponsors-logo-upload[hidden] { display: none; }
 .sponsors-upload-row { display: grid; grid-template-columns: 200px minmax(0, 1fr); grid-template-areas: "preview crop"; align-items: center; gap: 20px 24px; }
 .sponsors-upload-row.has-upload { grid-template-areas: "picker info" "preview crop"; }
 .sponsors-upload-picker { grid-area: picker; min-width: 0; }
 .pkp_form .sponsors-select-logo { position: relative; display: inline-flex; width: 100%; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; padding: 10px 16px; border: 1px solid #aaa; border-radius: 6px; background: #f5f5f5; color: #222; cursor: pointer; font-weight: normal; }
+.sponsors-select-logo span { white-space: nowrap; }
+.sponsors-select-logo svg { flex-shrink: 0; }
 .sponsors-select-logo:hover { background: #e9eef2; }
 .sponsors-select-logo:focus-within { outline: 2px solid #006798; outline-offset: 3px; }
 .pkp_form .sponsors-select-logo input[type="file"] { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; margin: 0; padding: 0; }
@@ -26,6 +34,9 @@
 .sponsors-crop-switch input:disabled ~ span { opacity: .55; cursor: default; }
 .sponsors-crop-help { margin: 8px 0 0; color: #555; }
 @media (max-width: 600px) {
+    .sponsors-logo-editor { flex-direction: column; }
+    .sponsors-logo-upload { width: 100%; }
+    .sponsors-logo-editor.is-editing .sponsors-upload-row { grid-template-columns: minmax(0, 1fr); }
     .sponsors-upload-row { grid-template-columns: minmax(0, 1fr); grid-template-areas: "preview" "crop"; gap: 16px; }
     .sponsors-upload-row.has-upload { grid-template-areas: "picker" "info" "preview" "crop"; }
     .sponsors-upload-picker { max-width: 200px; }
@@ -34,6 +45,16 @@
 {/literal}
 </style>
 <div class="sponsors-logo-preview">
+	<div class="sponsors-logo-editor{if $currentLogoUrl} is-editing{/if}">
+		{if $currentLogoUrl}
+			<div class="sponsors-current-logo">
+				<div class="sponsors-preview-frame">
+					<img src="{$currentLogoUrl|escape}" alt="{$name|escape}" width="150">
+				</div>
+				<button type="button" class="pkp_button sponsors-update-logo" aria-expanded="false" aria-controls="{$previewFormId|escape}-upload">{translate key="plugins.block.sponsorsBlock.updateLogo"}</button>
+			</div>
+		{/if}
+		<div class="sponsors-logo-upload" id="{$previewFormId|escape}-upload" {if $currentLogoUrl}hidden{/if}>
 	<div class="sponsors-upload-row{if $previewFormId == 'sponsorsBlockLogoForm'} has-upload{/if}">
 		{if $previewFormId == 'sponsorsBlockLogoForm'}
 			<div class="sponsors-upload-picker">
@@ -51,10 +72,10 @@
 			</div>
 		{/if}
 		<div class="sponsors-preview-frame">
-			<svg class="sponsors-preview-placeholder" {if $currentLogoUrl}style="display: none;"{/if} width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="8" cy="8" r="2"/><path d="m3 19 6-6 4 4 4-6 5 8"/></svg>
-			<figure class="sponsors-preview-result" {if !$currentLogoUrl}style="display: none;"{/if}>
+			<svg class="sponsors-preview-placeholder" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="8" cy="8" r="2"/><path d="m3 19 6-6 4 4 4-6 5 8"/></svg>
+			<figure class="sponsors-preview-result" style="display: none;">
 				<figcaption class="pkp_screen_reader">{translate key="plugins.block.sponsorsBlock.preview"}</figcaption>
-				<img {if $currentLogoUrl}src="{$currentLogoUrl|escape}"{/if} alt="{translate key="plugins.block.sponsorsBlock.preview"}" width="150">
+				<img alt="{translate key="plugins.block.sponsorsBlock.preview"}" width="150">
 			</figure>
 		</div>
 		{if $previewFormId == 'sponsorsBlockLogoForm'}
@@ -70,7 +91,8 @@
 	</div>
 	<p class="sponsors-preview-loading" role="status" style="display: none;">{translate key="plugins.block.sponsorsBlock.previewLoading"}</p>
 	<p class="sponsors-preview-error pkp_form_error" role="alert" style="display: none;">{translate key="plugins.block.sponsorsBlock.previewError"}</p>
-
+		</div>
+	</div>
 </div>
 <script>
 $(function() {ldelim}
@@ -80,11 +102,16 @@ $(function() {ldelim}
 	var $result = $form.find('.sponsors-preview-result');
 	var $image = $result.find('img');
 	var $placeholder = $form.find('.sponsors-preview-placeholder');
-	var currentImage = $image.attr('src');
 	var $loading = $form.find('.sponsors-preview-loading');
 	var $error = $form.find('.sponsors-preview-error');
 	var pending = null;
 	var revision = 0;
+
+	$form.on('click', '.sponsors-update-logo', function() {
+		$form.find('.sponsors-logo-upload').prop('hidden', false);
+		$(this).attr('aria-expanded', 'true');
+		$form.find('[name="logo"]').trigger('focus');
+	});
 
 	function updatePreview() {
 		var requestRevision = ++revision;
@@ -99,13 +126,8 @@ $(function() {ldelim}
 		var hasImage = fileInput ? fileInput.files.length > 0 : $form.find('[name="galleryId"]:checked').length > 0;
 		$crop.prop('disabled', !hasImage);
 		if (!hasImage) {
-			$placeholder.toggle(!currentImage);
-			if (currentImage) {
-				$image.attr('src', currentImage);
-				$result.show();
-			} else {
-				$result.hide();
-			}
+			$placeholder.show();
+			$result.hide();
 			return;
 		}
 		$result.hide();

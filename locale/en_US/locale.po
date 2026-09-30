@@ -168,3 +168,6 @@ msgstr "Move block"
 
 msgid "plugins.block.sponsorsBlock.blockOrderHelp"
 msgstr "Drag the handle to reorder blocks or use the up and down arrow keys."
+
+msgid "plugins.block.sponsorsBlock.updateLogo"
+msgstr "Update logo"
