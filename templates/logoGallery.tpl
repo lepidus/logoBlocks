@@ -16,13 +16,19 @@ $(function() {ldelim}
 {literal}
 	var $linkArea = $form.find('.sponsors-gallery-link');
 	var $url = $linkArea.find('[name="url"]');
+	var $description = $linkArea.find('[name="description"]');
 	var selectedId = $form.find('[name="galleryId"]:checked').val();
 	var links = Object.create(null);
+	var descriptions = Object.create(null);
 	$linkArea.prop('hidden', !selectedId);
 	$form.on('change', '[name="galleryId"]', function() {
-		if (selectedId) { links[selectedId] = $url.val(); }
+		if (selectedId) {
+			links[selectedId] = $url.val();
+			descriptions[selectedId] = $description.val();
+		}
 		selectedId = this.value;
 		$url.val(Object.prototype.hasOwnProperty.call(links, selectedId) ? links[selectedId] : '');
+		$description.val(Object.prototype.hasOwnProperty.call(descriptions, selectedId) ? descriptions[selectedId] : '');
 		$linkArea.prop('hidden', false);
 	});
 {/literal}
@@ -48,6 +54,8 @@ $(function() {ldelim}
 		<p><label for="sponsorsGalleryUrl">{translate key="plugins.block.sponsorsBlock.url"}</label></p>
 		<input type="text" inputmode="url" id="sponsorsGalleryUrl" name="url" aria-describedby="sponsorsGalleryHelp" value="{$url|escape}" style="box-sizing: border-box; width: 100%;" placeholder="{translate key="plugins.block.sponsorsBlock.urlPlaceholder"}">
 		<p id="sponsorsGalleryHelp">{translate key="plugins.block.sponsorsBlock.galleryHelp"}</p>
+		<p><label for="sponsorsGalleryDescription">{translate key="plugins.block.sponsorsBlock.logoDescription"}</label></p>
+		<input type="text" id="sponsorsGalleryDescription" name="description" maxlength="100" value="{$description|escape}" style="box-sizing: border-box; width: 100%;">
 	</div>
 	{if $logoCatalog}{fbvFormButtons submitText="common.save"}{/if}
 </form>

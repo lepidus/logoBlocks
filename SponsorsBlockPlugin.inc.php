@@ -60,6 +60,12 @@ class SponsorsBlockPlugin extends BlockPlugin
         return $footer ? ($sidebar === null || $sidebar ? 'both' : 'footer') : 'sidebar';
     }
 
+    public function getDescriptionPlacement($contextId)
+    {
+        $placement = $this->getBlockSetting($contextId, 'descriptionPlacement');
+        return in_array($placement, array('sidebar', 'footer', 'both'), true) ? $placement : 'none';
+    }
+
     public function registerBlock($contextId)
     {
         $ids = $this->getBlockIds($contextId);
@@ -213,7 +219,7 @@ class SponsorsBlockPlugin extends BlockPlugin
         $ids = array_values(array_diff($this->getBlockIds($contextId), array($this->blockId)));
         $this->updateSetting($contextId, 'logoBlocks', array_values(array_diff($ids, array('indexers'))), 'object');
         $this->updateSetting($contextId, 'logoBlockOrder', $ids, 'object');
-        foreach (array('title', 'logos', 'visible', 'showSidebar', 'showAboveFooter', 'grayscaleLogos') as $name) {
+        foreach (array('title', 'logos', 'visible', 'showSidebar', 'showAboveFooter', 'grayscaleLogos', 'descriptionPlacement') as $name) {
             $this->deleteBlockSetting($contextId, $name);
         }
         import('classes.file.PublicFileManager');
@@ -311,6 +317,7 @@ class SponsorsBlockPlugin extends BlockPlugin
             'sponsorsBlockId' => $this->blockId,
             'sponsorsBlockTitle' => $this->getBlockTitle($contextId),
             'sponsorsBlockLogos' => $this->getLogos($contextId),
+            'sponsorsDescriptionPlacement' => $this->getDescriptionPlacement($contextId),
             'sponsorsBlockGrayscale' => (bool) $this->getBlockSetting($contextId, 'grayscaleLogos'),
             'sponsorsBlockPublicUrl' => $this->getPublicUrl($request, $contextId),
         ));

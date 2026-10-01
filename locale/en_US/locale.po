@@ -174,3 +174,18 @@ msgstr "Acronym (optional)"
 
 msgid "plugins.block.sponsorsBlock.invalidAcronym"
 msgstr "Enter an acronym of up to 30 characters or leave the field empty."
+
+msgid "plugins.block.sponsorsBlock.logoDescription"
+msgstr "Description (optional)"
+
+msgid "plugins.block.sponsorsBlock.descriptionPlacement"
+msgstr "Logo description display"
+
+msgid "plugins.block.sponsorsBlock.descriptionHidden"
+msgstr "Do not display"
+
+msgid "plugins.block.sponsorsBlock.descriptionPlacementRequired"
+msgstr "Select where to display logo descriptions."
+
+msgid "plugins.block.sponsorsBlock.invalidDescription"
+msgstr "Enter a description of up to 100 characters or leave the field empty."

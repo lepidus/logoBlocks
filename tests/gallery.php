@@ -121,13 +121,15 @@ foreach (array('csrf', 'translate', 'fbvFormButtons') as $tag) {
 $smarty->assign(array('logoFormUrl' => '/manage?gridOp=addGalleryLogo', 'logoCatalog' => $catalog,
     'logoPreviewTemplate' => dirname(__DIR__) . '/templates/logoPreview.tpl',
     'logoPreviewUrl' => '/manage?gridOp=previewLogo', 'crop' => false, 'currentLogoUrl' => '',
-    'logoCatalogUrl' => '/plugins/blocks/sponsors/logos', 'galleryId' => 'doaj', 'url' => 'https://example.org/journal', 'isError' => false));
+    'logoCatalogUrl' => '/plugins/blocks/sponsors/logos', 'galleryId' => 'doaj', 'description' => 'Descrição <teste>', 'url' => 'https://example.org/journal', 'isError' => false));
 try {
     $html = $smarty->fetch(dirname(__DIR__) . '/templates/logoGallery.tpl');
     check(preg_match('/<input\b[^>]*name="crop"/', $html) === 0 && strpos($html, 'sponsors-preview-result') === false, 'Gallery must not render an extra preview or crop control');
     check(substr_count($html, 'type="radio"') === count($catalog), 'Gallery did not render all logos');
     check(preg_match('/value="doaj"[^>]*\schecked/', $html) === 1, 'Selection lost on redisplay');
     check(strpos($html, 'value="https://example.org/journal"') !== false, 'Page link lost on redisplay');
+    check(strpos($html, 'name="description" maxlength="100" value="Descrição &lt;teste&gt;"') !== false, 'Description limit, escaping or redisplay failed');
+    check(strpos($html, 'id="sponsorsGalleryUrl"') < strpos($html, 'id="sponsorsGalleryDescription"'), 'Description must follow the link field');
     check(strpos($html, '<strong>DOAJ</strong>') !== false, 'Gallery acronym missing');
     check(strpos($html, 'Directory of Open Access Journals') === false, 'Gallery must not show expanded names');
     $catalog['doaj']['name'] = '<script>bad</script>';

@@ -173,3 +173,18 @@ msgstr "Sigle (facultatif)"
 
 msgid "plugins.block.sponsorsBlock.invalidAcronym"
 msgstr "Saisissez un sigle de 30 caractères maximum ou laissez le champ vide."
+
+msgid "plugins.block.sponsorsBlock.logoDescription"
+msgstr "Description (facultative)"
+
+msgid "plugins.block.sponsorsBlock.descriptionPlacement"
+msgstr "Affichage de la description des logos"
+
+msgid "plugins.block.sponsorsBlock.descriptionHidden"
+msgstr "Ne pas afficher"
+
+msgid "plugins.block.sponsorsBlock.descriptionPlacementRequired"
+msgstr "Sélectionnez où afficher les descriptions des logos."
+
+msgid "plugins.block.sponsorsBlock.invalidDescription"
+msgstr "Saisissez une description de 100 caractères maximum ou laissez le champ vide."

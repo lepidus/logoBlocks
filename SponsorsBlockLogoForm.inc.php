@@ -32,11 +32,12 @@ class SponsorsBlockLogoForm extends Form
         $this->setData('name', $logo['name']);
         $this->setData('acronym', isset($logo['acronym']) ? $logo['acronym'] : '');
         $this->setData('url', $logo['url']);
+        $this->setData('description', isset($logo['description']) ? $logo['description'] : '');
     }
 
     public function readInputData()
     {
-        $this->readUserVars(array('name', 'acronym', 'url', 'galleryId', 'crop'));
+        $this->readUserVars(array('name', 'acronym', 'description', 'url', 'galleryId', 'crop'));
     }
 
     public function validate($callHooks = true)
@@ -47,12 +48,15 @@ class SponsorsBlockLogoForm extends Form
         if (!$this->prepareImage()) {
             return false;
         }
-        foreach (array('name', 'acronym', 'url') as $field) {
+        foreach (array('name', 'acronym', 'description', 'url') as $field) {
             $value = $this->getData($field);
             $this->setData($field, is_string($value) ? trim($value) : '');
         }
         if (mb_strlen($this->getData('acronym')) > 30) {
             $this->addError('acronym', __('plugins.block.sponsorsBlock.invalidAcronym'));
+        }
+        if (mb_strlen($this->getData('description')) > 100) {
+            $this->addError('description', __('plugins.block.sponsorsBlock.invalidDescription'));
         }
         $name = $this->getData('name');
         $url = $this->getData('url');
@@ -162,7 +166,7 @@ class SponsorsBlockLogoForm extends Form
                 return false;
             }
         }
-        $logos[$id] = array('file' => $file, 'name' => $this->getData('name'), 'acronym' => $this->getData('acronym'), 'url' => $this->getData('url'));
+        $logos[$id] = array('file' => $file, 'name' => $this->getData('name'), 'acronym' => $this->getData('acronym'), 'url' => $this->getData('url'), 'description' => $this->getData('description'));
         $this->plugin->updateBlockSetting($this->contextId, 'logos', $logos, 'object');
         if ($oldFile !== null && $oldFile !== $file) {
             $manager->removeContextFile($this->contextId, $oldFile);

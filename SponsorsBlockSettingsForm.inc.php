@@ -16,6 +16,7 @@ class SponsorsBlockSettingsForm extends Form
         $this->contextId = $contextId;
         parent::__construct($plugin->getTemplateResource('settingsForm.tpl'));
         $this->setData('placement', $plugin->getBlockPlacement($contextId));
+        $this->setData('descriptionPlacement', $plugin->getDescriptionPlacement($contextId));
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
         $this->addCheck(new FormValidatorLocale($this, 'title', 'required', 'plugins.block.sponsorsBlock.requiredName'));
@@ -24,19 +25,26 @@ class SponsorsBlockSettingsForm extends Form
     public function initData()
     {
         $this->setData('title', $this->plugin->getBlockTitles($this->contextId));
+        $this->setData('descriptionPlacement', $this->plugin->getDescriptionPlacement($this->contextId));
         $this->setData('grayscaleLogos', (bool) $this->plugin->getBlockSetting($this->contextId, 'grayscaleLogos'));
         $this->setData('placement', $this->plugin->getBlockPlacement($this->contextId));
     }
 
     public function readInputData()
     {
-        $this->readUserVars(array('title', 'placement', 'grayscaleLogos'));
+        $this->readUserVars(array('title', 'placement', 'descriptionPlacement', 'grayscaleLogos'));
     }
 
     public function validate($callHooks = true)
     {
         if (!in_array($this->getData('placement'), array('sidebar', 'footer', 'both'), true)) {
             $this->addError('placement', __('plugins.block.sponsorsBlock.placementRequired'));
+        }
+        if ($this->getData('descriptionPlacement') === null) {
+            $this->setData('descriptionPlacement', $this->plugin->getDescriptionPlacement($this->contextId));
+        }
+        if (!in_array($this->getData('descriptionPlacement'), array('none', 'sidebar', 'footer', 'both'), true)) {
+            $this->addError('descriptionPlacement', __('plugins.block.sponsorsBlock.descriptionPlacementRequired'));
         }
         $input = $this->getData('title');
         $titles = array();
@@ -55,6 +63,12 @@ class SponsorsBlockSettingsForm extends Form
     {
         TemplateManager::getManager($request)->assign(array(
             'sponsorsNewBlock' => $this->newBlock,
+            'sponsorsDescriptionPlacementOptions' => array(
+                'none' => 'plugins.block.sponsorsBlock.descriptionHidden',
+                'sidebar' => 'plugins.block.sponsorsBlock.placementSidebar',
+                'footer' => 'plugins.block.sponsorsBlock.placementFooter',
+                'both' => 'plugins.block.sponsorsBlock.placementBoth',
+            ),
             'sponsorsBlockPlacementOptions' => array(
                 'sidebar' => 'plugins.block.sponsorsBlock.placementSidebar',
                 'footer' => 'plugins.block.sponsorsBlock.placementFooter',
@@ -88,6 +102,7 @@ class SponsorsBlockSettingsForm extends Form
             in_array($this->getData('grayscaleLogos'), array('1', 1, true), true),
             'bool'
         );
+        $this->plugin->updateBlockSetting($this->contextId, 'descriptionPlacement', $this->getData('descriptionPlacement'), 'string');
         if ($this->newBlock) {
             $this->plugin->registerBlock($this->contextId);
         }

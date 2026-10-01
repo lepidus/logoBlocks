@@ -41,6 +41,7 @@ $(function() {
 	{fbvFormArea id="sponsorsBlockLogoDetails"}
 		{fbvElement type="text" id="name" value=$name label="plugins.block.sponsorsBlock.name" required=true maxlength="200"}
 		{fbvElement type="text" id="acronym" value=$acronym label="plugins.block.sponsorsBlock.acronym" maxlength="30"}
+		{fbvElement type="text" id="description" value=$description label="plugins.block.sponsorsBlock.logoDescription" maxlength="100"}
 		{fbvElement type="text" id="url" value=$url label="plugins.block.sponsorsBlock.urlWithHelp" placeholder="plugins.block.sponsorsBlock.urlPlaceholder"}
 	{/fbvFormArea}
 	{include file=$logoPreviewTemplate previewFormId="sponsorsBlockLogoForm"}

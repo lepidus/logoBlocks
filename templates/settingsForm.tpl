@@ -50,6 +50,9 @@
 			{fbvElement type="select" id="placement" from=$sponsorsBlockPlacementOptions selected=$placement label="plugins.block.sponsorsBlock.placementRequired" required=true}
 		{/fbvFormSection}
 		{fbvFormSection list=true}
+			{fbvElement type="select" id="descriptionPlacement" from=$sponsorsDescriptionPlacementOptions selected=$descriptionPlacement label="plugins.block.sponsorsBlock.descriptionPlacement" required=true}
+		{/fbvFormSection}
+		{fbvFormSection list=true}
 			{fbvElement type="checkbox" id="grayscaleLogos" value="1" checked=$grayscaleLogos label="plugins.block.sponsorsBlock.grayscaleLogos"}
 		{/fbvFormSection}
 		{fbvFormButtons submitText="common.save"}

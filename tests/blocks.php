@@ -58,10 +58,23 @@ $request->vars = array('data' => '["b","a"]');
 check($grid->saveSequence(array(), $request)->getStatus(), 'New block order save failed');
 check(array_keys($block->getLogos(1)) === array('b', 'a'), 'New block order lost');
 $form = new SponsorsBlockLogoForm($block, 1, 'a');
+$form->initData();
+check($form->getData('description') === '', 'Legacy logo description should be empty');
+$form->setData('description', "Descrição <script>alert(1)</script>\nSegunda linha");
 $form->setData('name', 'Changed sponsor');
 $form->setData('url', 'https://example.org');
 check($form->validate(false) && $form->execute(), 'New block logo edit failed');
 check($block->getLogos(1)['a']['name'] === 'Changed sponsor', 'Edited wrong logo');
+$editedForm = new SponsorsBlockLogoForm($block, 1, 'a');
+$editedForm->initData();
+check($editedForm->getData('description') === $form->getData('description'), 'Description lost after saving/reopening');
+foreach (array(100 => true, 101 => false) as $length => $valid) {
+    $limitForm = new SponsorsBlockLogoForm($block, 1, 'a');
+    $limitForm->initData();
+    $limitForm->setData('description', str_repeat('á', $length));
+    check($limitForm->validate(false) === $valid, 'Description character limit failed');
+}
+echo "PASS: description accepts 100 accented characters and rejects 101\n";
 $request->vars = array('logoId' => 'existing');
 check(!$grid->deleteLogo(array(), $request)->getStatus(), 'Other block deletion accepted');
 $titleForm = new SponsorsBlockSettingsForm($block, 1);
@@ -189,6 +202,32 @@ try {
             check(strpos($renderedPage, 'filter: grayscale(100%)') !== false, 'Footer-only grayscale missing');
         }
     }
+    check($block->getDescriptionPlacement(1) === 'none', 'Description should be hidden by default');
+    foreach (array('none', 'sidebar', 'footer', 'both') as $descriptionPlacement) {
+        $descriptionForm = new SponsorsBlockSettingsForm($block, 1);
+        $descriptionForm->initData();
+        $descriptionForm->setData('descriptionPlacement', $descriptionPlacement);
+        check($descriptionForm->validate(false) && $descriptionForm->execute(), 'Description placement save failed');
+        check($block->getDescriptionPlacement(1) === $descriptionPlacement, 'Description placement lost');
+        check($plugin->getDescriptionPlacement(1) === 'none', 'Description placement leaked to original block');
+        $renderedPage = $smarty->fetch($fullPage);
+        preg_match('/<aside>(.*?)<\/aside>/s', $renderedPage, $sidebar);
+        $footer = substr($renderedPage, strpos($renderedPage, '</aside>'));
+        foreach (array('sidebar' => $sidebar[1], 'footer' => $footer) as $location => $fragment) {
+            $visibleDescription = $descriptionPlacement === $location || $descriptionPlacement === 'both';
+            check((strpos($fragment, 'Descrição &lt;script&gt;alert(1)&lt;/script&gt;') !== false) === $visibleDescription, 'Description rendered in wrong location');
+            check(strpos($fragment, '<script>alert(1)</script>') === false, 'Description contains executable HTML');
+            check(substr_count($fragment, 'class="sponsorsBlockDescription"') === ($visibleDescription ? 1 : 0), 'Empty description generated markup');
+        }
+    }
+    foreach (array('invalid', array('both')) as $invalid) {
+        $descriptionForm->setData('descriptionPlacement', $invalid);
+        check(!$descriptionForm->validate(false), 'Invalid description placement accepted');
+    }
+    $editedForm->setData('description', '');
+    check($editedForm->validate(false) && $editedForm->execute(), 'Description clearing failed');
+    check($block->getLogos(1)['a']['description'] === '', 'Description was not cleared');
+    echo "PASS: description persistence, default, four placements, block isolation, escaped HTML, empty descriptions and clearing\n";
     $plugin->updateBlockSetting(1, 'visible', true, 'bool');
     echo "PASS: sidebar/footer/both rendered through the full-page filter, public ordering and footer-only grayscale\n";
     $plugin->updateBlockSetting(1, 'logos', array(), 'object');
@@ -250,7 +289,7 @@ try {
     check($plugin->getBlockIds(1) === array('indexers'), 'Deleted block remains registered or ordered');
     check(!is_file(Config::$publicDir . '/journals/1/' . $firstFile)
         && !is_file(Config::$publicDir . '/journals/1/' . $secondFile), 'Deleted block files remain public');
-    foreach (array('title', 'logos', 'visible', 'showSidebar', 'showAboveFooter', 'grayscaleLogos') as $name) {
+    foreach (array('title', 'logos', 'visible', 'showSidebar', 'showAboveFooter', 'grayscaleLogos', 'descriptionPlacement') as $name) {
         check(!isset($settings[1]['logoBlock_' . $id . '_' . $name]), 'Deleted block setting remains: ' . $name);
     }
     check($settings[2] === $before[2], 'Block deletion changed another journal');

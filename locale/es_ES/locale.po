@@ -173,3 +173,18 @@ msgstr "Sigla (opcional)"
 
 msgid "plugins.block.sponsorsBlock.invalidAcronym"
 msgstr "Introduzca una sigla de hasta 30 caracteres o deje el campo vacío."
+
+msgid "plugins.block.sponsorsBlock.logoDescription"
+msgstr "Descripción (opcional)"
+
+msgid "plugins.block.sponsorsBlock.descriptionPlacement"
+msgstr "Visualización de la descripción de los logos"
+
+msgid "plugins.block.sponsorsBlock.descriptionHidden"
+msgstr "No mostrar"
+
+msgid "plugins.block.sponsorsBlock.descriptionPlacementRequired"
+msgstr "Seleccione dónde mostrar las descripciones de los logos."
+
+msgid "plugins.block.sponsorsBlock.invalidDescription"
+msgstr "Introduzca una descripción de hasta 100 caracteres o deje el campo vacío."
