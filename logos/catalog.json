@@ -1,101 +1,126 @@
 {
 	"base": {
-		"name": "BASE",
+		"acronym": "BASE",
+		"name": "Bielefeld Academic Search Engine",
 		"file": "base.png"
 	},
 	"diadorim": {
-		"name": "Diadorim",
+		"acronym": "Diadorim",
+		"name": "Diretório de Políticas Editoriais das Revistas Científicas Brasileiras",
 		"file": "diadorim.png"
 	},
 	"dialnet": {
+		"acronym": "",
 		"name": "Dialnet",
 		"file": "dialnet.png"
 	},
 	"dimensions": {
+		"acronym": "",
 		"name": "Dimensions",
 		"file": "dimensions.png"
 	},
 	"doaj": {
-		"name": "DOAJ",
+		"acronym": "DOAJ",
+		"name": "Directory of Open Access Journals",
 		"file": "doaj.jpg"
 	},
 	"ebsco": {
-		"name": "EBSCO",
+		"acronym": "EBSCO",
+		"name": "Elton B. Stephens Company",
 		"file": "ebsco.png"
 	},
 	"erihplus": {
-		"name": "ErihPlus",
+		"acronym": "ERIH PLUS",
+		"name": "European Reference Index for the Humanities and Social Sciences",
 		"file": "erihplus.png"
 	},
 	"google-scholar": {
-		"name": "Google Acadêmico",
+		"acronym": "",
+		"name": "Google Scholar",
 		"file": "google-scholar.png"
 	},
 	"latindex": {
-		"name": "Latindex",
+		"acronym": "Latindex",
+		"name": "Sistema Regional de Información en Línea para Revistas Científicas de América Latina, el Caribe, España y Portugal",
 		"file": "latindex.png"
 	},
 	"lilacs": {
-		"name": "LILACS",
+		"acronym": "LILACS",
+		"name": "Literatura Latino-Americana e do Caribe em Ciências da Saúde",
 		"file": "lilacs.png"
 	},
 	"livre": {
+		"acronym": "",
 		"name": "LiVRe",
 		"file": "livre.png"
 	},
 	"miar": {
-		"name": "MIAR",
+		"acronym": "MIAR",
+		"name": "Matriz de Información para el Análisis de Revistas",
 		"file": "miar.png"
 	},
 	"miguilim": {
+		"acronym": "",
 		"name": "Miguilim",
 		"file": "miguilim.png"
 	},
 	"oasisbr": {
-		"name": "OasisBR",
+		"acronym": "OasisBR",
+		"name": "Portal Brasileiro de Publicações e Dados Científicos em Acesso Aberto",
 		"file": "oasisbr.png"
 	},
 	"openaire": {
-		"name": "OpenAIRE",
+		"acronym": "OpenAIRE",
+		"name": "Open Access Infrastructure for Research in Europe",
 		"file": "openaire.png"
 	},
 	"openalex": {
+		"acronym": "",
 		"name": "OpenAlex",
 		"file": "openalex.jpg"
 	},
 	"psycinfo": {
-		"name": "PsycINFO",
+		"acronym": "PsycINFO",
+		"name": "Psychological Information",
 		"file": "psycinfo.png"
 	},
 	"pubmed-medline": {
-		"name": "PubMed/Medline",
+		"acronym": "",
+		"name": "PubMed/MEDLINE",
 		"file": "pubmed-medline.png"
 	},
 	"redalyc": {
-		"name": "Redalyc",
+		"acronym": "Redalyc",
+		"name": "Red de Revistas Científicas de América Latina, el Caribe, España y Portugal",
 		"file": "redalyc.png"
 	},
 	"repec": {
-		"name": "RePEc",
+		"acronym": "RePEc",
+		"name": "Research Papers in Economics",
 		"file": "repec.png"
 	},
 	"road": {
-		"name": "ROAD",
+		"acronym": "ROAD",
+		"name": "Directory of Open Access Scholarly Resources",
 		"file": "road.png"
 	},
 	"scielo": {
-		"name": "SciELO",
+		"acronym": "SciELO",
+		"name": "Scientific Electronic Library Online",
 		"file": "scielo.png"
 	},
 	"scopus": {
+		"acronym": "",
 		"name": "Scopus",
 		"file": "scopus.png"
 	},
 	"sherpa-romeo": {
-		"name": "Sherpa Romeo",
+		"acronym": "SHERPA/RoMEO",
+		"name": "Securing a Hybrid Environment for Research Preservation and Access / Rights Metadata for Open Archiving",
 		"file": "sherpa-romeo.png"
 	},
 	"web-of-science": {
+		"acronym": "",
 		"name": "Web of Science",
 		"file": "web-of-science.png"
 	}

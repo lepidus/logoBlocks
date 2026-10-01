@@ -54,7 +54,7 @@ class SponsorsBlockGridHandler extends GridHandler
         ));
         $provider = new SponsorsBlockGridCellProvider();
         $nameTitle = str_replace(' (', '<br>(', htmlspecialchars(__('plugins.block.sponsorsBlock.name'), ENT_QUOTES, 'UTF-8'));
-        $this->addColumn(new GridColumn('name', 'plugins.block.sponsorsBlock.name', $nameTitle, null, $provider));
+        $this->addColumn(new GridColumn('name', 'plugins.block.sponsorsBlock.name', $nameTitle, $this->plugin->getTemplateResource('logoNameCell.tpl'), $provider));
         $this->addColumn(new GridColumn(
             'image',
             'plugins.block.sponsorsBlock.logo',

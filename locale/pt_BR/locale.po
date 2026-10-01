@@ -58,9 +58,6 @@ msgstr "Link"
 msgid "plugins.block.sponsorsBlock.noLink"
 msgstr "Sem link"
 
-msgid "plugins.block.sponsorsBlock.replaceHelp"
-msgstr "Para substituir a imagem, selecione um novo arquivo. Deixe o campo vazio para manter o logo atual."
-
 msgid "plugins.block.sponsorsBlock.notFound"
 msgstr "Este logo não está mais disponível. Reabra as configurações e tente novamente."
 
@@ -171,3 +168,9 @@ msgstr "Arraste pela alça para ordenar os blocos ou use as setas para cima e pa
 
 msgid "plugins.block.sponsorsBlock.updateLogo"
 msgstr "Atualizar logo"
+
+msgid "plugins.block.sponsorsBlock.acronym"
+msgstr "Sigla (opcional)"
+
+msgid "plugins.block.sponsorsBlock.invalidAcronym"
+msgstr "Informe uma sigla de até 30 caracteres ou deixe o campo vazio."

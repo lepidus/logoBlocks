@@ -37,7 +37,7 @@ $(function() {ldelim}
 				<input type="radio" name="galleryId" value="{$id|escape}" {if $galleryId == $id}checked{/if} required>
 				<span class="sponsors-gallery-card">
 					<img src="{$logoCatalogUrl|escape}/{$entry.file|escape}" alt="">
-					<strong>{$entry.name|escape}</strong>
+					<strong>{if $entry.acronym !== ''}{$entry.acronym|escape}{else}{$entry.name|escape}{/if}</strong>
 				</span>
 			</label>
 		{foreachelse}

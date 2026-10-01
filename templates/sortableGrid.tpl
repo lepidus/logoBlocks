@@ -12,7 +12,8 @@
 .sponsors-logo-image { flex: 0 0 150px; margin: 0 30px 0 12px; }
 .sponsors-sortable-grid .sponsors-logo-image img { width: 150px; height: 50px; object-fit: contain; }
 .sponsors-logo-details { flex: 1 1 auto; min-width: 0; }
-.sponsors-logo-name { margin-bottom: 6px; font-size: 14px; font-weight: 600; overflow-wrap: anywhere; }
+.sponsors-logo-name { margin-bottom: 6px; font-size: 14px; font-weight: normal; overflow-wrap: anywhere; }
+.sponsors-logo-full-name { margin-left: 8px; font-size: 12px; }
 .sponsors-logo-link { display: flex; align-items: center; gap: 8px; color: #006798; }
 .sponsors-logo-link svg { flex: 0 0 16px; }
 .sponsors-logo-url { min-width: 0; overflow-x: auto; white-space: nowrap; }

@@ -8,6 +8,8 @@ class SponsorsBlockGridCellProvider extends GridCellProvider
     {
         $logo = $row->getData();
         switch ($column->getId()) {
+            case 'name':
+                return array('logoName' => $logo['name'], 'logoAcronym' => isset($logo['acronym']) ? $logo['acronym'] : '');
             case 'image':
                 return array('logoImageUrl' => $logo['imageUrl'], 'logoName' => $logo['name']);
             case 'url':

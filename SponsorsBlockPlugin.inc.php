@@ -176,7 +176,31 @@ class SponsorsBlockPlugin extends BlockPlugin
     public function getLogos($contextId)
     {
         $logos = $this->getBlockSetting($contextId, 'logos');
-        return is_array($logos) ? $logos : array();
+        if (!is_array($logos) || $this->blockId !== 'indexers') {
+            return is_array($logos) ? $logos : array();
+        }
+        // Add the catalog metadata to logos imported before the acronym field existed.
+        $catalog = $this->getLogoCatalog();
+        foreach ($logos as &$logo) {
+            if (!isset($logo['name']) || !is_string($logo['name']) || !empty($logo['acronym'])) {
+                continue;
+            }
+            $savedLabel = preg_replace('/[^[:alnum:]]/u', '', mb_strtolower($logo['name']));
+            foreach ($catalog as $entry) {
+                if (empty($entry['acronym'])) {
+                    continue;
+                }
+                $shortLabel = preg_replace('/[^[:alnum:]]/u', '', mb_strtolower($entry['acronym']));
+                $oldFullLabel = preg_replace('/[^[:alnum:]]/u', '', mb_strtolower($entry['name'] . ' (' . $entry['acronym'] . ')'));
+                if ($savedLabel === $shortLabel || $savedLabel === $oldFullLabel) {
+                    $logo['acronym'] = $entry['acronym'];
+                    $logo['name'] = $entry['name'];
+                    break;
+                }
+            }
+        }
+        unset($logo);
+        return $logos;
     }
 
     /** Delete a custom block and the public image copies that belong to it. */

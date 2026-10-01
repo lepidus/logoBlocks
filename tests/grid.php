@@ -374,3 +374,52 @@ foreach (array('post', 'csrf') as $guard) {
     $request->$guard = true;
 }
 echo "PASS: automatic sequence persistence, metadata preservation, stale/foreign IDs and POST/CSRF\n";
+
+// Exercise optional acronym round trips with a legacy logo lacking the field.
+$acronymPlugin = new GridTestPlugin();
+$acronymPlugin->settings = array(1 => array('logos' => array('legacy' => $logo)));
+$form = new SponsorsBlockLogoForm($acronymPlugin, 1, 'legacy');
+$form->initData();
+check($form->getData('acronym') === '', 'Legacy acronym must default to empty');
+foreach (array('  EX  ' => 'EX', '' => '', '0' => '0') as $input => $expected) {
+    $request->vars = array('name' => 'Example name', 'acronym' => (string) $input, 'url' => '');
+    $form->readInputData();
+    check($form->validate(false) && $form->execute(), 'Acronym edit failed');
+    $form->initData();
+    check($form->getData('acronym') === $expected, 'Acronym was not trimmed, saved or cleared');
+}
+$form->setData('acronym', str_repeat('á', 30));
+check($form->validate(false), 'Acronym with 30 characters rejected');
+$form->setData('acronym', str_repeat('á', 31));
+check(!$form->validate(false), 'Oversized acronym accepted');
+echo "PASS: legacy logos, optional acronym input, persistence, clearing and length limit\n";
+
+$smarty = new Smarty();
+$compileDirectory = sys_get_temp_dir() . '/sponsors-name-' . bin2hex(random_bytes(6));
+mkdir($compileDirectory);
+$smarty->setCompileDir($compileDirectory);
+try {
+    $provider = new SponsorsBlockGridCellProvider();
+    foreach (array(
+        array('name' => 'Full name', 'acronym' => 'ABC'),
+        array('name' => 'Full name', 'acronym' => ''),
+        array('name' => 'Legacy name'),
+        array('name' => '<script>name</script>', 'acronym' => '<script>sigla</script>')
+    ) as $entry) {
+        $row->setData($entry);
+        $smarty->assign($provider->getTemplateVarsFromRowColumn($row, $grid->getColumn('name')));
+        $html = $smarty->fetch(dirname(__DIR__) . '/templates/logoNameCell.tpl');
+        $bold = isset($entry['acronym']) && $entry['acronym'] !== '' ? $entry['acronym'] : $entry['name'];
+        check(strpos($html, '<strong>' . htmlspecialchars($bold, ENT_QUOTES, 'UTF-8') . '</strong>') !== false, 'Wrong bold label');
+        check(strpos($html, '<script>') === false, 'Name or acronym is not escaped');
+        if ($bold !== $entry['name']) {
+            check(strpos($html, '<strong>' . $entry['name'] . '</strong>') === false, 'Expanded name must not be bold');
+        }
+    }
+    echo "PASS: Smarty renders bold acronyms or full names, including legacy and escaped labels\n";
+} finally {
+    foreach (glob($compileDirectory . '/*') as $file) {
+        unlink($file);
+    }
+    rmdir($compileDirectory);
+}

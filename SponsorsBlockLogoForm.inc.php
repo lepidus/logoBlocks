@@ -30,12 +30,13 @@ class SponsorsBlockLogoForm extends Form
         $logos = $this->plugin->getLogos($this->contextId);
         $logo = $this->logoId !== null && isset($logos[$this->logoId]) ? $logos[$this->logoId] : array('name' => '', 'url' => '');
         $this->setData('name', $logo['name']);
+        $this->setData('acronym', isset($logo['acronym']) ? $logo['acronym'] : '');
         $this->setData('url', $logo['url']);
     }
 
     public function readInputData()
     {
-        $this->readUserVars(array('name', 'url', 'galleryId', 'crop'));
+        $this->readUserVars(array('name', 'acronym', 'url', 'galleryId', 'crop'));
     }
 
     public function validate($callHooks = true)
@@ -46,9 +47,12 @@ class SponsorsBlockLogoForm extends Form
         if (!$this->prepareImage()) {
             return false;
         }
-        foreach (array('name', 'url') as $field) {
+        foreach (array('name', 'acronym', 'url') as $field) {
             $value = $this->getData($field);
             $this->setData($field, is_string($value) ? trim($value) : '');
+        }
+        if (mb_strlen($this->getData('acronym')) > 30) {
+            $this->addError('acronym', __('plugins.block.sponsorsBlock.invalidAcronym'));
         }
         $name = $this->getData('name');
         $url = $this->getData('url');
@@ -87,6 +91,7 @@ class SponsorsBlockLogoForm extends Form
             }
             $entry = $catalog[$id];
             $this->setData('name', $entry['name']);
+            $this->setData('acronym', isset($entry['acronym']) ? $entry['acronym'] : '');
             try {
                 $this->image = SponsorsBlockImage::resize(__DIR__ . '/logos/' . $entry['file'], false);
             } catch (RuntimeException $e) {
@@ -157,7 +162,7 @@ class SponsorsBlockLogoForm extends Form
                 return false;
             }
         }
-        $logos[$id] = array('file' => $file, 'name' => $this->getData('name'), 'url' => $this->getData('url'));
+        $logos[$id] = array('file' => $file, 'name' => $this->getData('name'), 'acronym' => $this->getData('acronym'), 'url' => $this->getData('url'));
         $this->plugin->updateBlockSetting($this->contextId, 'logos', $logos, 'object');
         if ($oldFile !== null && $oldFile !== $file) {
             $manager->removeContextFile($this->contextId, $oldFile);

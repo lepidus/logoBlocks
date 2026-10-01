@@ -6,16 +6,20 @@
 require __DIR__ . '/grid.php';
 
 $catalog = $plugin->getLogoCatalog();
-check(!array_diff(array('boai', 'doaj', 'crossref', 'google-scholar', 'capes', 'cnpq', 'fapesp', 'scielo'), array_keys($catalog)), 'Initial catalog incomplete');
-$required = array('Google Acadêmico', 'DOAJ', 'Scopus', 'Web of Science', 'SciELO', 'Redalyc', 'Latindex', 'LILACS', 'EBSCO', 'RePEc', 'OpenAIRE', 'OpenAlex', 'ErihPlus', 'ROAD', 'Dialnet', 'BASE', 'PubMed/Medline', 'Dimensions', 'PsycINFO', 'Miguilim', 'OasisBR', 'Sherpa Romeo', 'LiVRe', 'Diadorim', 'MIAR');
+$required = array('base', 'diadorim', 'dialnet', 'dimensions', 'doaj', 'ebsco', 'erihplus', 'google-scholar', 'latindex', 'lilacs', 'livre', 'miar', 'miguilim', 'oasisbr', 'openaire', 'openalex', 'psycinfo', 'pubmed-medline', 'redalyc', 'repec', 'road', 'scielo', 'scopus', 'sherpa-romeo', 'web-of-science');
+check(!array_diff($required, array_keys($catalog)) && count($catalog) === count($required), 'Requested indexers missing');
 $names = array_column($catalog, 'name');
-check(!array_diff($required, $names), 'Requested indexers missing');
 check(count($names) === count(array_unique($names)), 'Duplicate catalog names');
 $sorted = $names;
 usort($sorted, 'strnatcasecmp');
 check($names === $sorted, 'Gallery catalog is not alphabetical');
-check($catalog['google-scholar']['name'] === 'Google Acadêmico', 'Google Scholar entry must be reused');
-echo "PASS: all 25 requested indexers, no duplicate names and alphabetical gallery order\n";
+check($catalog['google-scholar']['name'] === 'Google Scholar', 'Existing Google Scholar name changed');
+check($catalog['doaj']['acronym'] === 'DOAJ' && $catalog['doaj']['name'] === 'Directory of Open Access Journals', 'Catalog full name missing');
+foreach ($catalog as $entry) {
+    check(isset($entry['acronym']) && is_string($entry['acronym']), 'Catalog acronym field missing');
+    check(mb_strlen($entry['name']) <= 200, 'Catalog name exceeds form limit');
+}
+echo "PASS: all 25 requested indexers, acronyms, full names and alphabetical gallery order\n";
 $catalogHashes = array();
 foreach ($catalog as $id => $entry) {
     check(!array_key_exists('url', $entry), 'Catalog must not contain predefined links');
@@ -34,7 +38,7 @@ $grid = new SponsorsBlockGridHandler($plugin);
 $grid->initialize($request);
 $actions = $grid->getActions();
 check(isset($actions['chooseLogo'], $actions['addLogo']), 'Gallery and upload actions must coexist');
-foreach (array(null, '', 'unknown', '../logos/capes.png', array('capes')) as $id) {
+foreach (array(null, '', 'unknown', '../logos/capes.png', array('doaj')) as $id) {
     $form = new SponsorsBlockLogoForm($plugin, 1, null, true);
     $form->setData('galleryId', $id);
     check(!$form->validate(false), 'Invalid catalog ID accepted');
@@ -42,7 +46,7 @@ foreach (array(null, '', 'unknown', '../logos/capes.png', array('capes')) as $id
 foreach (array('post', 'csrf') as $guard) {
     $request->$guard = false;
     $form = new SponsorsBlockLogoForm($plugin, 1, null, true);
-    $form->setData('galleryId', 'capes');
+    $form->setData('galleryId', 'doaj');
     check(!$form->validate(false), 'Unprotected gallery submission accepted');
     $request->$guard = true;
 }
@@ -50,14 +54,14 @@ echo "PASS: importable catalog images, both actions, invalid IDs and POST/CSRF g
 
 foreach (array('javascript:alert(1)', 'ftp://example.org', 'invalid', 'https://') as $url) {
     $form = new SponsorsBlockLogoForm($plugin, 1, null, true);
-    $form->setData('galleryId', 'capes');
+    $form->setData('galleryId', 'doaj');
     $form->setData('url', $url);
     check(!$form->validate(false), 'Invalid gallery page link accepted');
     check($form->getData('url') === $url, 'Invalid link lost on redisplay');
 }
 foreach (array('', '  https://example.org/journal  ', null) as $url) {
     $form = new SponsorsBlockLogoForm($plugin, 1, null, true);
-    $form->setData('galleryId', 'capes');
+    $form->setData('galleryId', 'doaj');
     $form->setData('url', $url);
     check($form->validate(false), 'Optional or valid gallery link rejected');
     check($form->getData('url') === ($url === null ? '' : trim($url)), 'Gallery link default or explicit value lost');
@@ -69,19 +73,23 @@ mkdir(Config::$publicDir . '/journals/1', 0777, true);
 try {
     foreach ($catalog as $catalogId => $entry) {
         $form = new SponsorsBlockLogoForm($plugin, 1, null, true);
-        $request->vars = array('galleryId' => $catalogId, 'name' => 'Tampered', 'url' => 'https://example.org/journal/' . $catalogId);
+        $request->vars = array('galleryId' => $catalogId, 'name' => 'Tampered', 'acronym' => 'Tampered', 'url' => 'https://example.org/journal/' . $catalogId);
         $form->readInputData();
         check($form->validate(false) && $form->execute(), 'Catalog selection failed');
         $logos = $plugin->getLogos(1);
         $id = array_key_last($logos);
         $added = $logos[$id];
+        check($added['acronym'] === $entry['acronym'], 'Catalog acronym not preserved');
         check($added['name'] === $entry['name'] && $added['url'] === 'https://example.org/journal/' . $catalogId, 'Catalog name or custom page link not preserved');
         $path = Config::$publicDir . '/journals/1/' . $added['file'];
         check(is_file($path) && getimagesize($path)[0] === 150, 'Journal copy missing or incorrectly sized');
         $edit = new SponsorsBlockLogoForm($plugin, 1, $id);
+        $edit->initData();
+        check($edit->getData('acronym') === $entry['acronym'], 'Acronym not loaded for editing');
         $edit->setData('name', 'Edited');
         $edit->setData('url', 'https://example.org/journal');
         check($edit->validate(false) && $edit->execute(), 'Imported logo cannot be edited');
+        check($plugin->getLogos(1)[$id]['acronym'] === $entry['acronym'], 'Editing lost acronym');
         check(array_keys($plugin->getLogos(1)) === array('existing', $id), 'Existing order changed');
         $request->vars = array('logoId' => $id);
         check($grid->deleteLogo(array(), $request)->getStatus() && !is_file($path), 'Imported copy not deleted');
@@ -113,14 +121,17 @@ foreach (array('csrf', 'translate', 'fbvFormButtons') as $tag) {
 $smarty->assign(array('logoFormUrl' => '/manage?gridOp=addGalleryLogo', 'logoCatalog' => $catalog,
     'logoPreviewTemplate' => dirname(__DIR__) . '/templates/logoPreview.tpl',
     'logoPreviewUrl' => '/manage?gridOp=previewLogo', 'crop' => false, 'currentLogoUrl' => '',
-    'logoCatalogUrl' => '/plugins/blocks/sponsors/logos', 'galleryId' => 'capes', 'url' => 'https://example.org/journal', 'isError' => false));
+    'logoCatalogUrl' => '/plugins/blocks/sponsors/logos', 'galleryId' => 'doaj', 'url' => 'https://example.org/journal', 'isError' => false));
 try {
     $html = $smarty->fetch(dirname(__DIR__) . '/templates/logoGallery.tpl');
     check(preg_match('/<input\b[^>]*name="crop"/', $html) === 0 && strpos($html, 'sponsors-preview-result') === false, 'Gallery must not render an extra preview or crop control');
     check(substr_count($html, 'type="radio"') === count($catalog), 'Gallery did not render all logos');
-    check(preg_match('/value="capes"[^>]*\schecked/', $html) === 1, 'Selection lost on redisplay');
+    check(preg_match('/value="doaj"[^>]*\schecked/', $html) === 1, 'Selection lost on redisplay');
     check(strpos($html, 'value="https://example.org/journal"') !== false, 'Page link lost on redisplay');
-    $catalog['capes']['name'] = '<script>bad</script>';
+    check(strpos($html, '<strong>DOAJ</strong>') !== false, 'Gallery acronym missing');
+    check(strpos($html, 'Directory of Open Access Journals') === false, 'Gallery must not show expanded names');
+    $catalog['doaj']['name'] = '<script>bad</script>';
+    $catalog['doaj']['acronym'] = '<script>bad</script>';
     $smarty->assign('logoCatalog', $catalog);
     check(strpos($smarty->fetch(dirname(__DIR__) . '/templates/logoGallery.tpl'), '<script>bad</script>') === false, 'Catalog label not escaped');
     echo "PASS: gallery Smarty rendering, selection retention and escaped labels\n";
