@@ -1,3 +1,10 @@
+<style>
+{literal}
+#sponsorsBlockLogoDetails > div + div {
+	margin-top: 12px;
+}
+{/literal}
+</style>
 <script>
 {literal}
 $(function() {
@@ -39,7 +46,7 @@ $(function() {
 	{include file="common/formErrors.tpl"}
 	<p class="sponsorsBlockNetworkError pkp_form_error" role="alert" style="display: none;">{translate key="plugins.block.sponsorsBlock.networkError"}</p>
 	{fbvFormArea id="sponsorsBlockLogoDetails"}
-		{fbvElement type="text" id="name" value=$name label="plugins.block.sponsorsBlock.name" required=true maxlength="200"}
+		{fbvElement type="text" id="name" value=$name label=$logoNameLabel required=true maxlength="200"}
 		{fbvElement type="text" id="acronym" value=$acronym label="plugins.block.sponsorsBlock.acronym" maxlength="30"}
 		{fbvElement type="text" id="description" value=$description label="plugins.block.sponsorsBlock.logoDescription" maxlength="100"}
 		{fbvElement type="text" id="url" value=$url label="plugins.block.sponsorsBlock.urlWithHelp" placeholder="plugins.block.sponsorsBlock.urlPlaceholder"}

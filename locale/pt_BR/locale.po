@@ -13,7 +13,7 @@ msgid "plugins.block.sponsorsBlock.title"
 msgstr "Título do bloco"
 
 msgid "plugins.block.sponsorsBlock.name"
-msgstr "Nome do patrocinador ou indexador (texto alternativo)"
+msgstr "Título do indexador"
 
 msgid "plugins.block.sponsorsBlock.url"
 msgstr "Link (opcional)"
@@ -125,7 +125,7 @@ msgid "plugins.block.sponsorsBlock.blocks"
 msgstr "Lista de blocos"
 
 msgid "plugins.block.sponsorsBlock.defaultBlockNotice"
-msgstr "Indexadores: é o bloco padrão do sistema e não pode ser excluído."
+msgstr "Este é o bloco padrão do sistema por isso não pode ser excluido"
 
 msgid "plugins.block.sponsorsBlock.addBlock"
 msgstr "Adicionar bloco"

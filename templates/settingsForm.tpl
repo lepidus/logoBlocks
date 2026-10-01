@@ -1,5 +1,10 @@
 <style>
 {literal}
+#sponsorsBlockSettingsForm .sponsors-block-default-note {
+	margin: 0 0 16px;
+	color: #666;
+	font-size: 12px;
+}
 #sponsorsBlockSettingsForm #sponsorsBlockCustomizationArea {
 	margin: 24px 0 0;
 	padding: 16px;
@@ -39,6 +44,9 @@
 	{fbvFormArea id="sponsorsBlockTitleArea"}
 		{fbvElement type="text" id="title" value=$title label="plugins.block.sponsorsBlock.title" multilingual=true required=true maxlength="200"}
 	{/fbvFormArea}
+	{if $sponsorsDefaultBlock}
+		<p class="sponsors-block-default-note" role="note">{translate key="plugins.block.sponsorsBlock.defaultBlockNotice"}</p>
+	{/if}
 	{if $sponsorsNewBlock}
 		<p>{translate key="plugins.block.sponsorsBlock.createHelp"}</p>
 	{else}

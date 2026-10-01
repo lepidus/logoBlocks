@@ -34,14 +34,6 @@
 .sponsors-block-order-status { min-height: 1.5em; margin: 8px 0; color: #526477; }
 .sponsors-block-order-status.is-error { color: #b42318; }
 .sponsors-sortable-blocks.is-saving .pkp_controllers_linkAction { pointer-events: none; opacity: .5; }
-.sponsors-blocks-default-note {
-    margin: 0 10px 20px;
-    padding: 12px 14px;
-    border-left: 4px solid #b7d8ea;
-    background: #f5fbff;
-    color: #526477;
-}
-.sponsors-blocks-default-note p { margin: 0; }
 {/literal}
 </style>
 <script>
@@ -51,8 +43,6 @@
 	$.pkp.controllers.grid.SponsorsBlocksGridHandler = function ($grid, options) {
 		this.parent($grid, options);
 		$grid.addClass('sponsors-sortable-blocks');
-		// Keep the notice inside the element replaced when the grid refreshes.
-		$grid.prevAll('.sponsors-blocks-default-note').first().prependTo($grid);
 		var $focusedHandle = null;
 		var $body = $grid.find('tbody').not('.empty').first();
 		var $messages = $grid.prevAll('.sponsors-block-order-messages').first();
@@ -125,8 +115,5 @@
 })(jQuery);
 {/literal}
 </script>
-<div class="sponsors-blocks-default-note" role="note">
-	<p>{translate key="plugins.block.sponsorsBlock.defaultBlockNotice"}</p>
-</div>
 <div class="sponsors-block-order-messages" hidden data-saving="{translate|escape key="plugins.block.sponsorsBlock.orderSaving"}" data-saved="{translate|escape key="plugins.block.sponsorsBlock.orderSaved"}" data-error="{translate|escape key="plugins.block.sponsorsBlock.invalidOrder"}"></div>
 {include file="controllers/grid/grid.tpl"}

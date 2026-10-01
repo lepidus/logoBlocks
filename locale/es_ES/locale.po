@@ -13,7 +13,7 @@ msgid "plugins.block.sponsorsBlock.title"
 msgstr "Título del bloque"
 
 msgid "plugins.block.sponsorsBlock.name"
-msgstr "Nombre del patrocinador o indexador (texto alternativo)"
+msgstr "Título del indexador"
 
 msgid "plugins.block.sponsorsBlock.url"
 msgstr "Enlace (opcional)"
