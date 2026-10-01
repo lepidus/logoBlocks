@@ -19,7 +19,7 @@
 .sponsors-upload-filename { display: block; margin-top: 8px; overflow-wrap: anywhere; color: #555; font-size: 13px; }
 .sponsors-preview-frame { display: flex; align-items: center; justify-content: center; grid-area: preview; box-sizing: border-box; width: 200px; height: 180px; padding: 12px; border: 1px solid #aaa; border-radius: 8px; background: #fff; box-shadow: inset 0 0 0 6px #f5f5f5; }
 .sponsors-preview-result { margin: 0; max-width: 100%; }
-.sponsors-preview-result img { display: block; width: 150px; height: auto; max-width: 100%; max-height: 150px; object-fit: contain; }
+.sponsors-preview-result img { display: block; width: auto; height: auto; max-width: 100%; max-height: 100px; }
 .sponsors-preview-placeholder { color: #777; }
 .sponsors-upload-info { grid-area: info; align-self: start; min-width: 0; }
 .sponsors-upload-info p { margin: 0; line-height: 1.5; white-space: pre-line; }

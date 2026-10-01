@@ -62,7 +62,7 @@ Não remove o fundo dentro da logo. Fundos com gradientes, texturas ou cantos se
 - Diretório público da revista gravável pelo OJS. Os logos são públicos e ficam em `public/journals/<id>/` (ou no diretório configurado em `public_files_dir`).
 - Entradas PNG, JPEG ou GIF de até **5 MB** e **12 milhões de pixels**. Os limites `upload_max_filesize` e `post_max_size` do PHP também se aplicam; este último deve comportar o arquivo e os demais campos.
 - Os arquivos são decodificados e salvos como PNG. A transparência é preservada. GIFs animados são convertidos em imagens estáticas usando o primeiro quadro. SVG não é aceito.
-- A largura final é de 150 px, inclusive para imagens menores; ampliar uma imagem pequena pode reduzir sua nitidez. A altura é proporcional, limitada a 3000 px. Em barras laterais mais estreitas, a exibição se adapta ao espaço disponível.
+- A largura final é de 150 px, inclusive para imagens menores; ampliar uma imagem pequena pode reduzir sua nitidez. A altura é proporcional, limitada a 3000 px. Na exibição, imagens com mais de 100 px de altura são reduzidas para 100 px de altura, com redução proporcional da largura. Em barras laterais mais estreitas, a exibição se adapta ao espaço disponível.
 - Após um erro de validação, selecione o arquivo novamente antes de salvar.
 
 Configurações disponíveis em português brasileiro e inglês. O plugin usa o controle de acesso do OJS para gerenciamento de plugins e exige requisição POST com token CSRF para salvar. O link opcional aceita apenas HTTP e HTTPS.
