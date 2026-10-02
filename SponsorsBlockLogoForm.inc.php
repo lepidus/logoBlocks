@@ -132,7 +132,7 @@ class SponsorsBlockLogoForm extends Form
                 $this->gallery ? 'addGalleryLogo' : 'updateLogo',
                 $this->logoId === null ? array() : array('logoId' => $this->logoId)
             ),
-            'logoNameLabel' => $this->plugin->getBlockId() === 'indexers' ? 'plugins.block.sponsorsBlock.name' : 'common.title',
+            'logoNameLabel' => 'plugins.block.sponsorsBlock.name',
             'logoPreviewUrl' => $this->plugin->getGridUrl($request, 'previewLogo'),
             'logoPreviewTemplate' => $this->plugin->getTemplateResource('logoPreview.tpl'),
             'currentLogoUrl' => $logo ? $this->plugin->getPublicUrl($request, $this->contextId) . '/' . $logo['file'] : '',

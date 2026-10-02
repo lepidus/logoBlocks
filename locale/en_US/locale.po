@@ -13,7 +13,7 @@ msgid "plugins.block.sponsorsBlock.title"
 msgstr "Block title"
 
 msgid "plugins.block.sponsorsBlock.name"
-msgstr "Indexer title"
+msgstr "Logo title"
 
 msgid "plugins.block.sponsorsBlock.url"
 msgstr "Link (optional)"
@@ -123,9 +123,6 @@ msgstr "Link (optional) — Enter the specific address of the journal profile or
 
 msgid "plugins.block.sponsorsBlock.blocks"
 msgstr "Block list"
-
-msgid "plugins.block.sponsorsBlock.defaultBlockNotice"
-msgstr "Indexers: this is the system’s default block and cannot be deleted."
 
 msgid "plugins.block.sponsorsBlock.addBlock"
 msgstr "Add block"

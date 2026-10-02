@@ -31,7 +31,7 @@ foreach ($catalog as $id => $entry) {
 
 $plugin = new GridTestPlugin();
 $plugin->pluginPath = dirname(__DIR__);
-$plugin->settings = array(1 => array('title' => 'Keep title', 'logos' => array('existing' => $logo)), 2 => array('logos' => array('foreign' => $logo)));
+$plugin->settings = array(1 => array('logoBlocks' => array('existing-block'), 'logoBlock_existing-block_title' => 'Keep title', 'logoBlock_existing-block_logos' => array('existing' => $logo)), 2 => array('logoBlock_existing-block_logos' => array('foreign' => $logo)));
 $request->vars = array();
 $request->contextId = 1;
 $grid = new SponsorsBlockGridHandler($plugin);
@@ -96,7 +96,7 @@ try {
         check(hash_file('sha256', dirname(__DIR__) . '/logos/' . $entry['file']) === $catalogHashes[$catalogId], 'Catalog original modified');
     }
     check($plugin->getLogos(1) === array('existing' => $logo), 'Existing logo changed');
-    check($plugin->getSetting(1, 'title') === 'Keep title', 'Title changed');
+    check($plugin->getBlockSetting(1, 'title') === 'Keep title', 'Title changed');
     check($plugin->getLogos(2) === array('foreign' => $logo), 'Another journal changed');
     echo "PASS: gallery import, server metadata, journal copies, edit/delete, order and catalog isolation\n";
 } finally {

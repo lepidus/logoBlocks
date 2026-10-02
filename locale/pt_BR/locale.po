@@ -13,7 +13,7 @@ msgid "plugins.block.sponsorsBlock.title"
 msgstr "Título do bloco"
 
 msgid "plugins.block.sponsorsBlock.name"
-msgstr "Título do indexador"
+msgstr "Título da logo"
 
 msgid "plugins.block.sponsorsBlock.url"
 msgstr "Link (opcional)"
@@ -123,9 +123,6 @@ msgstr "Link (opcional): Insira o endereço específico do perfil do periódico,
 
 msgid "plugins.block.sponsorsBlock.blocks"
 msgstr "Lista de blocos"
-
-msgid "plugins.block.sponsorsBlock.defaultBlockNotice"
-msgstr "Este é o bloco padrão do sistema por isso não pode ser excluido"
 
 msgid "plugins.block.sponsorsBlock.addBlock"
 msgstr "Adicionar bloco"

@@ -30,18 +30,16 @@ class SponsorsBlockGridHandler extends GridHandler
         unset($logo);
         $this->setGridDataElements($logos);
         import('lib.pkp.classes.linkAction.request.AjaxModal');
-        if ($this->plugin->getBlockId() === 'indexers') {
-            $this->addAction(new LinkAction(
-                'chooseLogo',
-                new AjaxModal(
-                    $this->plugin->getGridUrl($request, 'chooseLogo'),
-                    __('plugins.block.sponsorsBlock.choose'),
-                    'modal_add_item'
-                ),
+        $this->addAction(new LinkAction(
+            'chooseLogo',
+            new AjaxModal(
+                $this->plugin->getGridUrl($request, 'chooseLogo'),
                 __('plugins.block.sponsorsBlock.choose'),
-                'add_item'
-            ));
-        }
+                'modal_add_item'
+            ),
+            __('plugins.block.sponsorsBlock.choose'),
+            'add_item'
+        ));
         $this->addAction(new LinkAction(
             'addLogo',
             new AjaxModal(
@@ -116,9 +114,6 @@ class SponsorsBlockGridHandler extends GridHandler
 
     public function chooseLogo($args, $request)
     {
-        if ($this->plugin->getBlockId() !== 'indexers') {
-            return new JSONMessage(false);
-        }
         $this->plugin->import('SponsorsBlockLogoForm');
         $form = new SponsorsBlockLogoForm($this->plugin, $request->getContext()->getId(), null, true);
         $form->initData();

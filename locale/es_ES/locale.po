@@ -13,7 +13,7 @@ msgid "plugins.block.sponsorsBlock.title"
 msgstr "Título del bloque"
 
 msgid "plugins.block.sponsorsBlock.name"
-msgstr "Título del indexador"
+msgstr "Título del logo"
 
 msgid "plugins.block.sponsorsBlock.url"
 msgstr "Enlace (opcional)"
@@ -122,9 +122,6 @@ msgstr "Enlace (opcional) — Introduzca la dirección específica del perfil de
 
 msgid "plugins.block.sponsorsBlock.blocks"
 msgstr "Lista de bloques"
-
-msgid "plugins.block.sponsorsBlock.defaultBlockNotice"
-msgstr "Indexadores: es el bloque predeterminado del sistema y no se puede eliminar."
 
 msgid "plugins.block.sponsorsBlock.addBlock"
 msgstr "Añadir bloque"

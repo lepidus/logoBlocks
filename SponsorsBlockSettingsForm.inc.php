@@ -63,7 +63,6 @@ class SponsorsBlockSettingsForm extends Form
     {
         TemplateManager::getManager($request)->assign(array(
             'sponsorsNewBlock' => $this->newBlock,
-            'sponsorsDefaultBlock' => !$this->newBlock && $this->plugin->getBlockId() === 'indexers',
             'sponsorsDescriptionPlacementOptions' => array(
                 'none' => 'plugins.block.sponsorsBlock.descriptionHidden',
                 'sidebar' => 'plugins.block.sponsorsBlock.placementSidebar',

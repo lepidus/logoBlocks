@@ -13,7 +13,7 @@ msgid "plugins.block.sponsorsBlock.title"
 msgstr "Titre du bloc"
 
 msgid "plugins.block.sponsorsBlock.name"
-msgstr "Titre de l’indexeur"
+msgstr "Titre du logo"
 
 msgid "plugins.block.sponsorsBlock.url"
 msgstr "Lien (facultatif)"
@@ -122,9 +122,6 @@ msgstr "Lien (facultatif) — Saisissez l’adresse précise du profil de la rev
 
 msgid "plugins.block.sponsorsBlock.blocks"
 msgstr "Liste des blocs"
-
-msgid "plugins.block.sponsorsBlock.defaultBlockNotice"
-msgstr "Indexeurs : il s’agit du bloc par défaut du système et il ne peut pas être supprimé."
 
 msgid "plugins.block.sponsorsBlock.addBlock"
 msgstr "Ajouter un bloc"

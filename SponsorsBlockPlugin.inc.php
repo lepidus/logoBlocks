@@ -5,7 +5,7 @@ import('lib.pkp.classes.plugins.BlockPlugin');
 
 class SponsorsBlockPlugin extends BlockPlugin
 {
-    private $blockId = 'indexers';
+    private $blockId = null;
 
     public function getBlockId()
     {
@@ -15,7 +15,7 @@ class SponsorsBlockPlugin extends BlockPlugin
     public function getBlockIds($contextId)
     {
         $ids = $this->getSetting($contextId, 'logoBlocks');
-        $ids = array_merge(array('indexers'), is_array($ids) ? $ids : array());
+        $ids = is_array($ids) ? $ids : array();
         $order = $this->getSetting($contextId, 'logoBlockOrder');
         if (!is_array($order)) {
             return $ids;
@@ -37,12 +37,12 @@ class SponsorsBlockPlugin extends BlockPlugin
 
     public function getBlockSetting($contextId, $name)
     {
-        return $this->getSetting($contextId, $this->blockId === 'indexers' ? $name : 'logoBlock_' . $this->blockId . '_' . $name);
+        return $this->getSetting($contextId, 'logoBlock_' . $this->blockId . '_' . $name);
     }
 
     public function updateBlockSetting($contextId, $name, $value, $type = null)
     {
-        return $this->updateSetting($contextId, $this->blockId === 'indexers' ? $name : 'logoBlock_' . $this->blockId . '_' . $name, $value, $type);
+        return $this->updateSetting($contextId, 'logoBlock_' . $this->blockId . '_' . $name, $value, $type);
     }
 
     public function isBlockVisible($contextId)
@@ -71,7 +71,7 @@ class SponsorsBlockPlugin extends BlockPlugin
         $ids = $this->getBlockIds($contextId);
         if (!in_array($this->blockId, $ids, true)) {
             $ids[] = $this->blockId;
-            $this->updateSetting($contextId, 'logoBlocks', array_values(array_diff($ids, array('indexers'))), 'object');
+            $this->updateSetting($contextId, 'logoBlocks', $ids, 'object');
         }
     }
 
@@ -182,42 +182,18 @@ class SponsorsBlockPlugin extends BlockPlugin
     public function getLogos($contextId)
     {
         $logos = $this->getBlockSetting($contextId, 'logos');
-        if (!is_array($logos) || $this->blockId !== 'indexers') {
-            return is_array($logos) ? $logos : array();
-        }
-        // Add the catalog metadata to logos imported before the acronym field existed.
-        $catalog = $this->getLogoCatalog();
-        foreach ($logos as &$logo) {
-            if (!isset($logo['name']) || !is_string($logo['name']) || !empty($logo['acronym'])) {
-                continue;
-            }
-            $savedLabel = preg_replace('/[^[:alnum:]]/u', '', mb_strtolower($logo['name']));
-            foreach ($catalog as $entry) {
-                if (empty($entry['acronym'])) {
-                    continue;
-                }
-                $shortLabel = preg_replace('/[^[:alnum:]]/u', '', mb_strtolower($entry['acronym']));
-                $oldFullLabel = preg_replace('/[^[:alnum:]]/u', '', mb_strtolower($entry['name'] . ' (' . $entry['acronym'] . ')'));
-                if ($savedLabel === $shortLabel || $savedLabel === $oldFullLabel) {
-                    $logo['acronym'] = $entry['acronym'];
-                    $logo['name'] = $entry['name'];
-                    break;
-                }
-            }
-        }
-        unset($logo);
-        return $logos;
+        return is_array($logos) ? $logos : array();
     }
 
-    /** Delete a custom block and the public image copies that belong to it. */
+    /** Delete a block and the public image copies that belong to it. */
     public function deleteBlock($contextId)
     {
-        if ($this->blockId === 'indexers' || !in_array($this->blockId, $this->getBlockIds($contextId), true)) {
+        if (!in_array($this->blockId, $this->getBlockIds($contextId), true)) {
             return false;
         }
         $logos = $this->getLogos($contextId);
         $ids = array_values(array_diff($this->getBlockIds($contextId), array($this->blockId)));
-        $this->updateSetting($contextId, 'logoBlocks', array_values(array_diff($ids, array('indexers'))), 'object');
+        $this->updateSetting($contextId, 'logoBlocks', $ids, 'object');
         $this->updateSetting($contextId, 'logoBlockOrder', $ids, 'object');
         foreach (array('title', 'logos', 'visible', 'showSidebar', 'showAboveFooter', 'grayscaleLogos', 'descriptionPlacement') as $name) {
             $this->deleteBlockSetting($contextId, $name);
@@ -245,9 +221,6 @@ class SponsorsBlockPlugin extends BlockPlugin
     /** Bundled catalog: request parameters can select IDs, never file paths. */
     public function getLogoCatalog()
     {
-        if ($this->blockId !== 'indexers') {
-            return array();
-        }
         $catalog = json_decode(file_get_contents(__DIR__ . '/logos/catalog.json'), true);
         if (!is_array($catalog)) {
             return array();
@@ -273,24 +246,15 @@ class SponsorsBlockPlugin extends BlockPlugin
 
     public function getBlockTitles($contextId)
     {
-        $defaults = array(
-            'en_US' => 'Indexers',
-            'es_ES' => 'Indexadores',
-            'fr_CA' => 'Indexeurs',
-            'pt_BR' => 'Indexadores',
-        );
-        if ($this->blockId !== 'indexers') {
-            $defaults = array();
-        }
         $title = $this->getBlockSetting($contextId, 'title');
         if (is_array($title)) {
-            return array_replace($defaults, $title);
+            return $title;
         }
         // Preserve titles saved before multilingual settings were introduced.
-        if ($title && !in_array($title, array('Sponsors Block', 'Bloco de patrocinadores'), true)) {
-            $defaults[AppLocale::getPrimaryLocale()] = $title;
+        if (is_string($title) && trim($title) !== '') {
+            return array(AppLocale::getPrimaryLocale() => $title);
         }
-        return $defaults;
+        return array();
     }
 
     public function getBlockTitle($contextId)
@@ -301,7 +265,7 @@ class SponsorsBlockPlugin extends BlockPlugin
                 return $titles[$locale];
             }
         }
-        return 'Indexers';
+        return '';
     }
 
     public function getPublicUrl($request, $contextId)

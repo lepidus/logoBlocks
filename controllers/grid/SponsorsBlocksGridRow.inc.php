@@ -29,22 +29,20 @@ class SponsorsBlocksGridRow extends GridRow
             null,
             __('plugins.block.sponsorsBlock.editBlock')
         ));
-        if ($this->getId() !== 'indexers') {
-            import('lib.pkp.classes.linkAction.request.RemoteActionConfirmationModal');
-            $this->addAction(new LinkAction(
-                'deleteBlock',
-                new RemoteActionConfirmationModal(
-                    $request->getSession(),
-                    __('plugins.block.sponsorsBlock.confirmDeleteBlock'),
-                    __('plugins.block.sponsorsBlock.deleteBlock'),
-                    $this->plugin->getManageUrl($request, 'deleteBlock', array('blockId' => $this->getId())),
-                    'modal_delete'
-                ),
-                '<span class="fa fa-trash" aria-hidden="true" style="color: #777;"></span><span class="pkp_screen_reader">'
-                . htmlspecialchars(__('plugins.block.sponsorsBlock.deleteBlock'), ENT_QUOTES, 'UTF-8') . '</span>',
-                null,
-                __('plugins.block.sponsorsBlock.deleteBlock')
-            ));
-        }
+        import('lib.pkp.classes.linkAction.request.RemoteActionConfirmationModal');
+        $this->addAction(new LinkAction(
+            'deleteBlock',
+            new RemoteActionConfirmationModal(
+                $request->getSession(),
+                __('plugins.block.sponsorsBlock.confirmDeleteBlock'),
+                __('plugins.block.sponsorsBlock.deleteBlock'),
+                $this->plugin->getManageUrl($request, 'deleteBlock', array('blockId' => $this->getId())),
+                'modal_delete'
+            ),
+            '<span class="fa fa-trash" aria-hidden="true" style="color: #777;"></span><span class="pkp_screen_reader">'
+            . htmlspecialchars(__('plugins.block.sponsorsBlock.deleteBlock'), ENT_QUOTES, 'UTF-8') . '</span>',
+            null,
+            __('plugins.block.sponsorsBlock.deleteBlock')
+        ));
     }
 }

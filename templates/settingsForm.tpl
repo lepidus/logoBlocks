@@ -44,9 +44,6 @@
 	{fbvFormArea id="sponsorsBlockTitleArea"}
 		{fbvElement type="text" id="title" value=$title label="plugins.block.sponsorsBlock.title" multilingual=true required=true maxlength="200"}
 	{/fbvFormArea}
-	{if $sponsorsDefaultBlock}
-		<p class="sponsors-block-default-note" role="note">{translate key="plugins.block.sponsorsBlock.defaultBlockNotice"}</p>
-	{/if}
 	{if $sponsorsNewBlock}
 		<p>{translate key="plugins.block.sponsorsBlock.createHelp"}</p>
 	{else}

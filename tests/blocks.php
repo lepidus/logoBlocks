@@ -6,8 +6,17 @@
 require __DIR__ . '/grid.php';
 require dirname(__DIR__) . '/controllers/grid/SponsorsBlocksGridHandler.inc.php';
 
-$settings = array(1 => array('title' => array('en_US' => 'Indexers'), 'logos' => array('existing' => $logo)),
-    2 => array('logos' => array('foreign' => $logo)));
+$emptyPlugin = new GridTestPlugin();
+check($emptyPlugin->getBlockIds(1) === array(), 'A default block was registered');
+check($emptyPlugin->getBlockTitles(1) === array(), 'Default translations remain');
+check($emptyPlugin->getBlockTitle(1) === '', 'Default title remains');
+$emptyPlugin->settings[1] = array('title' => 'Indexers', 'logos' => array('legacy' => $logo), 'logoBlockOrder' => array('indexers'));
+check($emptyPlugin->getBlockIds(1) === array(), 'Legacy settings recreated the removed default block');
+check($emptyPlugin->forBlock(1, 'indexers') === null, 'Removed default block remains accessible');
+echo "PASS: no default block, title or translations, including legacy settings\n";
+
+$settings = array(1 => array('logoBlocks' => array('existing-block'), 'logoBlock_existing-block_title' => array('en_US' => 'Existing'), 'logoBlock_existing-block_logos' => array('existing' => $logo)),
+    2 => array('logoBlock_existing-block_logos' => array('foreign' => $logo)));
 $plugin = new GridTestPlugin();
 $plugin->pluginPath = dirname(__DIR__);
 // Scoped plugin copies share the persistence double, just as they share the DAO.
@@ -25,13 +34,13 @@ foreach (array('post', 'csrf') as $guard) {
 }
 check($plugin->manage(array(), $request)->getStatus(), 'Block creation failed');
 $ids = $plugin->getBlockIds(1);
-check(count($ids) === 2 && $ids[0] === 'indexers', 'Missing original or new block');
+check(count($ids) === 2 && $ids[0] === 'existing-block', 'Missing original or new block');
 $id = $ids[1];
 $block = $plugin->forBlock(1, $id);
 check($block->getBlockTitle(1) === 'Sponsors', 'New title missing');
 check($block->getLogos(1) === array(), 'New block inherited old logos');
-check($plugin->getLogos(1) === $before[1]['logos'], 'Creating block changed old logos');
-check($plugin->getBlockTitles(1)['en_US'] === 'Indexers', 'Creating block changed old title');
+check($plugin->getLogos(1) === $before[1]['logoBlock_existing-block_logos'], 'Creating block changed old logos');
+check($plugin->getBlockTitles(1)['en_US'] === 'Existing', 'Creating block changed old title');
 check($plugin->forBlock(2, $id) === null, 'Other journal block accepted');
 foreach (array(null, array($id), 'missing') as $invalid) {
     $request->vars = array('verb' => 'grid', 'blockId' => $invalid, 'gridOp' => 'deleteLogo', 'logoId' => 'existing');
@@ -48,9 +57,8 @@ $grid = new SponsorsBlockGridHandler($block);
 $grid->initialize($request);
 $grid->setUrls($request);
 $customLogoActions = $grid->getActions();
-check(!isset($customLogoActions['chooseLogo']) && isset($customLogoActions['addLogo']), 'Custom block exposed the indexer gallery action');
+check(isset($customLogoActions['chooseLogo'], $customLogoActions['addLogo']), 'Block gallery or upload action missing');
 $request->vars = array();
-check(!$grid->chooseLogo(array(), $request)->getStatus(), 'Custom block gallery endpoint was accessible');
 foreach ($grid->getUrls() as $url) {
     check(strpos($url, 'blockId=' . $id) !== false, 'Grid lost selected block');
 }
@@ -82,33 +90,33 @@ $titleForm->setData('title', array('en_US' => 'Partners <test>'));
 $titleForm->setData('grayscaleLogos', '1');
 $titleForm->setData('placement', 'both');
 check($titleForm->validate(false) && $titleForm->execute(), 'New block settings save failed');
-check($plugin->getLogos(1) === $before[1]['logos'] && $settings[2] === $before[2], 'Block operation affected old data');
+check($plugin->getLogos(1) === $before[1]['logoBlock_existing-block_logos'] && $settings[2] === $before[2], 'Block operation affected old data');
 check(!$plugin->getBlockSetting(1, 'grayscaleLogos') && !$plugin->getBlockSetting(1, 'showAboveFooter'), 'Display settings leaked to original block');
 echo "PASS: selected block retained in URLs; independent logo edits, order, title and display settings\n";
 
-// The bundled catalog belongs only to the original block, including direct POSTs.
+// Every registered block shares the bundled catalog.
 check(count($plugin->getLogoCatalog()) > 0, 'Default indexer catalog missing');
-check($block->getLogoCatalog() === array(), 'New block inherited the bundled catalog');
+check($block->getLogoCatalog() === $plugin->getLogoCatalog(), 'New block catalog differs');
 $galleryForm = new SponsorsBlockLogoForm($block, 1, null, true);
 $galleryForm->setData('galleryId', 'doaj');
 $galleryForm->setData('url', '');
-check(!$galleryForm->validate(false), 'New block accepted a default catalog entry');
+check($galleryForm->validate(false), 'New block rejected a catalog entry');
 
 $blocksGrid = new SponsorsBlocksGridHandler($plugin);
 $blocksGrid->initialize($request);
 $blocksGrid->setUrls($request);
 check(strpos($blocksGrid->getUrls()['saveSequenceUrl'], 'verb=blocks') !== false, 'Block ordering uses wrong endpoint');
 $beforeOrder = $settings;
-$request->vars = array('verb' => 'blocks', 'gridOp' => 'saveSequence', 'data' => json_encode(array($id, 'indexers')));
+$request->vars = array('verb' => 'blocks', 'gridOp' => 'saveSequence', 'data' => json_encode(array($id, 'existing-block')));
 check($plugin->manage(array(), $request)->getStatus(), 'Block ordering failed');
-check($plugin->getBlockIds(1) === array($id, 'indexers'), 'Default block cannot be moved');
-check($plugin->getLogos(1) === $before[1]['logos'] && $settings[2] === $before[2], 'Ordering changed logos or another journal');
-foreach (array('invalid', '{}', '["indexers"]', json_encode(array($id, $id)), json_encode(array($id, 'foreign')), json_encode(array($id, array()))) as $invalid) {
+check($plugin->getBlockIds(1) === array($id, 'existing-block'), 'Default block cannot be moved');
+check($plugin->getLogos(1) === $before[1]['logoBlock_existing-block_logos'] && $settings[2] === $before[2], 'Ordering changed logos or another journal');
+foreach (array('invalid', '{}', '["existing-block"]', json_encode(array($id, $id)), json_encode(array($id, 'foreign')), json_encode(array($id, array()))) as $invalid) {
     $request->vars['data'] = $invalid;
     check(!$plugin->manage(array(), $request)->getStatus(), 'Invalid block order accepted');
-    check($plugin->getBlockIds(1) === array($id, 'indexers'), 'Rejected block order changed data');
+    check($plugin->getBlockIds(1) === array($id, 'existing-block'), 'Rejected block order changed data');
 }
-$request->vars['data'] = json_encode(array('indexers', $id));
+$request->vars['data'] = json_encode(array('existing-block', $id));
 foreach (array('post', 'csrf') as $guard) {
     $request->$guard = false;
     check(!$plugin->manage(array(), $request)->getStatus(), 'Unprotected block ordering accepted');
@@ -122,7 +130,7 @@ foreach (array(null, 'nowhere', array('sidebar')) as $invalid) {
     $invalidForm->setData('placement', $invalid);
     check(!$invalidForm->validate(false), 'Invalid placement accepted');
 }
-echo "PASS: block ordering, invalid/stale order and request guards; bundled catalog restricted to indexers\n";
+echo "PASS: block ordering, invalid/stale order and request guards; bundled catalog available in all blocks\n";
 
 $smarty = new Smarty();
 $compileDirectory = sys_get_temp_dir() . '/sponsors-blocks-' . bin2hex(random_bytes(6));
@@ -131,13 +139,13 @@ $smarty->setCompileDir($compileDirectory);
 try {
     $html = $plugin->getContents($smarty, $request);
     check(substr_count($html, '<h2') === 2, 'Both blocks should render');
-    check(strpos($html, 'Partners &lt;test&gt;') < strpos($html, '>Indexers<'), 'Sidebar ignored block order');
+    check(strpos($html, 'Partners &lt;test&gt;') < strpos($html, '>Existing<'), 'Sidebar ignored block order');
     check(strpos($html, 'Partners &lt;test&gt;') !== false, 'New block title is not escaped');
     check(substr_count($html, 'block_sponsorsBlock_grayscale"') === 1, 'Grayscale leaked to other block');
     $page = '<html><body>' . $html . '<div class="pkp_structure_footer_wrapper">Footer</div></body></html>';
     $page = $plugin->displayAboveFooter($page, $smarty);
     check(strpos($page, 'id="sponsorsBlockAboveFooter-' . $id . '"') !== false, 'New block footer missing');
-    check(strpos($page, 'id="sponsorsBlockAboveFooter-indexers"') === false, 'Disabled block footer rendered');
+    check(strpos($page, 'id="sponsorsBlockAboveFooter-existing-block"') === false, 'Disabled block footer rendered');
     check($plugin->displayAboveFooter($page, $smarty) === $page, 'Footer duplicated');
     $plugin->updateBlockSetting(1, 'showAboveFooter', true, 'bool');
     $twoFooters = $plugin->displayAboveFooter('<html><body><div class="pkp_structure_footer_wrapper">Footer</div></body></html>', $smarty);
@@ -170,19 +178,19 @@ try {
     $footerPage = '<html><body><div class="pkp_structure_footer_wrapper">Footer</div></body></html>';
     $hiddenFooter = $plugin->displayAboveFooter($footerPage, $smarty);
     check(strpos($hiddenFooter, 'id="sponsorsBlockAboveFooter-' . $id . '"') === false, 'Disabled block still above footer');
-    check(strpos($hiddenFooter, 'id="sponsorsBlockAboveFooter-indexers"') !== false, 'Other footer disappeared');
+    check(strpos($hiddenFooter, 'id="sponsorsBlockAboveFooter-existing-block"') !== false, 'Other footer disappeared');
     $request->vars['visible'] = '1';
     check($plugin->manage(array(), $request)->getStatus(), 'Could not enable block');
     check(substr_count($plugin->getContents($smarty, $request), '<h2') === 2, 'Reenabled block not restored');
     check(strpos($plugin->displayAboveFooter($footerPage, $smarty), 'id="sponsorsBlockAboveFooter-' . $id . '"') !== false, 'Reenabled footer not restored');
-    $request->vars = array('verb' => 'setVisibility', 'blockId' => 'indexers', 'visible' => '0');
+    $request->vars = array('verb' => 'setVisibility', 'blockId' => 'existing-block', 'visible' => '0');
     check($plugin->manage(array(), $request)->getStatus(), 'Could not disable original block');
     check(!$plugin->isBlockVisible(1) && $plugin->getEnabled(), 'Original block visibility affected plugin enablement');
     check(strpos($plugin->getContents($smarty, $request), 'Partners &lt;test&gt;') !== false, 'Disabling original hid other blocks');
     $request->vars['visible'] = '1';
     check($plugin->manage(array(), $request)->getStatus(), 'Could not restore original block');
     echo "PASS: visibility toggle persists per block, preserves data, hides/restores sidebar and footer, and checks POST/CSRF/ownership\n";
-    check(strpos($twoFooters, 'id="sponsorsBlockAboveFooter-' . $id . '"') < strpos($twoFooters, 'id="sponsorsBlockAboveFooter-indexers"'), 'Footer ignored block order');
+    check(strpos($twoFooters, 'id="sponsorsBlockAboveFooter-' . $id . '"') < strpos($twoFooters, 'id="sponsorsBlockAboveFooter-existing-block"'), 'Footer ignored block order');
     $smarty->registerPlugin('function', 'blocks_test_sidebar', function ($params, $template) use ($plugin, $request) {
         return $plugin->getContents($template, $request);
     });
@@ -232,7 +240,7 @@ try {
     echo "PASS: sidebar/footer/both rendered through the full-page filter, public ordering and footer-only grayscale\n";
     $plugin->updateBlockSetting(1, 'logos', array(), 'object');
     check(strpos($plugin->getContents($smarty, $request), 'Partners &lt;test&gt;') !== false, 'Empty original block hid the new block');
-    $plugin->updateBlockSetting(1, 'logos', $before[1]['logos'], 'object');
+    $plugin->updateBlockSetting(1, 'logos', $before[1]['logoBlock_existing-block_logos'], 'object');
     $block->updateBlockSetting(1, 'logos', array(), 'object');
     check(substr_count($plugin->getContents($smarty, $request), '<h2') === 1, 'Empty block rendered');
     echo "PASS: multiple blocks rendered through Smarty, independent footer/grayscale, escaped title and hidden empty blocks\n";
@@ -244,12 +252,12 @@ try {
 }
 
 $defaultRow = new SponsorsBlocksGridRow($plugin);
-$defaultRow->setId('indexers');
+$defaultRow->setId('existing-block');
 $defaultRowData = array('title' => 'Indexers');
 $defaultRow->setData($defaultRowData);
 $defaultRow->initialize($request);
 $defaultActions = array_values($defaultRow->getActions());
-check(count($defaultActions) === 1 && $defaultActions[0]->getId() === 'editBlock', 'Default block should only be editable');
+check(count($defaultActions) === 2 && $defaultActions[0]->getId() === 'editBlock', 'Existing block should be editable and deletable');
 check($defaultActions[0]->getToolTip() === 'plugins.block.sponsorsBlock.editBlock', 'Edit tooltip missing');
 $customRow = new SponsorsBlocksGridRow($plugin);
 $customRow->setId($id);
@@ -259,7 +267,7 @@ $customRow->initialize($request);
 $customActions = array_values($customRow->getActions());
 check(count($customActions) === 2 && $customActions[1]->getId() === 'deleteBlock', 'Custom block delete action missing');
 check($customActions[1]->getToolTip() === 'plugins.block.sponsorsBlock.deleteBlock', 'Delete tooltip missing');
-echo "PASS: edit/delete tooltips and protected default block action\n";
+echo "PASS: edit/delete tooltips and delete action for every block\n";
 
 Config::$publicDir = sys_get_temp_dir() . '/sponsors-block-delete-' . bin2hex(random_bytes(6));
 mkdir(Config::$publicDir . '/journals/1', 0777, true);
@@ -272,9 +280,9 @@ try {
         'first' => array('name' => 'First', 'url' => '', 'file' => $firstFile),
         'second' => array('name' => 'Second', 'url' => '', 'file' => $secondFile),
     ), 'object');
-    $request->vars = array('verb' => 'deleteBlock', 'blockId' => 'indexers');
-    check(!$plugin->manage(array(), $request)->getStatus(), 'Default block deletion accepted');
-    check(in_array('indexers', $plugin->getBlockIds(1), true), 'Default block was removed');
+    $request->vars = array('verb' => 'deleteBlock', 'blockId' => 'existing-block');
+    check($plugin->manage(array(), $request)->getStatus(), 'Existing block deletion failed');
+    check(!in_array('existing-block', $plugin->getBlockIds(1), true), 'Deleted existing block remains');
     $request->vars['blockId'] = $id;
     foreach (array('post', 'csrf') as $guard) {
         $request->$guard = false;
@@ -286,7 +294,7 @@ try {
     check(!$plugin->manage(array(), $request)->getStatus(), 'Other journal block deletion accepted');
     $request->contextId = 1;
     check($plugin->manage(array(), $request)->getStatus(), 'Custom block deletion failed');
-    check($plugin->getBlockIds(1) === array('indexers'), 'Deleted block remains registered or ordered');
+    check($plugin->getBlockIds(1) === array(), 'Deleted block remains registered or ordered');
     check(!is_file(Config::$publicDir . '/journals/1/' . $firstFile)
         && !is_file(Config::$publicDir . '/journals/1/' . $secondFile), 'Deleted block files remain public');
     foreach (array('title', 'logos', 'visible', 'showSidebar', 'showAboveFooter', 'grayscaleLogos', 'descriptionPlacement') as $name) {

@@ -127,6 +127,13 @@ class GridTestRequest
 class GridTestPlugin extends SponsorsBlockPlugin
 {
     public $settings = array();
+    public function __construct()
+    {
+        // Explicitly scope this fixture; the production plugin has no default block.
+        $id = new ReflectionProperty(SponsorsBlockPlugin::class, 'blockId');
+        $id->setAccessible(true);
+        $id->setValue($this, 'existing-block');
+    }
     public function getSetting($contextId, $name)
     {
         return isset($this->settings[$contextId][$name]) ? $this->settings[$contextId][$name] : null;
@@ -164,8 +171,8 @@ Application::$request = $request;
 $plugin = new GridTestPlugin();
 $plugin->pluginPath = dirname(__DIR__);
 $logo = array('name' => 'Original', 'url' => '', 'file' => 'sponsorsBlock-original.png');
-$plugin->settings = array(1 => array('title' => 'Index to:', 'logos' => array('first' => $logo)),
-    2 => array('logos' => array('foreign' => $logo)));
+$plugin->settings = array(1 => array('logoBlocks' => array('existing-block'), 'logoBlock_existing-block_title' => 'Index to:', 'logoBlock_existing-block_logos' => array('first' => $logo)),
+    2 => array('logoBlock_existing-block_logos' => array('foreign' => $logo)));
 $grid = new SponsorsBlockGridHandler($plugin);
 $grid->initialize($request);
 $grid->setUrls($request);
@@ -184,9 +191,9 @@ $form = new SponsorsBlockLogoForm($plugin, 1, 'first');
 $form->setData('name', 'Updated');
 $form->setData('url', 'https://example.org');
 check($form->validate(false) && $form->execute(), 'Metadata edit failed');
-check($plugin->settings[1]['logos']['first']['file'] === $logo['file'], 'Metadata edit replaced image');
-check($plugin->settings[1]['title'] === 'Index to:', 'Logo edit changed title');
-check($plugin->settings[2]['logos']['foreign'] === $logo, 'Logo edit changed another journal');
+check($plugin->settings[1]['logoBlock_existing-block_logos']['first']['file'] === $logo['file'], 'Metadata edit replaced image');
+check($plugin->settings[1]['logoBlock_existing-block_title'] === 'Index to:', 'Logo edit changed title');
+check($plugin->settings[2]['logoBlock_existing-block_logos']['foreign'] === $logo, 'Logo edit changed another journal');
 echo "PASS: edit keeps image, title and other journal data\n";
 
 foreach (array('javascript:alert(1)', 'data:text/html,bad', 'ftp://example.org') as $url) {
@@ -217,7 +224,7 @@ $titleForm->setData('title', array('en_US' => 'Index to:', 'pt_BR' => 'Indexado 
 $before = $plugin->getLogos(1);
 check($titleForm->validate(false) && $titleForm->execute(), 'Title save failed');
 check($before === $plugin->getLogos(1), 'Title save overwrote grid data');
-$request->vars = array('verb' => 'grid', 'blockId' => 'indexers', 'gridOp' => 'execute');
+$request->vars = array('verb' => 'grid', 'blockId' => 'existing-block', 'gridOp' => 'execute');
 check(!$plugin->manage(array(), $request)->getStatus(), 'Unlisted grid operation accepted');
 $request->vars = array('logoId' => 'foreign');
 check(!$grid->deleteLogo(array(), $request)->getStatus(), 'Other journal deletion accepted');
@@ -252,7 +259,7 @@ try {
     $request->vars = array('logoId' => 'first');
     check($grid->deleteLogo(array(), $request)->getStatus(), 'Deletion failed');
     check(count($plugin->getLogos(1)) === 1 && !is_file($directory . $replacement), 'Deletion did not remove the selected record and file');
-    check($plugin->settings[2]['logos']['foreign'] === $logo, 'Deletion affected another journal');
+    check($plugin->settings[2]['logoBlock_existing-block_logos']['foreign'] === $logo, 'Deletion affected another journal');
     echo "PASS: add, replacement and confirmed deletion file lifecycle with prepared image data\n";
 } finally {
     foreach (glob(Config::$publicDir . '/journals/1/*') as $file) {
@@ -263,11 +270,11 @@ try {
     rmdir(Config::$publicDir);
 }
 
-$defaults = array('en_US' => 'Indexers', 'es_ES' => 'Indexadores', 'fr_CA' => 'Indexeurs', 'pt_BR' => 'Indexadores');
+$defaults = array();
 check($plugin->getBlockTitles(99) === $defaults, 'Default titles incorrect');
-$plugin->settings[99]['title'] = array('pt_BR' => 'Personalizado');
+$plugin->settings[99]['logoBlock_existing-block_title'] = array('pt_BR' => 'Personalizado');
 check($plugin->getBlockTitles(99) === array_replace($defaults, array('pt_BR' => 'Personalizado')), 'Missing translations or custom title lost');
-$plugin->settings[1]['title'] = 'Existing title';
+$plugin->settings[1]['logoBlock_existing-block_title'] = 'Existing title';
 $titleForm = new SponsorsBlockSettingsForm($plugin, 1);
 $titleForm->initData();
 check($titleForm->getData('title') === array_replace($defaults, array('en_US' => 'Existing title')), 'Legacy title was lost');
@@ -277,9 +284,9 @@ check($plugin->getBlockTitle(1) === 'Index to:', 'English title incorrect');
 AppLocale::$locale = 'pt_BR';
 check($plugin->getBlockTitle(1) === 'Indexado em:', 'Portuguese title incorrect');
 AppLocale::$locale = 'fr_CA';
-check($plugin->getBlockTitle(1) === 'Indexeurs', 'French default title incorrect');
+check($plugin->getBlockTitle(1) === 'Index to:', 'French locale did not fall back to primary title');
 AppLocale::$locale = 'es_ES';
-check($plugin->getBlockTitle(1) === 'Indexadores', 'Spanish default title incorrect');
+check($plugin->getBlockTitle(1) === 'Index to:', 'Spanish locale did not fall back to primary title');
 AppLocale::$locale = 'de_DE';
 check($plugin->getBlockTitle(1) === 'Index to:', 'Missing translation did not fall back to primary locale');
 foreach (array(array('en_US' => '', 'pt_BR' => 'Título'), array('en_US' => 'Valid', 'pt_BR' => str_repeat('x', 201)), array('en_US' => array('invalid')), 'not-localized') as $titles) {
@@ -350,7 +357,7 @@ check($loadedPlugin->getName() === 'sponsorsblockplugin', 'Renaming the folder c
 echo "PASS: manifest directory, native plugin loader and existing settings identity\n";
 
 $orderPlugin = new GridTestPlugin();
-$orderPlugin->settings = array(1 => array('logos' => array('a' => $logo, 'b' => array_merge($logo, array('name' => 'Second')), 'c' => array_merge($logo, array('name' => 'Third')))), 2 => array('logos' => array('foreign' => $logo)));
+$orderPlugin->settings = array(1 => array('logoBlock_existing-block_logos' => array('a' => $logo, 'b' => array_merge($logo, array('name' => 'Second')), 'c' => array_merge($logo, array('name' => 'Third')))), 2 => array('logoBlock_existing-block_logos' => array('foreign' => $logo)));
 $orderGrid = new SponsorsBlockGridHandler($orderPlugin);
 $request->vars = array('data' => '["c","a","b"]');
 $original = $orderPlugin->getLogos(1);
@@ -377,7 +384,7 @@ echo "PASS: automatic sequence persistence, metadata preservation, stale/foreign
 
 // Exercise optional acronym round trips with a legacy logo lacking the field.
 $acronymPlugin = new GridTestPlugin();
-$acronymPlugin->settings = array(1 => array('logos' => array('legacy' => $logo)));
+$acronymPlugin->settings = array(1 => array('logoBlock_existing-block_logos' => array('legacy' => $logo)));
 $form = new SponsorsBlockLogoForm($acronymPlugin, 1, 'legacy');
 $form->initData();
 check($form->getData('acronym') === '', 'Legacy acronym must default to empty');
