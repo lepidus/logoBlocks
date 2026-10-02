@@ -25,7 +25,7 @@ foreach ($catalog as $id => $entry) {
     check(!array_key_exists('url', $entry), 'Catalog must not contain predefined links');
     $path = dirname(__DIR__) . '/logos/' . $entry['file'];
     $catalogHashes[$id] = hash_file('sha256', $path);
-    $size = getimagesizefromstring(LogoBlockImage::resize($path));
+    $size = getimagesizefromstring(LogoBlocksImage::resize($path));
     check($size[0] === 150 && $size[2] === IMAGETYPE_PNG, 'Catalog image cannot be imported: ' . $id);
 }
 
@@ -34,18 +34,18 @@ $plugin->pluginPath = dirname(__DIR__);
 $plugin->settings = array(1 => array('logoBlocks' => array('existing-block'), 'logoBlock_existing-block_title' => 'Keep title', 'logoBlock_existing-block_logos' => array('existing' => $logo)), 2 => array('logoBlock_existing-block_logos' => array('foreign' => $logo)));
 $request->vars = array();
 $request->contextId = 1;
-$grid = new LogoBlockGridHandler($plugin);
+$grid = new LogoBlocksLogoGridHandler($plugin);
 $grid->initialize($request);
 $actions = $grid->getActions();
 check(isset($actions['chooseLogo'], $actions['addLogo']), 'Gallery and upload actions must coexist');
 foreach (array(null, '', 'unknown', '../logos/capes.png', array('doaj')) as $id) {
-    $form = new LogoBlockLogoForm($plugin, 1, null, true);
+    $form = new LogoBlocksLogoForm($plugin, 1, null, true);
     $form->setData('galleryId', $id);
     check(!$form->validate(false), 'Invalid catalog ID accepted');
 }
 foreach (array('post', 'csrf') as $guard) {
     $request->$guard = false;
-    $form = new LogoBlockLogoForm($plugin, 1, null, true);
+    $form = new LogoBlocksLogoForm($plugin, 1, null, true);
     $form->setData('galleryId', 'doaj');
     check(!$form->validate(false), 'Unprotected gallery submission accepted');
     $request->$guard = true;
@@ -53,14 +53,14 @@ foreach (array('post', 'csrf') as $guard) {
 echo "PASS: importable catalog images, both actions, invalid IDs and POST/CSRF guards\n";
 
 foreach (array('javascript:alert(1)', 'ftp://example.org', 'invalid', 'https://') as $url) {
-    $form = new LogoBlockLogoForm($plugin, 1, null, true);
+    $form = new LogoBlocksLogoForm($plugin, 1, null, true);
     $form->setData('galleryId', 'doaj');
     $form->setData('url', $url);
     check(!$form->validate(false), 'Invalid gallery page link accepted');
     check($form->getData('url') === $url, 'Invalid link lost on redisplay');
 }
 foreach (array('', '  https://example.org/journal  ', null) as $url) {
-    $form = new LogoBlockLogoForm($plugin, 1, null, true);
+    $form = new LogoBlocksLogoForm($plugin, 1, null, true);
     $form->setData('galleryId', 'doaj');
     $form->setData('url', $url);
     check($form->validate(false), 'Optional or valid gallery link rejected');
@@ -72,7 +72,7 @@ Config::$publicDir = sys_get_temp_dir() . '/sponsors-gallery-' . bin2hex(random_
 mkdir(Config::$publicDir . '/journals/1', 0777, true);
 try {
     foreach ($catalog as $catalogId => $entry) {
-        $form = new LogoBlockLogoForm($plugin, 1, null, true);
+        $form = new LogoBlocksLogoForm($plugin, 1, null, true);
         $request->vars = array('galleryId' => $catalogId, 'name' => 'Tampered', 'acronym' => 'Tampered', 'url' => 'https://example.org/journal/' . $catalogId);
         $form->readInputData();
         check($form->validate(false) && $form->execute(), 'Catalog selection failed');
@@ -83,7 +83,7 @@ try {
         check($added['name'] === $entry['name'] && $added['url'] === 'https://example.org/journal/' . $catalogId, 'Catalog name or custom page link not preserved');
         $path = Config::$publicDir . '/journals/1/' . $added['file'];
         check(is_file($path) && getimagesize($path)[0] === 150, 'Journal copy missing or incorrectly sized');
-        $edit = new LogoBlockLogoForm($plugin, 1, $id);
+        $edit = new LogoBlocksLogoForm($plugin, 1, $id);
         $edit->initData();
         check($edit->getData('acronym') === $entry['acronym'], 'Acronym not loaded for editing');
         $edit->setData('name', 'Edited');

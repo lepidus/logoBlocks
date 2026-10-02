@@ -3,7 +3,7 @@
 import('lib.pkp.classes.form.Form');
 
 /** The block title is saved independently from the grid's individual logos. */
-class LogoBlockSettingsForm extends Form
+class LogoBlocksSettingsForm extends Form
 {
     private $plugin;
     private $contextId;
@@ -19,7 +19,7 @@ class LogoBlockSettingsForm extends Form
         $this->setData('descriptionPlacement', $plugin->getDescriptionPlacement($contextId));
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
-        $this->addCheck(new FormValidatorLocale($this, 'title', 'required', 'plugins.block.sponsorsBlock.requiredName'));
+        $this->addCheck(new FormValidatorLocale($this, 'title', 'required', 'plugins.block.logoBlocks.requiredName'));
     }
 
     public function initData()
@@ -38,20 +38,20 @@ class LogoBlockSettingsForm extends Form
     public function validate($callHooks = true)
     {
         if (!in_array($this->getData('placement'), array('sidebar', 'footer', 'both'), true)) {
-            $this->addError('placement', __('plugins.block.sponsorsBlock.placementRequired'));
+            $this->addError('placement', __('plugins.block.logoBlocks.placementRequired'));
         }
         if ($this->getData('descriptionPlacement') === null) {
             $this->setData('descriptionPlacement', $this->plugin->getDescriptionPlacement($this->contextId));
         }
         if (!in_array($this->getData('descriptionPlacement'), array('none', 'sidebar', 'footer', 'both'), true)) {
-            $this->addError('descriptionPlacement', __('plugins.block.sponsorsBlock.descriptionPlacementRequired'));
+            $this->addError('descriptionPlacement', __('plugins.block.logoBlocks.descriptionPlacementRequired'));
         }
         $input = $this->getData('title');
         $titles = array();
         foreach ($this->supportedLocales as $locale => $name) {
             $value = is_array($input) && isset($input[$locale]) ? $input[$locale] : '';
             if (!is_string($value) || mb_strlen(trim($value)) > 200) {
-                $this->addError('title', __('plugins.block.sponsorsBlock.requiredName'));
+                $this->addError('title', __('plugins.block.logoBlocks.requiredName'));
             }
             $titles[$locale] = is_string($value) ? trim($value) : '';
         }
@@ -64,15 +64,15 @@ class LogoBlockSettingsForm extends Form
         TemplateManager::getManager($request)->assign(array(
             'sponsorsNewBlock' => $this->newBlock,
             'sponsorsDescriptionPlacementOptions' => array(
-                'none' => 'plugins.block.sponsorsBlock.descriptionHidden',
-                'sidebar' => 'plugins.block.sponsorsBlock.placementSidebar',
-                'footer' => 'plugins.block.sponsorsBlock.placementFooter',
-                'both' => 'plugins.block.sponsorsBlock.placementBoth',
+                'none' => 'plugins.block.logoBlocks.descriptionHidden',
+                'sidebar' => 'plugins.block.logoBlocks.placementSidebar',
+                'footer' => 'plugins.block.logoBlocks.placementFooter',
+                'both' => 'plugins.block.logoBlocks.placementBoth',
             ),
             'sponsorsBlockPlacementOptions' => array(
-                'sidebar' => 'plugins.block.sponsorsBlock.placementSidebar',
-                'footer' => 'plugins.block.sponsorsBlock.placementFooter',
-                'both' => 'plugins.block.sponsorsBlock.placementBoth',
+                'sidebar' => 'plugins.block.logoBlocks.placementSidebar',
+                'footer' => 'plugins.block.logoBlocks.placementFooter',
+                'both' => 'plugins.block.logoBlocks.placementBoth',
             ),
             'sponsorsSettingsUrl' => $this->plugin->getManageUrl(
                 $request,

@@ -95,12 +95,12 @@ class LogoBlocksPlugin extends BlockPlugin
 
     public function getDisplayName()
     {
-        return __('plugins.block.sponsorsBlock.displayName');
+        return __('plugins.block.logoBlocks.displayName');
     }
 
     public function getDescription()
     {
-        return __('plugins.block.sponsorsBlock.description');
+        return __('plugins.block.logoBlocks.description');
     }
 
     public function getActions($request, $verb)
@@ -163,8 +163,8 @@ class LogoBlocksPlugin extends BlockPlugin
         }
         if ($verb === 'grid') {
             // Use the management endpoint protected by PluginAccessPolicy.
-            $this->import('controllers.grid.LogoBlockGridHandler');
-            $grid = new LogoBlockGridHandler($plugin);
+            $this->import('controllers.grid.LogoBlocksLogoGridHandler');
+            $grid = new LogoBlocksLogoGridHandler($plugin);
             $operation = $request->getUserVar('gridOp');
             if (!is_string($operation) || !in_array($operation, array('fetchGrid', 'fetchRows', 'fetchRow', 'addLogo', 'chooseLogo', 'addGalleryLogo', 'previewLogo', 'editLogo', 'updateLogo', 'deleteLogo', 'saveSequence'), true)) {
                 return new JSONMessage(false);
@@ -172,8 +172,8 @@ class LogoBlocksPlugin extends BlockPlugin
             $grid->initialize($request);
             return $grid->$operation($args, $request);
         }
-        $this->import('LogoBlockSettingsForm');
-        $form = new LogoBlockSettingsForm($plugin, $contextId, $verb === 'addBlock');
+        $this->import('LogoBlocksSettingsForm');
+        $form = new LogoBlocksSettingsForm($plugin, $contextId, $verb === 'addBlock');
         if ($request->getUserVar('save')) {
             $form->readInputData();
             if ($form->validate() && $form->execute()) {

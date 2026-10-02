@@ -42,23 +42,23 @@
 	{csrf}
 	{include file="common/formErrors.tpl"}
 	{fbvFormArea id="sponsorsBlockTitleArea"}
-		{fbvElement type="text" id="title" value=$title label="plugins.block.sponsorsBlock.title" multilingual=true required=true maxlength="200"}
+		{fbvElement type="text" id="title" value=$title label="plugins.block.logoBlocks.title" multilingual=true required=true maxlength="200"}
 	{/fbvFormArea}
 	{if $sponsorsNewBlock}
-		<p>{translate key="plugins.block.sponsorsBlock.createHelp"}</p>
+		<p>{translate key="plugins.block.logoBlocks.createHelp"}</p>
 	{else}
 		{load_url_in_div id="sponsorsBlockGridContainer" url=$sponsorsBlockGridUrl}
 	{/if}
 	<section id="sponsorsBlockCustomizationArea" aria-labelledby="sponsorsBlockCustomizationTitle">
-		<h3 id="sponsorsBlockCustomizationTitle">{translate key="plugins.block.sponsorsBlock.customization"}</h3>
+		<h3 id="sponsorsBlockCustomizationTitle">{translate key="plugins.block.logoBlocks.customization"}</h3>
 		{fbvFormSection list=true}
-			{fbvElement type="select" id="placement" from=$sponsorsBlockPlacementOptions selected=$placement label="plugins.block.sponsorsBlock.placementRequired" required=true}
+			{fbvElement type="select" id="placement" from=$sponsorsBlockPlacementOptions selected=$placement label="plugins.block.logoBlocks.placementRequired" required=true}
 		{/fbvFormSection}
 		{fbvFormSection list=true}
-			{fbvElement type="select" id="descriptionPlacement" from=$sponsorsDescriptionPlacementOptions selected=$descriptionPlacement label="plugins.block.sponsorsBlock.descriptionPlacement" required=true}
+			{fbvElement type="select" id="descriptionPlacement" from=$sponsorsDescriptionPlacementOptions selected=$descriptionPlacement label="plugins.block.logoBlocks.descriptionPlacement" required=true}
 		{/fbvFormSection}
 		{fbvFormSection list=true}
-			{fbvElement type="checkbox" id="grayscaleLogos" value="1" checked=$grayscaleLogos label="plugins.block.sponsorsBlock.grayscaleLogos"}
+			{fbvElement type="checkbox" id="grayscaleLogos" value="1" checked=$grayscaleLogos label="plugins.block.logoBlocks.grayscaleLogos"}
 		{/fbvFormSection}
 		{fbvFormButtons submitText="common.save"}
 	</section>

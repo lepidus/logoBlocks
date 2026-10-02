@@ -3,7 +3,7 @@
 <tr id="{$rowId|escape}" class="gridRow sponsors-logo-row" data-logo-id="{$row->getId()|escape}">
 	<td colspan="{$columns|@count}">
 		<div class="sponsors-logo-heading">
-			<button type="button" class="sponsors-drag-handle" aria-label="{translate|escape key="plugins.block.sponsorsBlock.moveLogo"}" title="{translate|escape key="plugins.block.sponsorsBlock.orderHelp"}">
+			<button type="button" class="sponsors-drag-handle" aria-label="{translate|escape key="plugins.block.logoBlocks.moveLogo"}" title="{translate|escape key="plugins.block.logoBlocks.orderHelp"}">
 				<span aria-hidden="true" class="sponsors-drag-dots"></span>
 			</button>
 			<button type="button" class="sponsors-toggle-actions" aria-label="{translate|escape key="grid.settings"}" aria-expanded="false" aria-controls="{$rowId|escape}-actions">

@@ -37,7 +37,7 @@ $(function() {ldelim}
 <form class="pkp_form" id="sponsorsBlockGalleryForm" method="post" action="{$logoFormUrl|escape}">
 	{csrf}
 	{include file="common/formErrors.tpl"}
-	<div class="sponsors-logo-gallery" role="radiogroup" aria-label="{translate|escape key="plugins.block.sponsorsBlock.choose"}">
+	<div class="sponsors-logo-gallery" role="radiogroup" aria-label="{translate|escape key="plugins.block.logoBlocks.choose"}">
 		{foreach from=$logoCatalog key=id item=entry}
 			<label class="sponsors-gallery-choice">
 				<input type="radio" name="galleryId" value="{$id|escape}" {if $galleryId == $id}checked{/if} required>
@@ -47,14 +47,14 @@ $(function() {ldelim}
 				</span>
 			</label>
 		{foreachelse}
-			<p>{translate key="plugins.block.sponsorsBlock.galleryEmpty"}</p>
+			<p>{translate key="plugins.block.logoBlocks.galleryEmpty"}</p>
 		{/foreach}
 	</div>
 	<div class="sponsors-gallery-link" {if !$galleryId}hidden{/if}>
-		<p><label for="sponsorsGalleryUrl">{translate key="plugins.block.sponsorsBlock.url"}</label></p>
-		<input type="text" inputmode="url" id="sponsorsGalleryUrl" name="url" aria-describedby="sponsorsGalleryHelp" value="{$url|escape}" style="box-sizing: border-box; width: 100%;" placeholder="{translate key="plugins.block.sponsorsBlock.urlPlaceholder"}">
-		<p id="sponsorsGalleryHelp">{translate key="plugins.block.sponsorsBlock.galleryHelp"}</p>
-		<p><label for="sponsorsGalleryDescription">{translate key="plugins.block.sponsorsBlock.logoDescription"}</label></p>
+		<p><label for="sponsorsGalleryUrl">{translate key="plugins.block.logoBlocks.url"}</label></p>
+		<input type="text" inputmode="url" id="sponsorsGalleryUrl" name="url" aria-describedby="sponsorsGalleryHelp" value="{$url|escape}" style="box-sizing: border-box; width: 100%;" placeholder="{translate key="plugins.block.logoBlocks.urlPlaceholder"}">
+		<p id="sponsorsGalleryHelp">{translate key="plugins.block.logoBlocks.galleryHelp"}</p>
+		<p><label for="sponsorsGalleryDescription">{translate key="plugins.block.logoBlocks.logoDescription"}</label></p>
 		<input type="text" id="sponsorsGalleryDescription" name="description" maxlength="100" value="{$description|escape}" style="box-sizing: border-box; width: 100%;">
 	</div>
 	{if $logoCatalog}{fbvFormButtons submitText="common.save"}{/if}

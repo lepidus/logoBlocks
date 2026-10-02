@@ -19,7 +19,7 @@ class LogoBlocksGridHandler extends GridHandler
         parent::initialize($request, $args);
         $this->setId('sponsorsBlock-blocks');
         $this->setTemplate($this->plugin->getTemplateResource('blocksGrid.tpl'));
-        $this->setTitle('plugins.block.sponsorsBlock.blocks');
+        $this->setTitle('plugins.block.logoBlocks.blocks');
         $contextId = $request->getContext()->getId();
         $data = array();
         foreach ($this->plugin->getBlockIds($contextId) as $id) {
@@ -35,10 +35,10 @@ class LogoBlocksGridHandler extends GridHandler
         import('lib.pkp.classes.linkAction.request.AjaxModal');
         $this->addAction(new LinkAction('addBlock', new AjaxModal(
             $this->plugin->getManageUrl($request, 'addBlock'),
-            __('plugins.block.sponsorsBlock.addBlock'),
+            __('plugins.block.logoBlocks.addBlock'),
             'modal_add_item'
-        ), __('plugins.block.sponsorsBlock.addBlock'), 'add_item'));
-        $this->addColumn(new GridColumn('title', 'plugins.block.sponsorsBlock.title'));
+        ), __('plugins.block.logoBlocks.addBlock'), 'add_item'));
+        $this->addColumn(new GridColumn('title', 'plugins.block.logoBlocks.title'));
     }
 
     public function setUrls($request, $extraUrls = array())

@@ -3,185 +3,185 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Language: es_ES\n"
 
-msgid "plugins.block.sponsorsBlock.displayName"
+msgid "plugins.block.logoBlocks.displayName"
 msgstr "Bloques de logos"
 
-msgid "plugins.block.sponsorsBlock.description"
-msgstr "Muestra los logos de patrocinadores e indexadores en la barra lateral, con enlaces opcionales y ajuste automático de tamaño."
+msgid "plugins.block.logoBlocks.description"
+msgstr "Muestra bloques de logos en la barra lateral o encima del pie de página, con enlaces opcionales y ajuste automático de tamaño."
 
-msgid "plugins.block.sponsorsBlock.title"
+msgid "plugins.block.logoBlocks.title"
 msgstr "Título del bloque"
 
-msgid "plugins.block.sponsorsBlock.name"
+msgid "plugins.block.logoBlocks.name"
 msgstr "Título del logo"
 
-msgid "plugins.block.sponsorsBlock.url"
+msgid "plugins.block.logoBlocks.url"
 msgstr "Enlace (opcional)"
 
-msgid "plugins.block.sponsorsBlock.add"
+msgid "plugins.block.logoBlocks.add"
 msgstr "Añadir logo"
 
-msgid "plugins.block.sponsorsBlock.logo"
+msgid "plugins.block.logoBlocks.logo"
 msgstr "Imagen del logo"
 
-msgid "plugins.block.sponsorsBlock.requiredName"
+msgid "plugins.block.logoBlocks.requiredName"
 msgstr "Introduzca un título de hasta 200 caracteres."
 
-msgid "plugins.block.sponsorsBlock.invalidEntry"
+msgid "plugins.block.logoBlocks.invalidEntry"
 msgstr "Introduzca un nombre (hasta 200 caracteres) y un enlace HTTP o HTTPS válido, o deje el enlace vacío."
 
-msgid "plugins.block.sponsorsBlock.invalidImage"
+msgid "plugins.block.logoBlocks.invalidImage"
 msgstr "No se pudo leer la imagen. Utilice PNG, JPEG o GIF de hasta 5 MB y 12 millones de píxeles, con una altura proporcional final de hasta 3000 px. Compruebe también los límites de carga del servidor."
 
-msgid "plugins.block.sponsorsBlock.imageRequired"
+msgid "plugins.block.logoBlocks.imageRequired"
 msgstr "Seleccione una imagen para el nuevo logo."
 
-msgid "plugins.block.sponsorsBlock.gdRequired"
+msgid "plugins.block.logoBlocks.gdRequired"
 msgstr "El ajuste de tamaño requiere la extensión GD de PHP en el servidor."
 
-msgid "plugins.block.sponsorsBlock.writeError"
+msgid "plugins.block.logoBlocks.writeError"
 msgstr "No se pudo guardar el logo. Compruebe los permisos del directorio público de la revista y seleccione la imagen de nuevo."
 
-msgid "plugins.block.sponsorsBlock.networkError"
+msgid "plugins.block.logoBlocks.networkError"
 msgstr "No se pudo guardar. Compruebe la conexión y el límite de carga del servidor e inténtelo de nuevo."
 
-msgid "plugins.block.sponsorsBlock.logos"
+msgid "plugins.block.logoBlocks.logos"
 msgstr "Logos registrados"
 
-msgid "plugins.block.sponsorsBlock.empty"
+msgid "plugins.block.logoBlocks.empty"
 msgstr "No hay logos registrados. Elija uno de la galería o añada uno nuevo."
 
-msgid "plugins.block.sponsorsBlock.link"
+msgid "plugins.block.logoBlocks.link"
 msgstr "Enlace"
 
-msgid "plugins.block.sponsorsBlock.noLink"
+msgid "plugins.block.logoBlocks.noLink"
 msgstr "Sin enlace"
 
-msgid "plugins.block.sponsorsBlock.notFound"
+msgid "plugins.block.logoBlocks.notFound"
 msgstr "Este logo ya no está disponible. Vuelva a abrir la configuración e inténtelo de nuevo."
 
-msgid "plugins.block.sponsorsBlock.orderHelp"
+msgid "plugins.block.logoBlocks.orderHelp"
 msgstr "Arrastre los logos por el asa de puntos para cambiar su orden"
 
-msgid "plugins.block.sponsorsBlock.moveLogo"
+msgid "plugins.block.logoBlocks.moveLogo"
 msgstr "Mover logo"
 
-msgid "plugins.block.sponsorsBlock.orderSaving"
+msgid "plugins.block.logoBlocks.orderSaving"
 msgstr "Guardando el orden…"
 
-msgid "plugins.block.sponsorsBlock.orderSaved"
+msgid "plugins.block.logoBlocks.orderSaved"
 msgstr "Orden guardado."
 
-msgid "plugins.block.sponsorsBlock.invalidOrder"
+msgid "plugins.block.logoBlocks.invalidOrder"
 msgstr "No se pudo confirmar el nuevo orden. Se ha restaurado el orden anterior en pantalla. Vuelva a abrir la configuración para actualizar la lista antes de intentarlo de nuevo."
 
-msgid "plugins.block.sponsorsBlock.grayscaleLogos"
+msgid "plugins.block.logoBlocks.grayscaleLogos"
 msgstr "Activar la escala monocromática, los logos se muestran en color al interactuar."
 
-msgid "plugins.block.sponsorsBlock.choose"
+msgid "plugins.block.logoBlocks.choose"
 msgstr "Galería de logos"
 
-msgid "plugins.block.sponsorsBlock.galleryHelp"
+msgid "plugins.block.logoBlocks.galleryHelp"
 msgstr "Introduzca la dirección específica del perfil de la revista o de la página correspondiente."
 
-msgid "plugins.block.sponsorsBlock.galleryRequired"
+msgid "plugins.block.logoBlocks.galleryRequired"
 msgstr "Seleccione un logo disponible en la galería."
 
-msgid "plugins.block.sponsorsBlock.galleryEmpty"
+msgid "plugins.block.logoBlocks.galleryEmpty"
 msgstr "No hay logos disponibles en la galería."
 
-msgid "plugins.block.sponsorsBlock.crop"
+msgid "plugins.block.logoBlocks.crop"
 msgstr "Recortar bordes"
 
-msgid "plugins.block.sponsorsBlock.preview"
+msgid "plugins.block.logoBlocks.preview"
 msgstr "Vista previa de la imagen"
 
-msgid "plugins.block.sponsorsBlock.previewLoading"
+msgid "plugins.block.logoBlocks.previewLoading"
 msgstr "Preparando vista previa…"
 
-msgid "plugins.block.sponsorsBlock.previewError"
+msgid "plugins.block.logoBlocks.previewError"
 msgstr "No se pudo generar la vista previa. Compruebe el formato y el tamaño de la imagen y selecciónela de nuevo."
 
-msgid "plugins.block.sponsorsBlock.selectLogo"
+msgid "plugins.block.logoBlocks.selectLogo"
 msgstr "Seleccionar logo"
 
-msgid "plugins.block.sponsorsBlock.imageSummary"
+msgid "plugins.block.logoBlocks.imageSummary"
 msgstr "Formatos sugeridos: PNG, JPEG o GIF.\nRedimensiona a 150 px de ancho."
 
-msgid "plugins.block.sponsorsBlock.cropSummary"
+msgid "plugins.block.logoBlocks.cropSummary"
 msgstr "Elimina márgenes transparentes o de color uniforme."
 
-msgid "plugins.block.sponsorsBlock.urlPlaceholder"
+msgid "plugins.block.logoBlocks.urlPlaceholder"
 msgstr "https://ejemplo.org/perfil"
 
-msgid "plugins.block.sponsorsBlock.customization"
+msgid "plugins.block.logoBlocks.customization"
 msgstr "Personalización del bloque"
 
-msgid "plugins.block.sponsorsBlock.urlWithHelp"
+msgid "plugins.block.logoBlocks.urlWithHelp"
 msgstr "Enlace (opcional) — Introduzca la dirección específica del perfil de la revista o de la página correspondiente."
 
-msgid "plugins.block.sponsorsBlock.blocks"
+msgid "plugins.block.logoBlocks.blocks"
 msgstr "Lista de bloques"
 
-msgid "plugins.block.sponsorsBlock.addBlock"
+msgid "plugins.block.logoBlocks.addBlock"
 msgstr "Añadir bloque"
 
-msgid "plugins.block.sponsorsBlock.createHelp"
+msgid "plugins.block.logoBlocks.createHelp"
 msgstr "Guarde el nombre del bloque. Después, haga clic en el lápiz para añadir y organizar sus logos."
 
-msgid "plugins.block.sponsorsBlock.visibility"
+msgid "plugins.block.logoBlocks.visibility"
 msgstr "Mostrar este bloque en la revista"
 
-msgid "plugins.block.sponsorsBlock.visibilityError"
+msgid "plugins.block.logoBlocks.visibilityError"
 msgstr "No se pudo guardar. Inténtelo de nuevo."
 
-msgid "plugins.block.sponsorsBlock.editBlock"
+msgid "plugins.block.logoBlocks.editBlock"
 msgstr "Editar"
 
-msgid "plugins.block.sponsorsBlock.deleteBlock"
+msgid "plugins.block.logoBlocks.deleteBlock"
 msgstr "Eliminar"
 
-msgid "plugins.block.sponsorsBlock.confirmDeleteBlock"
+msgid "plugins.block.logoBlocks.confirmDeleteBlock"
 msgstr "¿Está seguro de que desea eliminar este bloque y todos sus logos?"
 
-msgid "plugins.block.sponsorsBlock.placementSidebar"
+msgid "plugins.block.logoBlocks.placementSidebar"
 msgstr "Mostrar en la barra lateral de la revista"
 
-msgid "plugins.block.sponsorsBlock.placementFooter"
+msgid "plugins.block.logoBlocks.placementFooter"
 msgstr "Mostrar en el pie de página de la revista"
 
-msgid "plugins.block.sponsorsBlock.placementBoth"
+msgid "plugins.block.logoBlocks.placementBoth"
 msgstr "Mostrar en ambos lugares"
 
-msgid "plugins.block.sponsorsBlock.placementRequired"
+msgid "plugins.block.logoBlocks.placementRequired"
 msgstr "Seleccione dónde mostrar el bloque."
 
-msgid "plugins.block.sponsorsBlock.moveBlock"
+msgid "plugins.block.logoBlocks.moveBlock"
 msgstr "Mover bloque"
 
-msgid "plugins.block.sponsorsBlock.blockOrderHelp"
+msgid "plugins.block.logoBlocks.blockOrderHelp"
 msgstr "Arrastre el asa para ordenar los bloques o use las flechas arriba y abajo."
 
-msgid "plugins.block.sponsorsBlock.updateLogo"
+msgid "plugins.block.logoBlocks.updateLogo"
 msgstr "Actualizar logo"
 
-msgid "plugins.block.sponsorsBlock.acronym"
+msgid "plugins.block.logoBlocks.acronym"
 msgstr "Sigla (opcional)"
 
-msgid "plugins.block.sponsorsBlock.invalidAcronym"
+msgid "plugins.block.logoBlocks.invalidAcronym"
 msgstr "Introduzca una sigla de hasta 30 caracteres o deje el campo vacío."
 
-msgid "plugins.block.sponsorsBlock.logoDescription"
+msgid "plugins.block.logoBlocks.logoDescription"
 msgstr "Descripción (opcional)"
 
-msgid "plugins.block.sponsorsBlock.descriptionPlacement"
+msgid "plugins.block.logoBlocks.descriptionPlacement"
 msgstr "Visualización de la descripción de los logos"
 
-msgid "plugins.block.sponsorsBlock.descriptionHidden"
+msgid "plugins.block.logoBlocks.descriptionHidden"
 msgstr "No mostrar"
 
-msgid "plugins.block.sponsorsBlock.descriptionPlacementRequired"
+msgid "plugins.block.logoBlocks.descriptionPlacementRequired"
 msgstr "Seleccione dónde mostrar las descripciones de los logos."
 
-msgid "plugins.block.sponsorsBlock.invalidDescription"
+msgid "plugins.block.logoBlocks.invalidDescription"
 msgstr "Introduzca una descripción de hasta 100 caracteres o deje el campo vacío."

@@ -1,7 +1,7 @@
 <?php
 
 /** Run: php plugins/blocks/logoBlocks/tests/image.php */
-require_once dirname(__DIR__) . '/LogoBlockImage.inc.php';
+require_once dirname(__DIR__) . '/LogoBlocksImage.inc.php';
 
 function check($condition, $message)
 {
@@ -21,9 +21,9 @@ try {
         call_user_func('image' . $format, $image, $path);
         imagedestroy($image);
         clearstatcache(true, $path);
-        $uncropped = getimagesizefromstring(LogoBlockImage::resize($path, false));
+        $uncropped = getimagesizefromstring(LogoBlocksImage::resize($path, false));
         check($uncropped[0] === 150 && $uncropped[1] === 60, 'Disabled crop changed original proportions');
-        $result = LogoBlockImage::resize($path);
+        $result = LogoBlocksImage::resize($path);
         $size = getimagesizefromstring($result);
         check($size[0] === 150 && $size[1] >= 49 && $size[1] <= 52 && $size[2] === IMAGETYPE_PNG, $format . ': wrong dimensions or format');
         echo "PASS: $format white margins cropped and resized to PNG\n";
@@ -38,7 +38,7 @@ try {
             call_user_func('image' . $format, $image, $path);
             imagedestroy($image);
             clearstatcache(true, $path);
-            $result = LogoBlockImage::resize($path);
+            $result = LogoBlocksImage::resize($path);
             $size = getimagesizefromstring($result);
             // JPEG ringing can extend content a few pixels; lossless formats have exact bounds.
             $heightMatches = $format === 'jpeg' ? ($size[1] >= 105 && $size[1] <= 125) : $size[1] === 113;
@@ -59,7 +59,7 @@ try {
     imagepng($image, $path);
     imagedestroy($image);
     clearstatcache(true, $path);
-    $size = getimagesizefromstring(LogoBlockImage::resize($path));
+    $size = getimagesizefromstring(LogoBlocksImage::resize($path));
     check($size[0] === 150 && $size[1] === 75, 'Ambiguous background cropped');
     echo "PASS: ambiguous background retains original bounds\n";
 
@@ -76,7 +76,7 @@ try {
         call_user_func('image' . $format, $image, $path);
         imagedestroy($image);
         clearstatcache(true, $path);
-        $result = LogoBlockImage::resize($path);
+        $result = LogoBlocksImage::resize($path);
         $size = getimagesizefromstring($result);
         check($size[0] === 150 && $size[1] === 62, $format . ': transparent margins or white artwork cropped incorrectly');
         $decoded = imagecreatefromstring($result);
@@ -93,7 +93,7 @@ try {
         imagepng($image, $path);
         imagedestroy($image);
         clearstatcache(true, $path);
-        $size = getimagesizefromstring(LogoBlockImage::resize($path));
+        $size = getimagesizefromstring(LogoBlocksImage::resize($path));
         check($size[0] === 150 && $size[1] === 75, 'Blank or full-bleed image changed proportions');
     }
     echo "PASS: blank and full-bleed images retain proportions\n";
@@ -102,16 +102,16 @@ try {
     imagepng($image, $path);
     imagedestroy($image);
     clearstatcache(true, $path);
-    $size = getimagesizefromstring(LogoBlockImage::resize($path));
+    $size = getimagesizefromstring(LogoBlocksImage::resize($path));
     check($size[0] === 150 && $size[1] === 75, 'Small logo not normalized');
     echo "PASS: small image normalized proportionally\n";
 
-    foreach (array('<svg xmlns="http://www.w3.org/2000/svg"></svg>', '<?php echo "unsafe";', str_repeat('x', LogoBlockImage::MAX_BYTES + 1)) as $contents) {
+    foreach (array('<svg xmlns="http://www.w3.org/2000/svg"></svg>', '<?php echo "unsafe";', str_repeat('x', LogoBlocksImage::MAX_BYTES + 1)) as $contents) {
         file_put_contents($path, $contents);
         clearstatcache(true, $path);
         $rejected = false;
         try {
-            LogoBlockImage::resize($path);
+            LogoBlocksImage::resize($path);
         } catch (RuntimeException $e) {
             $rejected = true;
         }
@@ -124,7 +124,7 @@ try {
     clearstatcache(true, $path);
     $rejected = false;
     try {
-        LogoBlockImage::resize($path);
+        LogoBlocksImage::resize($path);
     } catch (RuntimeException $e) {
         $rejected = true;
     }

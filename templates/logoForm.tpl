@@ -10,13 +10,13 @@
 $(function() {
 	// OJS's default AjaxFormHandler serializes text fields only.
 	// Keep its modal lifecycle while submitting the upload as multipart data.
-	if (!$.pkp.controllers.form.LogoBlockFormHandler) {
-		$.pkp.controllers.form.LogoBlockFormHandler = function($form, options) {
+	if (!$.pkp.controllers.form.LogoBlocksFormHandler) {
+		$.pkp.controllers.form.LogoBlocksFormHandler = function($form, options) {
 			this.parent($form, options);
 		};
-		$.pkp.classes.Helper.inherits($.pkp.controllers.form.LogoBlockFormHandler,
+		$.pkp.classes.Helper.inherits($.pkp.controllers.form.LogoBlocksFormHandler,
 			$.pkp.controllers.form.AjaxFormHandler);
-		$.pkp.controllers.form.LogoBlockFormHandler.prototype.submitForm = function() {
+		$.pkp.controllers.form.LogoBlocksFormHandler.prototype.submitForm = function() {
 			var $form = this.getHtmlElement();
 			var data = new FormData($form[0]);
 			var handler = this;
@@ -37,19 +37,19 @@ $(function() {
 			});
 		};
 	}
-	$('#sponsorsBlockLogoForm').pkpHandler('$.pkp.controllers.form.LogoBlockFormHandler');
+	$('#sponsorsBlockLogoForm').pkpHandler('$.pkp.controllers.form.LogoBlocksFormHandler');
 });
 {/literal}
 </script>
 <form class="pkp_form" id="sponsorsBlockLogoForm" method="post" enctype="multipart/form-data" action="{$logoFormUrl|escape}" data-preview-url="{$logoPreviewUrl|escape}">
 	{csrf}
 	{include file="common/formErrors.tpl"}
-	<p class="sponsorsBlockNetworkError pkp_form_error" role="alert" style="display: none;">{translate key="plugins.block.sponsorsBlock.networkError"}</p>
+	<p class="sponsorsBlockNetworkError pkp_form_error" role="alert" style="display: none;">{translate key="plugins.block.logoBlocks.networkError"}</p>
 	{fbvFormArea id="sponsorsBlockLogoDetails"}
 		{fbvElement type="text" id="name" value=$name label=$logoNameLabel required=true maxlength="200"}
-		{fbvElement type="text" id="acronym" value=$acronym label="plugins.block.sponsorsBlock.acronym" maxlength="30"}
-		{fbvElement type="text" id="description" value=$description label="plugins.block.sponsorsBlock.logoDescription" maxlength="100"}
-		{fbvElement type="text" id="url" value=$url label="plugins.block.sponsorsBlock.urlWithHelp" placeholder="plugins.block.sponsorsBlock.urlPlaceholder"}
+		{fbvElement type="text" id="acronym" value=$acronym label="plugins.block.logoBlocks.acronym" maxlength="30"}
+		{fbvElement type="text" id="description" value=$description label="plugins.block.logoBlocks.logoDescription" maxlength="100"}
+		{fbvElement type="text" id="url" value=$url label="plugins.block.logoBlocks.urlWithHelp" placeholder="plugins.block.logoBlocks.urlPlaceholder"}
 	{/fbvFormArea}
 	{include file=$logoPreviewTemplate previewFormId="sponsorsBlockLogoForm"}
 	{fbvFormButtons submitText="common.save"}

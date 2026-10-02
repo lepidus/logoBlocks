@@ -115,5 +115,5 @@
 })(jQuery);
 {/literal}
 </script>
-<div class="sponsors-block-order-messages" hidden data-saving="{translate|escape key="plugins.block.sponsorsBlock.orderSaving"}" data-saved="{translate|escape key="plugins.block.sponsorsBlock.orderSaved"}" data-error="{translate|escape key="plugins.block.sponsorsBlock.invalidOrder"}"></div>
+<div class="sponsors-block-order-messages" hidden data-saving="{translate|escape key="plugins.block.logoBlocks.orderSaving"}" data-saved="{translate|escape key="plugins.block.logoBlocks.orderSaved"}" data-error="{translate|escape key="plugins.block.logoBlocks.invalidOrder"}"></div>
 {include file="controllers/grid/grid.tpl"}

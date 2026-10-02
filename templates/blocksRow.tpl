@@ -4,7 +4,7 @@
 	<td>
 		<div style="display: flex; align-items: center; justify-content: space-between; gap: 16px;">
             <span style="display: inline-flex; align-items: center; gap: 12px;">
-                <button type="button" class="sponsors-block-drag-handle" aria-label="{translate|escape key="plugins.block.sponsorsBlock.moveBlock"} — {$blockData.title|escape}" title="{translate|escape key="plugins.block.sponsorsBlock.blockOrderHelp"}">
+                <button type="button" class="sponsors-block-drag-handle" aria-label="{translate|escape key="plugins.block.logoBlocks.moveBlock"} — {$blockData.title|escape}" title="{translate|escape key="plugins.block.logoBlocks.blockOrderHelp"}">
                     <span aria-hidden="true" class="sponsors-block-drag-dots"></span>
                 </button>
                 {$cells[0]}
@@ -15,10 +15,10 @@
 				{/foreach}
                 <button type="button" class="sponsors-block-switch" role="switch"
                     aria-checked="{if $blockData.visible}true{else}false{/if}"
-                    aria-label="{translate|escape key="plugins.block.sponsorsBlock.visibility"} — {$blockData.title|escape}"
-                    title="{translate|escape key="plugins.block.sponsorsBlock.visibility"}"
+                    aria-label="{translate|escape key="plugins.block.logoBlocks.visibility"} — {$blockData.title|escape}"
+                    title="{translate|escape key="plugins.block.logoBlocks.visibility"}"
                     data-url="{$blockData.visibilityUrl|escape}" data-csrf="{$blockData.csrfToken|escape}"
-                    data-error="{translate|escape key="plugins.block.sponsorsBlock.visibilityError"}">
+                    data-error="{translate|escape key="plugins.block.logoBlocks.visibilityError"}">
                     <span aria-hidden="true"></span>
                 </button>
 			</span>

@@ -49,7 +49,7 @@
 			<div class="sponsors-upload-picker">
 				<label class="sponsors-select-logo">
 					<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true" focusable="false"><path d="M12 16V3m-5 5 5-5 5 5M4 15v6h16v-6"/></svg>
-					<span>{if $currentLogoUrl}{translate key="plugins.block.sponsorsBlock.updateLogo"}{else}{translate key="plugins.block.sponsorsBlock.selectLogo"}{/if}</span>
+					<span>{if $currentLogoUrl}{translate key="plugins.block.logoBlocks.updateLogo"}{else}{translate key="plugins.block.logoBlocks.selectLogo"}{/if}</span>
 					<input type="file" name="logo" id="logo" accept="image/png,image/jpeg,image/gif" aria-describedby="{$previewFormId|escape}-imageHelp">
 				</label>
 				<span class="sponsors-upload-filename" aria-live="polite"></span>
@@ -57,14 +57,14 @@
 		{/if}
 		{if $previewFormId == 'sponsorsBlockLogoForm'}
 			<div class="sponsors-upload-info" id="{$previewFormId|escape}-imageHelp">
-				<p>{translate key="plugins.block.sponsorsBlock.imageSummary"}</p>
+				<p>{translate key="plugins.block.logoBlocks.imageSummary"}</p>
 			</div>
 		{/if}
 		<div class="sponsors-preview-frame">
 			<svg {if $currentLogoUrl}style="display: none;"{/if} class="sponsors-preview-placeholder" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" aria-hidden="true" focusable="false"><rect x="2" y="2" width="20" height="20" rx="2"/><circle cx="8" cy="8" r="2"/><path d="m3 19 6-6 4 4 4-6 5 8"/></svg>
 			<figure class="sponsors-preview-result" {if !$currentLogoUrl}style="display: none;"{/if}>
-				<figcaption class="pkp_screen_reader">{translate key="plugins.block.sponsorsBlock.preview"}</figcaption>
-				<img {if $currentLogoUrl}src="{$currentLogoUrl|escape}"{/if} alt="{translate key="plugins.block.sponsorsBlock.preview"}">
+				<figcaption class="pkp_screen_reader">{translate key="plugins.block.logoBlocks.preview"}</figcaption>
+				<img {if $currentLogoUrl}src="{$currentLogoUrl|escape}"{/if} alt="{translate key="plugins.block.logoBlocks.preview"}">
 			</figure>
 		</div>
 		{if $previewFormId == 'sponsorsBlockLogoForm'}
@@ -72,14 +72,14 @@
 			<label class="sponsors-crop-switch">
 				<input type="checkbox" role="switch" name="crop" value="1" aria-describedby="{$previewFormId|escape}-cropHelp" {if $crop}checked{/if}>
 				<span class="sponsors-switch-track" aria-hidden="true"></span>
-				<span>{translate key="plugins.block.sponsorsBlock.crop"}</span>
+				<span>{translate key="plugins.block.logoBlocks.crop"}</span>
 			</label>
-			<p class="sponsors-crop-help" id="{$previewFormId|escape}-cropHelp">{translate key="plugins.block.sponsorsBlock.cropSummary"}</p>
+			<p class="sponsors-crop-help" id="{$previewFormId|escape}-cropHelp">{translate key="plugins.block.logoBlocks.cropSummary"}</p>
 		</div>
 		{/if}
 	</div>
-	<p class="sponsors-preview-loading" role="status" style="display: none;">{translate key="plugins.block.sponsorsBlock.previewLoading"}</p>
-	<p class="sponsors-preview-error pkp_form_error" role="alert" style="display: none;">{translate key="plugins.block.sponsorsBlock.previewError"}</p>
+	<p class="sponsors-preview-loading" role="status" style="display: none;">{translate key="plugins.block.logoBlocks.previewLoading"}</p>
+	<p class="sponsors-preview-error pkp_form_error" role="alert" style="display: none;">{translate key="plugins.block.logoBlocks.previewError"}</p>
 		</div>
 	</div>
 </div>

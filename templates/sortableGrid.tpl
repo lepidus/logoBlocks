@@ -44,8 +44,8 @@
 <script>
 {literal}
 (function ($) {
-	if ($.pkp.controllers.grid.LogoBlockGridHandler) return;
-	$.pkp.controllers.grid.LogoBlockGridHandler = function ($grid, options) {
+	if ($.pkp.controllers.grid.LogoBlocksLogoGridHandler) return;
+	$.pkp.controllers.grid.LogoBlocksLogoGridHandler = function ($grid, options) {
 		this.parent($grid, options);
 		$grid.addClass('sponsors-sortable-grid');
 		var $focusedHandle = null;
@@ -122,9 +122,9 @@
 			persist();
 		});
 	};
-	$.pkp.classes.Helper.inherits($.pkp.controllers.grid.LogoBlockGridHandler, $.pkp.controllers.grid.GridHandler);
+	$.pkp.classes.Helper.inherits($.pkp.controllers.grid.LogoBlocksLogoGridHandler, $.pkp.controllers.grid.GridHandler);
 })(jQuery);
 {/literal}
 </script>
-<div class="sponsors-order-messages" hidden data-saving="{translate|escape key="plugins.block.sponsorsBlock.orderSaving"}" data-saved="{translate|escape key="plugins.block.sponsorsBlock.orderSaved"}" data-error="{translate|escape key="plugins.block.sponsorsBlock.invalidOrder"}"></div>
+<div class="sponsors-order-messages" hidden data-saving="{translate|escape key="plugins.block.logoBlocks.orderSaving"}" data-saved="{translate|escape key="plugins.block.logoBlocks.orderSaved"}" data-error="{translate|escape key="plugins.block.logoBlocks.invalidOrder"}"></div>
 {include file="controllers/grid/grid.tpl"}

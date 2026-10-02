@@ -2,7 +2,7 @@
 
 import('lib.pkp.classes.controllers.grid.GridCellProvider');
 
-class LogoBlockGridCellProvider extends GridCellProvider
+class LogoBlocksLogoGridCellProvider extends GridCellProvider
 {
     public function getTemplateVarsFromRowColumn($row, $column)
     {
@@ -13,7 +13,7 @@ class LogoBlockGridCellProvider extends GridCellProvider
             case 'image':
                 return array('logoImageUrl' => $logo['imageUrl'], 'logoName' => $logo['name']);
             case 'url':
-                return array('label' => $logo['url'] ?: __('plugins.block.sponsorsBlock.noLink'));
+                return array('label' => $logo['url'] ?: __('plugins.block.logoBlocks.noLink'));
             default:
                 return array('label' => $logo['name']);
         }

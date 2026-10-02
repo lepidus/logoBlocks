@@ -1,11 +1,11 @@
 <?php
 
 import('lib.pkp.classes.controllers.grid.GridHandler');
-require_once __DIR__ . '/LogoBlockGridRow.inc.php';
-require_once __DIR__ . '/LogoBlockGridCellProvider.inc.php';
+require_once __DIR__ . '/LogoBlocksLogoGridRow.inc.php';
+require_once __DIR__ . '/LogoBlocksLogoGridCellProvider.inc.php';
 
 /** Invoked exclusively by the authorized plugin management endpoint. */
-class LogoBlockGridHandler extends GridHandler
+class LogoBlocksLogoGridHandler extends GridHandler
 {
     private $plugin;
 
@@ -20,8 +20,8 @@ class LogoBlockGridHandler extends GridHandler
         parent::initialize($request, $args);
         $this->setId('sponsorsBlock-logos');
         $this->setTemplate($this->plugin->getTemplateResource('sortableGrid.tpl'));
-        $this->setTitle('plugins.block.sponsorsBlock.logos');
-        $this->setEmptyRowText('plugins.block.sponsorsBlock.empty');
+        $this->setTitle('plugins.block.logoBlocks.logos');
+        $this->setEmptyRowText('plugins.block.logoBlocks.empty');
         $logos = $this->plugin->getLogos($request->getContext()->getId());
         $publicUrl = $this->plugin->getPublicUrl($request, $request->getContext()->getId());
         foreach ($logos as &$logo) {
@@ -34,33 +34,33 @@ class LogoBlockGridHandler extends GridHandler
             'chooseLogo',
             new AjaxModal(
                 $this->plugin->getGridUrl($request, 'chooseLogo'),
-                __('plugins.block.sponsorsBlock.choose'),
+                __('plugins.block.logoBlocks.choose'),
                 'modal_add_item'
             ),
-            __('plugins.block.sponsorsBlock.choose'),
+            __('plugins.block.logoBlocks.choose'),
             'add_item'
         ));
         $this->addAction(new LinkAction(
             'addLogo',
             new AjaxModal(
                 $this->plugin->getGridUrl($request, 'addLogo'),
-                __('plugins.block.sponsorsBlock.add'),
+                __('plugins.block.logoBlocks.add'),
                 'modal_add_item'
             ),
-            __('plugins.block.sponsorsBlock.add'),
+            __('plugins.block.logoBlocks.add'),
             'add_item'
         ));
-        $provider = new LogoBlockGridCellProvider();
-        $nameTitle = str_replace(' (', '<br>(', htmlspecialchars(__('plugins.block.sponsorsBlock.name'), ENT_QUOTES, 'UTF-8'));
-        $this->addColumn(new GridColumn('name', 'plugins.block.sponsorsBlock.name', $nameTitle, $this->plugin->getTemplateResource('logoNameCell.tpl'), $provider));
+        $provider = new LogoBlocksLogoGridCellProvider();
+        $nameTitle = str_replace(' (', '<br>(', htmlspecialchars(__('plugins.block.logoBlocks.name'), ENT_QUOTES, 'UTF-8'));
+        $this->addColumn(new GridColumn('name', 'plugins.block.logoBlocks.name', $nameTitle, $this->plugin->getTemplateResource('logoNameCell.tpl'), $provider));
         $this->addColumn(new GridColumn(
             'image',
-            'plugins.block.sponsorsBlock.logo',
+            'plugins.block.logoBlocks.logo',
             null,
             $this->plugin->getTemplateResource('logoCell.tpl'),
             $provider
         ));
-        $this->addColumn(new GridColumn('url', 'plugins.block.sponsorsBlock.link', null, null, $provider));
+        $this->addColumn(new GridColumn('url', 'plugins.block.logoBlocks.link', null, null, $provider));
     }
 
     public function setUrls($request, $extraUrls = array())
@@ -76,7 +76,7 @@ class LogoBlockGridHandler extends GridHandler
 
     public function getJSHandler()
     {
-        return '$.pkp.controllers.grid.LogoBlockGridHandler';
+        return '$.pkp.controllers.grid.LogoBlocksLogoGridHandler';
     }
 
     public function saveSequence($args, $request)
@@ -89,12 +89,12 @@ class LogoBlockGridHandler extends GridHandler
         $contextId = $request->getContext()->getId();
         $logos = $this->plugin->getLogos($contextId);
         if (!is_array($order) || count($order) !== count($logos)) {
-            return new JSONMessage(false, __('plugins.block.sponsorsBlock.invalidOrder'));
+            return new JSONMessage(false, __('plugins.block.logoBlocks.invalidOrder'));
         }
         $ordered = array();
         foreach ($order as $id) {
             if (!is_string($id) || !isset($logos[$id]) || isset($ordered[$id])) {
-                return new JSONMessage(false, __('plugins.block.sponsorsBlock.invalidOrder'));
+                return new JSONMessage(false, __('plugins.block.logoBlocks.invalidOrder'));
             }
             $ordered[$id] = $logos[$id];
         }
@@ -104,7 +104,7 @@ class LogoBlockGridHandler extends GridHandler
 
     public function getRowInstance()
     {
-        return new LogoBlockGridRow($this->plugin);
+        return new LogoBlocksLogoGridRow($this->plugin);
     }
 
     public function addLogo($args, $request)
@@ -114,16 +114,16 @@ class LogoBlockGridHandler extends GridHandler
 
     public function chooseLogo($args, $request)
     {
-        $this->plugin->import('LogoBlockLogoForm');
-        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), null, true);
+        $this->plugin->import('LogoBlocksLogoForm');
+        $form = new LogoBlocksLogoForm($this->plugin, $request->getContext()->getId(), null, true);
         $form->initData();
         return new JSONMessage(true, $form->fetch($request));
     }
 
     public function addGalleryLogo($args, $request)
     {
-        $this->plugin->import('LogoBlockLogoForm');
-        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), null, true);
+        $this->plugin->import('LogoBlocksLogoForm');
+        $form = new LogoBlocksLogoForm($this->plugin, $request->getContext()->getId(), null, true);
         $form->readInputData();
         if ($form->validate() && $form->execute()) {
             return DAO::getDataChangedEvent();
@@ -136,8 +136,8 @@ class LogoBlockGridHandler extends GridHandler
         if (!$request->isPost() || !$request->checkCSRF()) {
             return new JSONMessage(false);
         }
-        $this->plugin->import('LogoBlockLogoForm');
-        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), null, $request->getUserVar('galleryId') !== null);
+        $this->plugin->import('LogoBlocksLogoForm');
+        $form = new LogoBlocksLogoForm($this->plugin, $request->getContext()->getId(), null, $request->getUserVar('galleryId') !== null);
         $form->readInputData();
         $preview = $form->getImagePreview();
         return new JSONMessage($preview !== null, $preview);
@@ -151,8 +151,8 @@ class LogoBlockGridHandler extends GridHandler
 
     private function showLogoForm($request, $id)
     {
-        $this->plugin->import('LogoBlockLogoForm');
-        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), $id);
+        $this->plugin->import('LogoBlocksLogoForm');
+        $form = new LogoBlocksLogoForm($this->plugin, $request->getContext()->getId(), $id);
         $form->initData();
         return new JSONMessage(true, $form->fetch($request));
     }
@@ -170,8 +170,8 @@ class LogoBlockGridHandler extends GridHandler
         if ($id !== null && $this->getLogoId($request) === null) {
             return new JSONMessage(false);
         }
-        $this->plugin->import('LogoBlockLogoForm');
-        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), $id);
+        $this->plugin->import('LogoBlocksLogoForm');
+        $form = new LogoBlocksLogoForm($this->plugin, $request->getContext()->getId(), $id);
         $form->readInputData();
         if ($form->validate() && $form->execute()) {
             return DAO::getDataChangedEvent();

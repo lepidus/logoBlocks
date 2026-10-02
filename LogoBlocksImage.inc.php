@@ -1,7 +1,7 @@
 <?php
 
 /** Decode and re-encode uploads; never publish the original uploaded bytes. */
-class LogoBlockImage
+class LogoBlocksImage
 {
     public const MAX_BYTES = 5242880;
     public const MAX_PIXELS = 12000000;
@@ -10,17 +10,17 @@ class LogoBlockImage
     public static function resize($path, $crop = true)
     {
         if (!function_exists('imagecreatefromstring')) {
-            throw new RuntimeException('plugins.block.sponsorsBlock.gdRequired');
+            throw new RuntimeException('plugins.block.logoBlocks.gdRequired');
         }
         $size = @getimagesize($path);
         if (!$size || !in_array($size[2], array(IMAGETYPE_PNG, IMAGETYPE_JPEG, IMAGETYPE_GIF), true)
             || filesize($path) > self::MAX_BYTES || $size[0] * $size[1] > self::MAX_PIXELS
             || $size[0] < 1 || $size[1] < 1) {
-            throw new RuntimeException('plugins.block.sponsorsBlock.invalidImage');
+            throw new RuntimeException('plugins.block.logoBlocks.invalidImage');
         }
         $source = @imagecreatefromstring(file_get_contents($path));
         if (!$source) {
-            throw new RuntimeException('plugins.block.sponsorsBlock.invalidImage');
+            throw new RuntimeException('plugins.block.logoBlocks.invalidImage');
         }
         list($left, $top, $width, $height) = $crop
             ? self::contentBounds($source)
@@ -28,7 +28,7 @@ class LogoBlockImage
         $outputHeight = max(1, (int) round($height * 150 / $width));
         if ($outputHeight > 3000) {
             imagedestroy($source);
-            throw new RuntimeException('plugins.block.sponsorsBlock.invalidImage');
+            throw new RuntimeException('plugins.block.logoBlocks.invalidImage');
         }
         $target = imagecreatetruecolor(150, $outputHeight);
         imagealphablending($target, false);
