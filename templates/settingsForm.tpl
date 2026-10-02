@@ -42,7 +42,7 @@
 	{csrf}
 	{include file="common/formErrors.tpl"}
 	{fbvFormArea id="sponsorsBlockTitleArea"}
-		{fbvElement type="text" id="title" value=$title label="plugins.block.logoBlocks.title" multilingual=true required=true maxlength="200"}
+		{fbvElement type="text" id="title" value=$title label="plugins.block.logoBlocks.title" multilingual=true maxlength="200"}
 	{/fbvFormArea}
 	{if $sponsorsNewBlock}
 		<p>{translate key="plugins.block.logoBlocks.createHelp"}</p>

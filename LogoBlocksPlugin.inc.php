@@ -271,6 +271,11 @@ class LogoBlocksPlugin extends BlockPlugin
                 return $titles[$locale];
             }
         }
+        foreach ($titles as $title) {
+            if (is_string($title) && trim($title) !== '') {
+                return $title;
+            }
+        }
         return '';
     }
 

@@ -19,7 +19,6 @@ class LogoBlocksSettingsForm extends Form
         $this->setData('descriptionPlacement', $plugin->getDescriptionPlacement($contextId));
         $this->addCheck(new FormValidatorPost($this));
         $this->addCheck(new FormValidatorCSRF($this));
-        $this->addCheck(new FormValidatorLocale($this, 'title', 'required', 'plugins.block.logoBlocks.requiredName'));
     }
 
     public function initData()
@@ -56,6 +55,10 @@ class LogoBlocksSettingsForm extends Form
             $titles[$locale] = is_string($value) ? trim($value) : '';
         }
         $this->setData('title', $titles);
+        // A title in any enabled form language is sufficient.
+        if (!count(array_filter($titles, function ($title) { return $title !== ''; }))) {
+            $this->addError('title', __('plugins.block.logoBlocks.requiredName'));
+        }
         return parent::validate($callHooks);
     }
 

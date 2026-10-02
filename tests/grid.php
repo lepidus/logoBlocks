@@ -27,9 +27,10 @@ function __($key, $params = array(), $locale = null)
 class AppLocale
 {
     public static $locale = 'en_US';
+    public static $primaryLocale = 'en_US';
     public static function getPrimaryLocale()
     {
-        return 'en_US';
+        return self::$primaryLocale;
     }
     public static function getLocale()
     {
@@ -289,7 +290,7 @@ AppLocale::$locale = 'es_ES';
 check($plugin->getBlockTitle(1) === 'Index to:', 'Spanish locale did not fall back to primary title');
 AppLocale::$locale = 'de_DE';
 check($plugin->getBlockTitle(1) === 'Index to:', 'Missing translation did not fall back to primary locale');
-foreach (array(array('en_US' => '', 'pt_BR' => 'Título'), array('en_US' => 'Valid', 'pt_BR' => str_repeat('x', 201)), array('en_US' => array('invalid')), 'not-localized') as $titles) {
+foreach (array(array('en_US' => ' ', 'pt_BR' => ''), array('fr_CA' => 'Unsupported'), array('en_US' => 'Valid', 'pt_BR' => str_repeat('x', 201)), array('en_US' => array('invalid')), 'not-localized') as $titles) {
     $titleForm = new LogoBlocksSettingsForm($plugin, 1);
     $titleForm->setData('title', $titles);
     check(!$titleForm->validate(false), 'Invalid localized title accepted');
@@ -300,7 +301,18 @@ check($titleForm->validate(false) && $titleForm->execute(), 'Optional empty tran
 AppLocale::$locale = 'pt_BR';
 check($plugin->getBlockTitle(1) === 'Primary', 'Empty translation did not fall back');
 AppLocale::$locale = 'en_US';
-echo "PASS: multilingual titles, legacy data, required primary locale and language fallback\n";
+foreach (array('pt_BR' => 'en_US', 'en_US' => 'pt_BR') as $primaryLocale => $titleLocale) {
+    AppLocale::$primaryLocale = $primaryLocale;
+    AppLocale::$locale = $titleLocale;
+    $titleForm = new LogoBlocksSettingsForm($plugin, 1, true);
+    $titleForm->setData('title', array($titleLocale => ' Indexers '));
+    check($titleForm->validate(false) && $titleForm->execute(), 'Title outside primary locale rejected');
+    AppLocale::$locale = $primaryLocale;
+    check($plugin->getBlockTitle(1) === 'Indexers', 'Available title fallback missing');
+}
+AppLocale::$primaryLocale = 'en_US';
+AppLocale::$locale = 'en_US';
+echo "PASS: multilingual titles, legacy data, any supported title language and language fallback\n";
 
 // Render a full page through the bundled Smarty engine. The block registers its
 // output filter during the sidebar fetch, as in the OJS frontend footer.
