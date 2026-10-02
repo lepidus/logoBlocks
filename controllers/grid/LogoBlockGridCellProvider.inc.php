@@ -2,7 +2,7 @@
 
 import('lib.pkp.classes.controllers.grid.GridCellProvider');
 
-class SponsorsBlockGridCellProvider extends GridCellProvider
+class LogoBlockGridCellProvider extends GridCellProvider
 {
     public function getTemplateVarsFromRowColumn($row, $column)
     {

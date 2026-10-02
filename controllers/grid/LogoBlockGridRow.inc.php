@@ -2,7 +2,7 @@
 
 import('lib.pkp.classes.controllers.grid.GridRow');
 
-class SponsorsBlockGridRow extends GridRow
+class LogoBlockGridRow extends GridRow
 {
     private $plugin;
 

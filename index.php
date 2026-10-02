@@ -1,4 +1,4 @@
 <?php
 
-require_once __DIR__ . '/SponsorsBlockPlugin.inc.php';
-return new SponsorsBlockPlugin();
+require_once __DIR__ . '/LogoBlocksPlugin.inc.php';
+return new LogoBlocksPlugin();

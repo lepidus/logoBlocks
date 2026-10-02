@@ -1,11 +1,11 @@
 <?php
 
 import('lib.pkp.classes.controllers.grid.GridHandler');
-require_once __DIR__ . '/SponsorsBlockGridRow.inc.php';
-require_once __DIR__ . '/SponsorsBlockGridCellProvider.inc.php';
+require_once __DIR__ . '/LogoBlockGridRow.inc.php';
+require_once __DIR__ . '/LogoBlockGridCellProvider.inc.php';
 
 /** Invoked exclusively by the authorized plugin management endpoint. */
-class SponsorsBlockGridHandler extends GridHandler
+class LogoBlockGridHandler extends GridHandler
 {
     private $plugin;
 
@@ -50,7 +50,7 @@ class SponsorsBlockGridHandler extends GridHandler
             __('plugins.block.sponsorsBlock.add'),
             'add_item'
         ));
-        $provider = new SponsorsBlockGridCellProvider();
+        $provider = new LogoBlockGridCellProvider();
         $nameTitle = str_replace(' (', '<br>(', htmlspecialchars(__('plugins.block.sponsorsBlock.name'), ENT_QUOTES, 'UTF-8'));
         $this->addColumn(new GridColumn('name', 'plugins.block.sponsorsBlock.name', $nameTitle, $this->plugin->getTemplateResource('logoNameCell.tpl'), $provider));
         $this->addColumn(new GridColumn(
@@ -76,7 +76,7 @@ class SponsorsBlockGridHandler extends GridHandler
 
     public function getJSHandler()
     {
-        return '$.pkp.controllers.grid.SponsorsBlockGridHandler';
+        return '$.pkp.controllers.grid.LogoBlockGridHandler';
     }
 
     public function saveSequence($args, $request)
@@ -104,7 +104,7 @@ class SponsorsBlockGridHandler extends GridHandler
 
     public function getRowInstance()
     {
-        return new SponsorsBlockGridRow($this->plugin);
+        return new LogoBlockGridRow($this->plugin);
     }
 
     public function addLogo($args, $request)
@@ -114,16 +114,16 @@ class SponsorsBlockGridHandler extends GridHandler
 
     public function chooseLogo($args, $request)
     {
-        $this->plugin->import('SponsorsBlockLogoForm');
-        $form = new SponsorsBlockLogoForm($this->plugin, $request->getContext()->getId(), null, true);
+        $this->plugin->import('LogoBlockLogoForm');
+        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), null, true);
         $form->initData();
         return new JSONMessage(true, $form->fetch($request));
     }
 
     public function addGalleryLogo($args, $request)
     {
-        $this->plugin->import('SponsorsBlockLogoForm');
-        $form = new SponsorsBlockLogoForm($this->plugin, $request->getContext()->getId(), null, true);
+        $this->plugin->import('LogoBlockLogoForm');
+        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), null, true);
         $form->readInputData();
         if ($form->validate() && $form->execute()) {
             return DAO::getDataChangedEvent();
@@ -136,8 +136,8 @@ class SponsorsBlockGridHandler extends GridHandler
         if (!$request->isPost() || !$request->checkCSRF()) {
             return new JSONMessage(false);
         }
-        $this->plugin->import('SponsorsBlockLogoForm');
-        $form = new SponsorsBlockLogoForm($this->plugin, $request->getContext()->getId(), null, $request->getUserVar('galleryId') !== null);
+        $this->plugin->import('LogoBlockLogoForm');
+        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), null, $request->getUserVar('galleryId') !== null);
         $form->readInputData();
         $preview = $form->getImagePreview();
         return new JSONMessage($preview !== null, $preview);
@@ -151,8 +151,8 @@ class SponsorsBlockGridHandler extends GridHandler
 
     private function showLogoForm($request, $id)
     {
-        $this->plugin->import('SponsorsBlockLogoForm');
-        $form = new SponsorsBlockLogoForm($this->plugin, $request->getContext()->getId(), $id);
+        $this->plugin->import('LogoBlockLogoForm');
+        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), $id);
         $form->initData();
         return new JSONMessage(true, $form->fetch($request));
     }
@@ -170,8 +170,8 @@ class SponsorsBlockGridHandler extends GridHandler
         if ($id !== null && $this->getLogoId($request) === null) {
             return new JSONMessage(false);
         }
-        $this->plugin->import('SponsorsBlockLogoForm');
-        $form = new SponsorsBlockLogoForm($this->plugin, $request->getContext()->getId(), $id);
+        $this->plugin->import('LogoBlockLogoForm');
+        $form = new LogoBlockLogoForm($this->plugin, $request->getContext()->getId(), $id);
         $form->readInputData();
         if ($form->validate() && $form->execute()) {
             return DAO::getDataChangedEvent();

@@ -3,9 +3,15 @@
 /** Sidebar logos for OJS 3.3. Distributed under the GNU GPL v3. */
 import('lib.pkp.classes.plugins.BlockPlugin');
 
-class SponsorsBlockPlugin extends BlockPlugin
+class LogoBlocksPlugin extends BlockPlugin
 {
     private $blockId = null;
+
+    /** Preserve stored settings and sidebar selection from existing installations. */
+    public function getName()
+    {
+        return 'sponsorsblockplugin';
+    }
 
     public function getBlockId()
     {
@@ -122,8 +128,8 @@ class SponsorsBlockPlugin extends BlockPlugin
             return new JSONMessage(false);
         }
         if ($verb === 'settings' || $verb === 'blocks') {
-            $this->import('controllers.grid.SponsorsBlocksGridHandler');
-            $grid = new SponsorsBlocksGridHandler($this);
+            $this->import('controllers.grid.LogoBlocksGridHandler');
+            $grid = new LogoBlocksGridHandler($this);
             $operation = $verb === 'settings' ? 'fetchGrid' : $request->getUserVar('gridOp');
             if (!in_array($operation, array('fetchGrid', 'fetchRows', 'fetchRow', 'saveSequence'), true)) {
                 return new JSONMessage(false);
@@ -157,8 +163,8 @@ class SponsorsBlockPlugin extends BlockPlugin
         }
         if ($verb === 'grid') {
             // Use the management endpoint protected by PluginAccessPolicy.
-            $this->import('controllers.grid.SponsorsBlockGridHandler');
-            $grid = new SponsorsBlockGridHandler($plugin);
+            $this->import('controllers.grid.LogoBlockGridHandler');
+            $grid = new LogoBlockGridHandler($plugin);
             $operation = $request->getUserVar('gridOp');
             if (!is_string($operation) || !in_array($operation, array('fetchGrid', 'fetchRows', 'fetchRow', 'addLogo', 'chooseLogo', 'addGalleryLogo', 'previewLogo', 'editLogo', 'updateLogo', 'deleteLogo', 'saveSequence'), true)) {
                 return new JSONMessage(false);
@@ -166,8 +172,8 @@ class SponsorsBlockPlugin extends BlockPlugin
             $grid->initialize($request);
             return $grid->$operation($args, $request);
         }
-        $this->import('SponsorsBlockSettingsForm');
-        $form = new SponsorsBlockSettingsForm($plugin, $contextId, $verb === 'addBlock');
+        $this->import('LogoBlockSettingsForm');
+        $form = new LogoBlockSettingsForm($plugin, $contextId, $verb === 'addBlock');
         if ($request->getUserVar('save')) {
             $form->readInputData();
             if ($form->validate() && $form->execute()) {

@@ -1,10 +1,10 @@
 <?php
 
 import('lib.pkp.classes.form.Form');
-require_once __DIR__ . '/SponsorsBlockImage.inc.php';
+require_once __DIR__ . '/LogoBlockImage.inc.php';
 
 /** Add or edit one logo without overwriting the title or unrelated logos. */
-class SponsorsBlockLogoForm extends Form
+class LogoBlockLogoForm extends Form
 {
     private $plugin;
     private $contextId;
@@ -97,7 +97,7 @@ class SponsorsBlockLogoForm extends Form
             $this->setData('name', $entry['name']);
             $this->setData('acronym', isset($entry['acronym']) ? $entry['acronym'] : '');
             try {
-                $this->image = SponsorsBlockImage::resize(__DIR__ . '/logos/' . $entry['file'], false);
+                $this->image = LogoBlockImage::resize(__DIR__ . '/logos/' . $entry['file'], false);
             } catch (RuntimeException $e) {
                 $this->addError('galleryId', __($e->getMessage()));
                 return false;
@@ -111,7 +111,7 @@ class SponsorsBlockLogoForm extends Form
                 $this->addError('logo', __('plugins.block.sponsorsBlock.invalidImage'));
             } else {
                 try {
-                    $this->image = SponsorsBlockImage::resize($upload['tmp_name'], $crop);
+                    $this->image = LogoBlockImage::resize($upload['tmp_name'], $crop);
                 } catch (RuntimeException $e) {
                     $this->addError('logo', __($e->getMessage()));
                 }

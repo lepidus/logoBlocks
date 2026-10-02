@@ -1,10 +1,10 @@
 <?php
 
 import('lib.pkp.classes.controllers.grid.GridHandler');
-require_once __DIR__ . '/SponsorsBlocksGridRow.inc.php';
+require_once __DIR__ . '/LogoBlocksGridRow.inc.php';
 
 /** Block administration uses the same authorized endpoint as logo editing. */
-class SponsorsBlocksGridHandler extends GridHandler
+class LogoBlocksGridHandler extends GridHandler
 {
     private $plugin;
 
@@ -51,7 +51,7 @@ class SponsorsBlocksGridHandler extends GridHandler
 
     public function getJSHandler()
     {
-        return '$.pkp.controllers.grid.SponsorsBlocksGridHandler';
+        return '$.pkp.controllers.grid.LogoBlocksGridHandler';
     }
 
     public function saveSequence($args, $request)
@@ -79,6 +79,6 @@ class SponsorsBlocksGridHandler extends GridHandler
 
     public function getRowInstance()
     {
-        return new SponsorsBlocksGridRow($this->plugin);
+        return new LogoBlocksGridRow($this->plugin);
     }
 }

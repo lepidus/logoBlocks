@@ -10,13 +10,13 @@
 $(function() {
 	// OJS's default AjaxFormHandler serializes text fields only.
 	// Keep its modal lifecycle while submitting the upload as multipart data.
-	if (!$.pkp.controllers.form.SponsorsBlockFormHandler) {
-		$.pkp.controllers.form.SponsorsBlockFormHandler = function($form, options) {
+	if (!$.pkp.controllers.form.LogoBlockFormHandler) {
+		$.pkp.controllers.form.LogoBlockFormHandler = function($form, options) {
 			this.parent($form, options);
 		};
-		$.pkp.classes.Helper.inherits($.pkp.controllers.form.SponsorsBlockFormHandler,
+		$.pkp.classes.Helper.inherits($.pkp.controllers.form.LogoBlockFormHandler,
 			$.pkp.controllers.form.AjaxFormHandler);
-		$.pkp.controllers.form.SponsorsBlockFormHandler.prototype.submitForm = function() {
+		$.pkp.controllers.form.LogoBlockFormHandler.prototype.submitForm = function() {
 			var $form = this.getHtmlElement();
 			var data = new FormData($form[0]);
 			var handler = this;
@@ -37,7 +37,7 @@ $(function() {
 			});
 		};
 	}
-	$('#sponsorsBlockLogoForm').pkpHandler('$.pkp.controllers.form.SponsorsBlockFormHandler');
+	$('#sponsorsBlockLogoForm').pkpHandler('$.pkp.controllers.form.LogoBlockFormHandler');
 });
 {/literal}
 </script>

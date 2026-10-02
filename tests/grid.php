@@ -1,7 +1,7 @@
 <?php
 
 /** Focused tests with real OJS grid/form classes and in-memory request/settings doubles.
- * Run from any directory: php plugins/blocks/sponsors/tests/grid.php
+ * Run from any directory: php plugins/blocks/logoBlocks/tests/grid.php
  * These tests do not replace a browser or database integration test.
  */
 define('BASE_SYS_DIR', dirname(__DIR__, 4));
@@ -15,10 +15,10 @@ import('lib.pkp.classes.core.PKPString');
 import('lib.pkp.classes.plugins.HookRegistry');
 import('lib.pkp.classes.core.PKPComponentRouter');
 import('lib.pkp.classes.db.DAO');
-require dirname(__DIR__) . '/SponsorsBlockPlugin.inc.php';
-require dirname(__DIR__) . '/SponsorsBlockLogoForm.inc.php';
-require dirname(__DIR__) . '/SponsorsBlockSettingsForm.inc.php';
-require dirname(__DIR__) . '/controllers/grid/SponsorsBlockGridHandler.inc.php';
+require dirname(__DIR__) . '/LogoBlocksPlugin.inc.php';
+require dirname(__DIR__) . '/LogoBlockLogoForm.inc.php';
+require dirname(__DIR__) . '/LogoBlockSettingsForm.inc.php';
+require dirname(__DIR__) . '/controllers/grid/LogoBlockGridHandler.inc.php';
 
 function __($key, $params = array(), $locale = null)
 {
@@ -124,13 +124,13 @@ class GridTestRequest
         };
     }
 }
-class GridTestPlugin extends SponsorsBlockPlugin
+class GridTestPlugin extends LogoBlocksPlugin
 {
     public $settings = array();
     public function __construct()
     {
         // Explicitly scope this fixture; the production plugin has no default block.
-        $id = new ReflectionProperty(SponsorsBlockPlugin::class, 'blockId');
+        $id = new ReflectionProperty(LogoBlocksPlugin::class, 'blockId');
         $id->setAccessible(true);
         $id->setValue($this, 'existing-block');
     }
@@ -173,7 +173,7 @@ $plugin->pluginPath = dirname(__DIR__);
 $logo = array('name' => 'Original', 'url' => '', 'file' => 'sponsorsBlock-original.png');
 $plugin->settings = array(1 => array('logoBlocks' => array('existing-block'), 'logoBlock_existing-block_title' => 'Index to:', 'logoBlock_existing-block_logos' => array('first' => $logo)),
     2 => array('logoBlock_existing-block_logos' => array('foreign' => $logo)));
-$grid = new SponsorsBlockGridHandler($plugin);
+$grid = new LogoBlockGridHandler($plugin);
 $grid->initialize($request);
 $grid->setUrls($request);
 check(count($grid->getColumns()) === 3, 'Expected name, preview and link columns');
@@ -187,7 +187,7 @@ $row->initialize($request);
 check(count($row->getActions()) === 2, 'Expected edit and delete actions');
 echo "PASS: native grid, row actions and authorized refresh URLs\n";
 
-$form = new SponsorsBlockLogoForm($plugin, 1, 'first');
+$form = new LogoBlockLogoForm($plugin, 1, 'first');
 $form->setData('name', 'Updated');
 $form->setData('url', 'https://example.org');
 check($form->validate(false) && $form->execute(), 'Metadata edit failed');
@@ -197,20 +197,20 @@ check($plugin->settings[2]['logoBlock_existing-block_logos']['foreign'] === $log
 echo "PASS: edit keeps image, title and other journal data\n";
 
 foreach (array('javascript:alert(1)', 'data:text/html,bad', 'ftp://example.org') as $url) {
-    $form = new SponsorsBlockLogoForm($plugin, 1, 'first');
+    $form = new LogoBlockLogoForm($plugin, 1, 'first');
     $form->setData('name', 'Name');
     $form->setData('url', $url);
     check(!$form->validate(false), 'Unsafe URL accepted');
 }
-$form = new SponsorsBlockLogoForm($plugin, 1);
+$form = new LogoBlockLogoForm($plugin, 1);
 $form->setData('name', 'New logo');
 check(!$form->validate(false), 'New logo without image accepted');
-$form = new SponsorsBlockLogoForm($plugin, 1, 'foreign');
+$form = new LogoBlockLogoForm($plugin, 1, 'foreign');
 $form->setData('name', 'Invalid');
 check(!$form->validate(false), 'Other journal logo accepted');
 foreach (array('post', 'csrf') as $guard) {
     $request->$guard = false;
-    $form = new SponsorsBlockLogoForm($plugin, 1, 'first');
+    $form = new LogoBlockLogoForm($plugin, 1, 'first');
     $form->setData('name', 'Name');
     check(!$form->validate(false), 'Missing request protection');
     $request->vars = array('logoId' => 'first');
@@ -219,7 +219,7 @@ foreach (array('post', 'csrf') as $guard) {
 }
 echo "PASS: URL, image, journal ownership, POST and CSRF validation\n";
 
-$titleForm = new SponsorsBlockSettingsForm($plugin, 1);
+$titleForm = new LogoBlockSettingsForm($plugin, 1);
 $titleForm->setData('title', array('en_US' => 'Index to:', 'pt_BR' => 'Indexado em:'));
 $before = $plugin->getLogos(1);
 check($titleForm->validate(false) && $titleForm->execute(), 'Title save failed');
@@ -241,16 +241,16 @@ try {
     imagepng($image);
     $png = ob_get_clean();
     imagedestroy($image);
-    $form = new SponsorsBlockLogoForm($plugin, 1, 'first');
+    $form = new LogoBlockLogoForm($plugin, 1, 'first');
     $form->setData('name', 'Replaced');
     $form->setData('url', '');
-    $property = new ReflectionProperty(SponsorsBlockLogoForm::class, 'image');
+    $property = new ReflectionProperty(LogoBlockLogoForm::class, 'image');
     $property->setAccessible(true);
     $property->setValue($form, $png);
     check($form->validate(false) && $form->execute(), 'Replacement failed');
     $replacement = $plugin->getLogos(1)['first']['file'];
     check(is_file($directory . $replacement) && !is_file($directory . $logo['file']), 'Replacement did not clean up old file');
-    $form = new SponsorsBlockLogoForm($plugin, 1);
+    $form = new LogoBlockLogoForm($plugin, 1);
     $form->setData('name', 'Added');
     $form->setData('url', '');
     $property->setValue($form, $png);
@@ -275,7 +275,7 @@ check($plugin->getBlockTitles(99) === $defaults, 'Default titles incorrect');
 $plugin->settings[99]['logoBlock_existing-block_title'] = array('pt_BR' => 'Personalizado');
 check($plugin->getBlockTitles(99) === array_replace($defaults, array('pt_BR' => 'Personalizado')), 'Missing translations or custom title lost');
 $plugin->settings[1]['logoBlock_existing-block_title'] = 'Existing title';
-$titleForm = new SponsorsBlockSettingsForm($plugin, 1);
+$titleForm = new LogoBlockSettingsForm($plugin, 1);
 $titleForm->initData();
 check($titleForm->getData('title') === array_replace($defaults, array('en_US' => 'Existing title')), 'Legacy title was lost');
 $titleForm->setData('title', array('en_US' => ' Index to: ', 'pt_BR' => ' Indexado em: '));
@@ -290,11 +290,11 @@ check($plugin->getBlockTitle(1) === 'Index to:', 'Spanish locale did not fall ba
 AppLocale::$locale = 'de_DE';
 check($plugin->getBlockTitle(1) === 'Index to:', 'Missing translation did not fall back to primary locale');
 foreach (array(array('en_US' => '', 'pt_BR' => 'Título'), array('en_US' => 'Valid', 'pt_BR' => str_repeat('x', 201)), array('en_US' => array('invalid')), 'not-localized') as $titles) {
-    $titleForm = new SponsorsBlockSettingsForm($plugin, 1);
+    $titleForm = new LogoBlockSettingsForm($plugin, 1);
     $titleForm->setData('title', $titles);
     check(!$titleForm->validate(false), 'Invalid localized title accepted');
 }
-$titleForm = new SponsorsBlockSettingsForm($plugin, 1);
+$titleForm = new LogoBlockSettingsForm($plugin, 1);
 $titleForm->setData('title', array('en_US' => 'Primary', 'pt_BR' => ''));
 check($titleForm->validate(false) && $titleForm->execute(), 'Optional empty translation rejected');
 AppLocale::$locale = 'pt_BR';
@@ -313,7 +313,7 @@ $smarty->registerPlugin('function', 'sponsors_test_sidebar', function ($params, 
 });
 $page = 'string:<html><body><aside>{sponsors_test_sidebar}</aside><div class="pkp_structure_footer_wrapper" role="contentinfo">Footer</div></body></html>';
 try {
-    $form = new SponsorsBlockSettingsForm($plugin, 1);
+    $form = new LogoBlockSettingsForm($plugin, 1);
     $form->initData();
     check($form->getData('placement') === 'sidebar', 'Footer option should default to off');
     $form->setData('placement', 'both');
@@ -352,13 +352,13 @@ $loadedPlugin = PluginRegistry::_instantiatePlugin(
     (string) $manifest->application,
     (string) $manifest->class
 );
-check($loadedPlugin instanceof SponsorsBlockPlugin, 'OJS cannot instantiate the plugin from its registered product');
+check($loadedPlugin instanceof LogoBlocksPlugin, 'OJS cannot instantiate the plugin from its registered product');
 check($loadedPlugin->getName() === 'sponsorsblockplugin', 'Renaming the folder changed the settings key');
 echo "PASS: manifest directory, native plugin loader and existing settings identity\n";
 
 $orderPlugin = new GridTestPlugin();
 $orderPlugin->settings = array(1 => array('logoBlock_existing-block_logos' => array('a' => $logo, 'b' => array_merge($logo, array('name' => 'Second')), 'c' => array_merge($logo, array('name' => 'Third')))), 2 => array('logoBlock_existing-block_logos' => array('foreign' => $logo)));
-$orderGrid = new SponsorsBlockGridHandler($orderPlugin);
+$orderGrid = new LogoBlockGridHandler($orderPlugin);
 $request->vars = array('data' => '["c","a","b"]');
 $original = $orderPlugin->getLogos(1);
 check($orderGrid->saveSequence(array(), $request)->getStatus(), 'Reordering failed');
@@ -385,7 +385,7 @@ echo "PASS: automatic sequence persistence, metadata preservation, stale/foreign
 // Exercise optional acronym round trips with a legacy logo lacking the field.
 $acronymPlugin = new GridTestPlugin();
 $acronymPlugin->settings = array(1 => array('logoBlock_existing-block_logos' => array('legacy' => $logo)));
-$form = new SponsorsBlockLogoForm($acronymPlugin, 1, 'legacy');
+$form = new LogoBlockLogoForm($acronymPlugin, 1, 'legacy');
 $form->initData();
 check($form->getData('acronym') === '', 'Legacy acronym must default to empty');
 foreach (array('  EX  ' => 'EX', '' => '', '0' => '0') as $input => $expected) {
@@ -406,7 +406,7 @@ $compileDirectory = sys_get_temp_dir() . '/sponsors-name-' . bin2hex(random_byte
 mkdir($compileDirectory);
 $smarty->setCompileDir($compileDirectory);
 try {
-    $provider = new SponsorsBlockGridCellProvider();
+    $provider = new LogoBlockGridCellProvider();
     foreach (array(
         array('name' => 'Full name', 'acronym' => 'ABC'),
         array('name' => 'Full name', 'acronym' => ''),

@@ -1,7 +1,7 @@
 <?php
 
 /** Decode and re-encode uploads; never publish the original uploaded bytes. */
-class SponsorsBlockImage
+class LogoBlockImage
 {
     public const MAX_BYTES = 5242880;
     public const MAX_PIXELS = 12000000;

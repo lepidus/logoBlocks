@@ -1,14 +1,14 @@
 <?php
 
-/** Run: php plugins/blocks/sponsors/tests/preview.php */
+/** Run: php plugins/blocks/logoBlocks/tests/preview.php */
 require __DIR__ . '/grid.php';
 
 $plugin = new GridTestPlugin();
 $plugin->pluginPath = dirname(__DIR__);
 $request->contextId = 1;
 $request->vars = array();
-$grid = new SponsorsBlockGridHandler($plugin);
-$form = new SponsorsBlockLogoForm($plugin, 1);
+$grid = new LogoBlockGridHandler($plugin);
+$form = new LogoBlockLogoForm($plugin, 1);
 $form->initData();
 check($form->getData('crop') === false, 'Cropping must start unchecked');
 $catalog = $plugin->getLogoCatalog();
@@ -22,9 +22,9 @@ try {
         $preview = $grid->previewLogo(array(), $request);
         check($preview->getStatus(), 'Preview rejected');
         $bytes = base64_decode(substr($preview->getContent(), strlen('data:image/png;base64,')), true);
-        check($bytes === SponsorsBlockImage::resize($entryPath, false), 'Gallery must ignore crop requests');
+        check($bytes === LogoBlockImage::resize($entryPath, false), 'Gallery must ignore crop requests');
         check(!$plugin->getLogos(1) && !glob(Config::$publicDir . '/journals/1/*'), 'Preview persisted data');
-        $form = new SponsorsBlockLogoForm($plugin, 1, null, true);
+        $form = new LogoBlockLogoForm($plugin, 1, null, true);
         $form->readInputData();
         check($form->validate(false) && $form->execute(), 'Saving previewed image failed');
         $logos = $plugin->getLogos(1);

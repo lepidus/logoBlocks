@@ -39,8 +39,8 @@
 <script>
 {literal}
 (function ($) {
-	if ($.pkp.controllers.grid.SponsorsBlocksGridHandler) return;
-	$.pkp.controllers.grid.SponsorsBlocksGridHandler = function ($grid, options) {
+	if ($.pkp.controllers.grid.LogoBlocksGridHandler) return;
+	$.pkp.controllers.grid.LogoBlocksGridHandler = function ($grid, options) {
 		this.parent($grid, options);
 		$grid.addClass('sponsors-sortable-blocks');
 		var $focusedHandle = null;
@@ -111,7 +111,7 @@
 			persist();
 		});
 	};
-	$.pkp.classes.Helper.inherits($.pkp.controllers.grid.SponsorsBlocksGridHandler, $.pkp.controllers.grid.GridHandler);
+	$.pkp.classes.Helper.inherits($.pkp.controllers.grid.LogoBlocksGridHandler, $.pkp.controllers.grid.GridHandler);
 })(jQuery);
 {/literal}
 </script>

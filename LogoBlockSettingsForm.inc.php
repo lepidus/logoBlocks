@@ -3,7 +3,7 @@
 import('lib.pkp.classes.form.Form');
 
 /** The block title is saved independently from the grid's individual logos. */
-class SponsorsBlockSettingsForm extends Form
+class LogoBlockSettingsForm extends Form
 {
     private $plugin;
     private $contextId;

@@ -1,10 +1,10 @@
 <?php
 
-/** Run: php plugins/blocks/sponsors/tests/blocks.php
+/** Run: php plugins/blocks/logoBlocks/tests/blocks.php
  * Real OJS forms/grids and Smarty; request and persistence are test doubles.
  */
 require __DIR__ . '/grid.php';
-require dirname(__DIR__) . '/controllers/grid/SponsorsBlocksGridHandler.inc.php';
+require dirname(__DIR__) . '/controllers/grid/LogoBlocksGridHandler.inc.php';
 
 $emptyPlugin = new GridTestPlugin();
 check($emptyPlugin->getBlockIds(1) === array(), 'A default block was registered');
@@ -26,7 +26,7 @@ $request->vars = array('verb' => 'addBlock', 'save' => '1', 'placement' => 'side
 $before = $settings;
 foreach (array('post', 'csrf') as $guard) {
     $request->$guard = false;
-    $form = new SponsorsBlockSettingsForm($plugin, 1, true);
+    $form = new LogoBlockSettingsForm($plugin, 1, true);
     $form->readInputData();
     check(!$form->validate(false), 'Unprotected block creation accepted');
     check($settings === $before, 'Invalid creation changed data');
@@ -48,12 +48,12 @@ foreach (array(null, array($id), 'missing') as $invalid) {
 }
 echo "PASS: block creation, preservation of legacy data, POST/CSRF and journal/block ownership\n";
 
-$defaultLogoGrid = new SponsorsBlockGridHandler($plugin);
+$defaultLogoGrid = new LogoBlockGridHandler($plugin);
 $defaultLogoGrid->initialize($request);
 $defaultLogoActions = $defaultLogoGrid->getActions();
 check(isset($defaultLogoActions['chooseLogo'], $defaultLogoActions['addLogo']), 'Default block lost its gallery or upload action');
 $block->updateBlockSetting(1, 'logos', array('a' => $logo, 'b' => array_merge($logo, array('name' => 'Second'))), 'object');
-$grid = new SponsorsBlockGridHandler($block);
+$grid = new LogoBlockGridHandler($block);
 $grid->initialize($request);
 $grid->setUrls($request);
 $customLogoActions = $grid->getActions();
@@ -65,7 +65,7 @@ foreach ($grid->getUrls() as $url) {
 $request->vars = array('data' => '["b","a"]');
 check($grid->saveSequence(array(), $request)->getStatus(), 'New block order save failed');
 check(array_keys($block->getLogos(1)) === array('b', 'a'), 'New block order lost');
-$form = new SponsorsBlockLogoForm($block, 1, 'a');
+$form = new LogoBlockLogoForm($block, 1, 'a');
 $form->initData();
 check($form->getData('description') === '', 'Legacy logo description should be empty');
 $form->setData('description', "Descrição <script>alert(1)</script>\nSegunda linha");
@@ -73,11 +73,11 @@ $form->setData('name', 'Changed sponsor');
 $form->setData('url', 'https://example.org');
 check($form->validate(false) && $form->execute(), 'New block logo edit failed');
 check($block->getLogos(1)['a']['name'] === 'Changed sponsor', 'Edited wrong logo');
-$editedForm = new SponsorsBlockLogoForm($block, 1, 'a');
+$editedForm = new LogoBlockLogoForm($block, 1, 'a');
 $editedForm->initData();
 check($editedForm->getData('description') === $form->getData('description'), 'Description lost after saving/reopening');
 foreach (array(100 => true, 101 => false) as $length => $valid) {
-    $limitForm = new SponsorsBlockLogoForm($block, 1, 'a');
+    $limitForm = new LogoBlockLogoForm($block, 1, 'a');
     $limitForm->initData();
     $limitForm->setData('description', str_repeat('á', $length));
     check($limitForm->validate(false) === $valid, 'Description character limit failed');
@@ -85,7 +85,7 @@ foreach (array(100 => true, 101 => false) as $length => $valid) {
 echo "PASS: description accepts 100 accented characters and rejects 101\n";
 $request->vars = array('logoId' => 'existing');
 check(!$grid->deleteLogo(array(), $request)->getStatus(), 'Other block deletion accepted');
-$titleForm = new SponsorsBlockSettingsForm($block, 1);
+$titleForm = new LogoBlockSettingsForm($block, 1);
 $titleForm->setData('title', array('en_US' => 'Partners <test>'));
 $titleForm->setData('grayscaleLogos', '1');
 $titleForm->setData('placement', 'both');
@@ -97,12 +97,12 @@ echo "PASS: selected block retained in URLs; independent logo edits, order, titl
 // Every registered block shares the bundled catalog.
 check(count($plugin->getLogoCatalog()) > 0, 'Default indexer catalog missing');
 check($block->getLogoCatalog() === $plugin->getLogoCatalog(), 'New block catalog differs');
-$galleryForm = new SponsorsBlockLogoForm($block, 1, null, true);
+$galleryForm = new LogoBlockLogoForm($block, 1, null, true);
 $galleryForm->setData('galleryId', 'doaj');
 $galleryForm->setData('url', '');
 check($galleryForm->validate(false), 'New block rejected a catalog entry');
 
-$blocksGrid = new SponsorsBlocksGridHandler($plugin);
+$blocksGrid = new LogoBlocksGridHandler($plugin);
 $blocksGrid->initialize($request);
 $blocksGrid->setUrls($request);
 check(strpos($blocksGrid->getUrls()['saveSequenceUrl'], 'verb=blocks') !== false, 'Block ordering uses wrong endpoint');
@@ -122,10 +122,10 @@ foreach (array('post', 'csrf') as $guard) {
     check(!$plugin->manage(array(), $request)->getStatus(), 'Unprotected block ordering accepted');
     $request->$guard = true;
 }
-$placementForm = new SponsorsBlockSettingsForm($block, 1);
+$placementForm = new LogoBlockSettingsForm($block, 1);
 $placementForm->initData();
 foreach (array(null, 'nowhere', array('sidebar')) as $invalid) {
-    $invalidForm = new SponsorsBlockSettingsForm($block, 1);
+    $invalidForm = new LogoBlockSettingsForm($block, 1);
     $invalidForm->initData();
     $invalidForm->setData('placement', $invalid);
     check(!$invalidForm->validate(false), 'Invalid placement accepted');
@@ -197,7 +197,7 @@ try {
     $plugin->updateBlockSetting(1, 'visible', false, 'bool');
     $fullPage = 'string:<html><body><aside>{blocks_test_sidebar}</aside><div class="pkp_structure_footer_wrapper">Footer</div></body></html>';
     foreach (array('sidebar', 'footer', 'both') as $placement) {
-        $placementForm = new SponsorsBlockSettingsForm($block, 1);
+        $placementForm = new LogoBlockSettingsForm($block, 1);
         $placementForm->initData();
         $placementForm->setData('placement', $placement);
         check($placementForm->validate(false) && $placementForm->execute(), 'Placement save failed');
@@ -212,7 +212,7 @@ try {
     }
     check($block->getDescriptionPlacement(1) === 'none', 'Description should be hidden by default');
     foreach (array('none', 'sidebar', 'footer', 'both') as $descriptionPlacement) {
-        $descriptionForm = new SponsorsBlockSettingsForm($block, 1);
+        $descriptionForm = new LogoBlockSettingsForm($block, 1);
         $descriptionForm->initData();
         $descriptionForm->setData('descriptionPlacement', $descriptionPlacement);
         check($descriptionForm->validate(false) && $descriptionForm->execute(), 'Description placement save failed');
@@ -251,7 +251,7 @@ try {
     rmdir($compileDirectory);
 }
 
-$defaultRow = new SponsorsBlocksGridRow($plugin);
+$defaultRow = new LogoBlocksGridRow($plugin);
 $defaultRow->setId('existing-block');
 $defaultRowData = array('title' => 'Indexers');
 $defaultRow->setData($defaultRowData);
@@ -259,7 +259,7 @@ $defaultRow->initialize($request);
 $defaultActions = array_values($defaultRow->getActions());
 check(count($defaultActions) === 2 && $defaultActions[0]->getId() === 'editBlock', 'Existing block should be editable and deletable');
 check($defaultActions[0]->getToolTip() === 'plugins.block.sponsorsBlock.editBlock', 'Edit tooltip missing');
-$customRow = new SponsorsBlocksGridRow($plugin);
+$customRow = new LogoBlocksGridRow($plugin);
 $customRow->setId($id);
 $customRowData = array('title' => 'Partners');
 $customRow->setData($customRowData);
