@@ -56,7 +56,9 @@ class LogoBlocksSettingsForm extends Form
         }
         $this->setData('title', $titles);
         // A title in any enabled form language is sufficient.
-        if (!count(array_filter($titles, function ($title) { return $title !== ''; }))) {
+        if (!count(array_filter($titles, function ($title) {
+            return $title !== '';
+        }))) {
             $this->addError('title', __('plugins.block.logoBlocks.requiredName'));
         }
         return parent::validate($callHooks);
