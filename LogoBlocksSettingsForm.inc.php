@@ -55,8 +55,10 @@ class LogoBlocksSettingsForm extends Form
             $titles[$locale] = is_string($value) ? trim($value) : '';
         }
         $this->setData('title', $titles);
-        // A title in any enabled form language is sufficient.
-        if (!count(array_filter($titles, function ($title) {
+        // New blocks require a title in the current interface language.
+        if ($this->newBlock && (!isset($titles[AppLocale::getLocale()]) || $titles[AppLocale::getLocale()] === '')) {
+            $this->addError('title', __('plugins.block.logoBlocks.requiredName'));
+        } elseif (!count(array_filter($titles, function ($title) {
             return $title !== '';
         }))) {
             $this->addError('title', __('plugins.block.logoBlocks.requiredName'));
@@ -68,6 +70,7 @@ class LogoBlocksSettingsForm extends Form
     {
         TemplateManager::getManager($request)->assign(array(
             'sponsorsNewBlock' => $this->newBlock,
+            'sponsorsTitleLocale' => AppLocale::getLocale(),
             'sponsorsDescriptionPlacementOptions' => array(
                 'none' => 'plugins.block.logoBlocks.descriptionHidden',
                 'sidebar' => 'plugins.block.logoBlocks.placementSidebar',

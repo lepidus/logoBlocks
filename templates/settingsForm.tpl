@@ -42,7 +42,16 @@
 	{csrf}
 	{include file="common/formErrors.tpl"}
 	{fbvFormArea id="sponsorsBlockTitleArea"}
-		{fbvElement type="text" id="title" value=$title label="plugins.block.logoBlocks.title" multilingual=true maxlength="200"}
+		{* FBV uses primaryLocale for required translations; scope this override to the title. *}
+		{assign var="sponsorsOriginalPrimaryLocale" value=$primaryLocale}
+		{assign var="sponsorsOriginalFormLocale" value=$formLocale}
+		{if $sponsorsNewBlock}
+			{assign var="primaryLocale" value=$sponsorsTitleLocale}
+			{assign var="formLocale" value=$sponsorsTitleLocale}
+		{/if}
+		{fbvElement type="text" id="title" value=$title label="plugins.block.logoBlocks.title" multilingual=true maxlength="200" required=$sponsorsNewBlock}
+		{assign var="primaryLocale" value=$sponsorsOriginalPrimaryLocale}
+		{assign var="formLocale" value=$sponsorsOriginalFormLocale}
 	{/fbvFormArea}
 	{if $sponsorsNewBlock}
 		<p>{translate key="plugins.block.logoBlocks.createHelp"}</p>

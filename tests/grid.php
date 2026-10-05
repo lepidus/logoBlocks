@@ -304,6 +304,11 @@ AppLocale::$locale = 'en_US';
 foreach (array('pt_BR' => 'en_US', 'en_US' => 'pt_BR') as $primaryLocale => $titleLocale) {
     AppLocale::$primaryLocale = $primaryLocale;
     AppLocale::$locale = $titleLocale;
+    foreach (array('', '   ', null) as $missingTitle) {
+        $titleForm = new LogoBlocksSettingsForm($plugin, 1, true);
+        $titleForm->setData('title', array($primaryLocale => 'Primary title', $titleLocale => $missingTitle));
+        check(!$titleForm->validate(false), 'New block accepted without a current-language title');
+    }
     $titleForm = new LogoBlocksSettingsForm($plugin, 1, true);
     $titleForm->setData('title', array($titleLocale => ' Indexers '));
     check($titleForm->validate(false) && $titleForm->execute(), 'Title outside primary locale rejected');
@@ -312,7 +317,7 @@ foreach (array('pt_BR' => 'en_US', 'en_US' => 'pt_BR') as $primaryLocale => $tit
 }
 AppLocale::$primaryLocale = 'en_US';
 AppLocale::$locale = 'en_US';
-echo "PASS: multilingual titles, legacy data, any supported title language and language fallback\n";
+echo "PASS: multilingual titles, legacy data, required current-language title on creation and language fallback\n";
 
 // Render a full page through the bundled Smarty engine. The block registers its
 // output filter during the sidebar fetch, as in the OJS frontend footer.
