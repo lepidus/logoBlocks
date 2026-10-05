@@ -1,84 +1,212 @@
 # Blocos de logos — OJS 3.3
 
-Exibe na barra lateral da revista logos de patrocinadores ou indexadores, cada um com link opcional. O plugin permite recortar as margens vazias das logos e redimensiona as imagens para **150 px de largura e altura proporcional**, sem precisar de um editor de imagens. Cada revista pode criar vários blocos, cada um com título, logos e opções de exibição próprios.
+O plugin **Blocos de logos** permite apresentar logos de patrocinadores, apoiadores ou indexadores nas páginas públicas da revista, na **barra lateral**, em uma **faixa acima do rodapé** ou nos dois lugares. Cada logo pode ter um link e uma descrição curta.
 
-## Instalação e uso
+Por exemplo, a revista pode criar um bloco chamado “Indexadores” com logos e links para seus perfis nas bases, e outro chamado “Apoio” com as instituições que a apoiam. Cada revista configura seus próprios blocos, títulos, imagens e ordem de apresentação.
 
-1. Coloque a pasta `sponsors` em `plugins/blocks/` da instalação do OJS 3.3.
-2. Entre como gerente da revista ou administrador. Em **Configurações → Website → Plugins → Plugins instalados → Plugins de bloco**, habilite **Blocos de logos**.
-3. Abra **Configurações** no menu do plugin para ver a lista de blocos. Não há bloco pré-cadastrado. Para criar um bloco, clique em **Adicionar bloco**, informe o título e salve; depois, clique no lápis do novo bloco para incluir suas logos. O campo de título é multilíngue, usando o mesmo seletor de idiomas dos formulários do OJS. Preencha o idioma principal da revista e, opcionalmente, as traduções. Na página pública, o título acompanha o idioma selecionado; na ausência de tradução, usa o idioma principal. Títulos cadastrados anteriormente são preservados no idioma principal. A grade mostra o nome, a prévia e o link de cada logo. Clique em **Galeria de logos** para selecionar uma imagem da galeria e confirmar em **Salvar**, sem upload. Para enviar uma imagem própria, clique em **Adicionar nova logo**, informe o nome, selecione uma imagem e, se desejar, informe um link completo começando com `https://` ou `http://`. Salve o formulário do logo.
-4. Repita a inclusão para cada logo. Novos logos são adicionados ao final da lista. Para reordenar, arraste a alça de pontos à esquerda de cada logo. A ordenação está disponível assim que as configurações abrem, sem botão de ativação, e é salva automaticamente ao soltar. A mesma sequência vale para a grade, a lateral e a faixa acima do rodapé. Também é possível focar a alça e usar as setas para cima e para baixo. Uma mensagem informa o resultado da gravação; em caso de falha, a ordem anterior é restaurada na tela. O nome é usado como texto alternativo para acessibilidade.
-5. Em **Configurações → Website → Aparência → Configuração → Barra lateral**, coloque **Blocos de logos** na barra lateral e salve. Cada bloco aparece no local escolhido em sua personalização (lateral, rodapé ou ambos); blocos vazios ficam ocultos. A localização e a apresentação dependem do tema da revista.
+## O que o plugin faz
 
-Para ordenar os blocos, arraste a **alça de pontos à esquerda do nome**. A ordem é salva automaticamente e aplicada à lateral e ao rodapé. Também é possível focar a alça e usar as setas para cima e para baixo. Em caso de falha, a ordem anterior é restaurada na tela. Novos blocos entram no final da lista.
+- Permite criar vários blocos, com títulos traduzidos para os idiomas da revista.
+- Oferece uma galeria de logos incluída no plugin e permite enviar imagens próprias.
+- Redimensiona as imagens para 150 px de largura, mantendo a proporção, e oferece recorte opcional de margens no envio de imagens.
+- Permite ordenar, editar, ocultar e excluir blocos e logos.
+- Oferece opções por bloco para localização, exibição das descrições e efeito de escala de cinza.
 
-Na lista de blocos, a **pílula ao lado do lápis** ativa ou desativa a exibição daquele bloco na revista. Verde indica ativado; cinza indica desativado. A alteração é salva imediatamente e vale para a lateral e a faixa acima do rodapé, preservando as logos e configurações. Os blocos começam ativados. O lápis possui a dica **Editar**. Todos os blocos também exibem uma lixeira com a dica **Deletar**; após confirmação, ela remove o bloco, suas logos e os respectivos arquivos públicos.
+**A galeria é um catálogo de imagens, não uma integração com os indexadores.** Selecionar uma logo não cadastra a revista em uma base, não confirma sua indexação e não busca automaticamente o endereço de seu perfil. Cabe à equipe da revista escolher as logos e informar os links correspondentes.
 
-Use as ações de cada linha da grade para **Editar** ou **Excluir** um logo. Na edição, é possível alterar o nome e o link e substituir a imagem, mantendo sua posição. Deixe o campo de arquivo vazio para preservar a imagem atual. A exclusão pede confirmação. Cada operação atualiza a grade e é salva imediatamente; o botão **Salvar** da tela principal grava o título e a localização do bloco e a opção de escala de cinza. A remoção também apaga o arquivo correspondente. Desabilitar o plugin oculta o bloco e preserva os dados. Um bloco sem logos não é exibido.
+O plugin não envia e-mails, não altera o fluxo de submissão ou avaliação e não cria tarefas agendadas. **Não é necessário configurar cron.** As imagens são processadas ao preparar a prévia ou salvar uma logo; os blocos são exibidos quando o OJS renderiza as páginas públicas.
 
-## Galeria de logos
+## Requisitos e instalação
 
-Todos os blocos compartilham a mesma galeria de logos. Você também pode incluir suas próprias imagens usando **Adicionar nova logo**. Os uploads compõem a lista de logos daquele bloco e não alimentam o catálogo compartilhado. O título e suas traduções são definidos no cadastro de cada bloco, sem nomes pré-preenchidos.
-
-A galeria inclui **BASE, Diadorim, Dialnet, Dimensions, DOAJ, EBSCO, ErihPlus, Google Acadêmico, Latindex, LILACS, LiVRe, MIAR, Miguilim, OasisBR, OpenAIRE, OpenAlex, PsycINFO, PubMed/Medline, Redalyc, RePEc, ROAD, SciELO, Scopus, Sherpa Romeo e Web of Science**, além das demais logos do catálogo. Os nomes são exibidos em ordem alfabética; **Google Acadêmico** é a mesma entrada anteriormente chamada Google Scholar. O catálogo completo e as fontes das imagens estão em [logos/README.md](logos/README.md). Em **Galeria de logos**, selecione uma imagem e clique em **Salvar**. Ao selecionar uma logo, aparece abaixo da galeria um campo vazio com o exemplo “https://exemplo.org/perfil”. A galeria contém apenas o nome e a imagem de cada indexador; o editor é responsável por informar o endereço correspondente. Você pode informar o link da página da revista no indexador ou deixá-lo vazio antes de clicar em **Salvar**. O nome é preenchido automaticamente. Depois, use **Editar** para ajustar o nome ou o link.
-
-O catálogo e as imagens acompanham o plugin, sem downloads durante o uso. Cada inclusão cria uma cópia no diretório público da revista, ao final da lista. Editar ou excluir essa cópia não altera a galeria nem outras revistas. **Adicionar nova logo** abre o formulário de upload já existente e não adiciona imagens ao catálogo compartilhado. Não é necessário criar uma tabela no banco: as escolhas usam as configurações já existentes do plugin.
-
-As fontes das imagens e o procedimento para ampliar o catálogo estão em [logos/README.md](logos/README.md).
-
-## Mudança do nome da pasta
-
-A pasta é `sponsors` e o campo `<application>` de `version.xml` deve conter `sponsors`. Após renomear uma instalação anterior de `sponsorsBlock`, abra **Website → Plugins → Plugins instalados** para que o OJS registre o produto com o novo caminho. Depois, reabra **Website → Aparência → Configuração → Barra lateral**.
-
-A classe `SponsorsBlockPlugin` e a chave interna `sponsorsblockplugin` foram mantidas para preservar a ativação, os logos, os títulos e a seleção do bloco na barra lateral. Não é necessário excluir o plugin ou recadastrar os logos.
-
-## Logos acima do rodapé
-
-Na seção **Personalização** de cada bloco, escolha uma opção e salve:
-
-- **Exibir o bloco na lateral da revista.**
-- **Exibir o bloco no rodapé da revista.**
-- **Exibir o bloco em ambos os lugares.**
-
-Novos blocos começam na lateral. Os blocos existentes preservam sua configuração anterior. No rodapé, as logos aparecem em uma faixa horizontal logo acima do rodapé padrão, com quebra de linha em telas menores. Uma única linha separa essa faixa do conteúdo da revista, sem linhas entre os blocos. Escolher somente o rodapé remove esse bloco da lateral. A pílula de ativação controla sua visibilidade em todos os locais.
-
-Mantenha **Blocos de logos** habilitado na barra lateral em **Website → Aparência**, mesmo para a opção somente rodapé: o OJS carrega este plugin ao processar a barra lateral. A faixa aparece nas páginas que carregam o plugin e usam o rodapé padrão do OJS 3.3 (ou um tema que preserve `pkp_structure_footer_wrapper`).
-
-## Logos em escala de cinza
-
-Nas configurações do plugin, marque **Ativar escala de cinza nos logos** e salve. A opção vem desmarcada e vale somente para o bloco em edição. Os logos na lateral e acima do rodapé ficam cinzas e recuperam as cores ao passar o mouse ou focar seu link pelo teclado. Ao sair, voltam a ficar cinzas. O efeito é aplicado por CSS e preserva os arquivos das imagens. Desmarque e salve para manter as cores sempre visíveis.
-
-## Recorte opcional e prévia
-
-Ao enviar ou substituir uma imagem, uma prévia mostra como ela será salva. Marque **Recortar bordas** para visualizar e aplicar o recorte; desmarque para voltar à versão sem recorte. A opção vem desmarcada. A prévia não salva a logo: confirme no botão do formulário para gravar a versão escolhida. Na galeria de logos, as imagens aparecem nos próprios cartões, sem caixa de prévia adicional ou recorte de bordas; a imagem selecionada é apenas redimensionada.
-
-Com a opção marcada, o plugin recorta as margens externas de cor uniforme, seja branca, preta ou qualquer outra cor. O fundo é identificado pela concordância de pelo menos três cantos, com tolerância a pequenas variações de compressão. O recorte acontece antes do redimensionamento. Em imagens com transparência, recorta somente as margens totalmente transparentes, preservando também desenhos brancos. O recorte mantém uma folga de um pixel da imagem original e a proporção do conteúdo restante.
-
-Não remove o fundo dentro da logo. Fundos com gradientes, texturas ou cantos sem uma cor predominante podem não ser recortados. Imagens de cor única ou totalmente transparentes mantêm suas proporções. Elementos com cor muito próxima à do fundo podem ser considerados parte da margem. Os arquivos originais da galeria são preservados. Para aplicar o recorte a uma logo já cadastrada, substitua sua imagem em **Editar**; alterar apenas nome ou link preserva a imagem atual.
-
-## Imagens e requisitos
+Esta versão é destinada ao **OJS 3.3**. O servidor precisa ter:
 
 - PHP com a extensão **GD** e suporte a PNG, JPEG e GIF.
-- Diretório público da revista gravável pelo OJS. Os logos são públicos e ficam em `public/journals/<id>/` (ou no diretório configurado em `public_files_dir`).
-- Entradas PNG, JPEG ou GIF de até **5 MB** e **12 milhões de pixels**. Os limites `upload_max_filesize` e `post_max_size` do PHP também se aplicam; este último deve comportar o arquivo e os demais campos.
-- Os arquivos são decodificados e salvos como PNG. A transparência é preservada. GIFs animados são convertidos em imagens estáticas usando o primeiro quadro. SVG não é aceito.
-- A largura final é de 150 px, inclusive para imagens menores; ampliar uma imagem pequena pode reduzir sua nitidez. A altura é proporcional, limitada a 3000 px. Na exibição, imagens com mais de 100 px de altura são reduzidas para 100 px de altura, com redução proporcional da largura. Em barras laterais mais estreitas, a exibição se adapta ao espaço disponível.
-- Após um erro de validação, selecione o arquivo novamente antes de salvar.
+- Diretório público da revista gravável pelo OJS.
 
-Configurações disponíveis em português brasileiro e inglês. O plugin usa o controle de acesso do OJS para gerenciamento de plugins e exige requisição POST com token CSRF para salvar. O link opcional aceita apenas HTTP e HTTPS.
+Para instalar e habilitar:
 
-## Validação
+1. Coloque a pasta `logoBlocks`, com os arquivos do plugin, em `plugins/blocks/` da instalação do OJS. O arquivo de versão deve ficar em `plugins/blocks/logoBlocks/version.xml`.
+2. Entre no OJS como gerente da revista ou administrador e acesse a revista que deseja configurar.
+3. Em **Configurações → Website → Plugins → Plugins instalados → Plugins de bloco**, habilite **Blocos de logos**.
+4. Em **Configurações → Website → Aparência → Configuração → Barra lateral**, inclua **Blocos de logos** na barra lateral e salve.
 
-Execute os testes de processamento de imagens e da grade:
+**O passo 4 também é necessário para exibir logos somente acima do rodapé.** O OJS carrega este plugin ao processar a barra lateral. A opção de localização de cada bloco determina onde ele será mostrado.
+
+Habilitar o plugin não cria blocos nem adiciona logos automaticamente. Siga os passos abaixo para cadastrar o primeiro bloco.
+
+## Criar o primeiro bloco
+
+1. No menu do plugin **Blocos de logos**, abra **Configurações**.
+2. Clique em **Adicionar bloco**.
+3. Preencha o **Título do bloco**, por exemplo, “Indexadores”. Use o seletor de idiomas do OJS para preencher o idioma principal da revista e, opcionalmente, suas traduções. O limite é de 200 caracteres por idioma.
+4. Em **Personalização do bloco**, escolha onde exibi-lo. Por padrão, novos blocos aparecem na lateral, com descrições ocultas e imagens coloridas.
+5. Clique em **Salvar**. Na lista de blocos, clique no lápis (**Editar**) para abrir o bloco criado e adicionar suas logos.
+6. Inclua ao menos uma logo por uma das opções descritas a seguir e confira o resultado na página pública da revista.
+
+O título público acompanha o idioma selecionado pelo visitante; se não houver tradução, usa o idioma principal da revista. Títulos antigos, cadastrados antes do suporte a traduções, são preservados no idioma principal. **Blocos sem logos não aparecem na página pública.**
+
+## Adicionar logos
+
+### Escolher uma logo da galeria
+
+1. Abra a edição do bloco e clique em **Galeria de logos**.
+2. Selecione uma imagem. Abaixo da galeria, aparecem os campos de link e descrição.
+3. Se desejar, informe o endereço completo da página da revista no indexador, começando com `https://` ou `http://`, e uma descrição de até 100 caracteres. Ambos são opcionais.
+4. Clique em **Salvar**. A logo entra no final da lista, com o nome e a sigla definidos pelo catálogo. Depois, use **Editar** para ajustar esses dados.
+
+A galeria inclui, entre outros, DOAJ, Google Scholar, Latindex, SciELO, Scopus e Web of Science. Os cartões mostram a sigla, quando disponível, ou o nome, e são ordenados pelo nome completo. A lista de entradas está em [logos/catalog.json](logos/catalog.json).
+
+O catálogo e suas imagens acompanham o plugin; não há download de imagens de serviços externos durante o uso. Todos os blocos compartilham esse catálogo, mas cada inclusão salva uma cópia processada no diretório público da revista. Editar ou excluir uma logo cadastrada não altera o catálogo nem as cópias de outros blocos ou revistas.
+
+### Enviar uma imagem própria
+
+1. Abra a edição do bloco e clique em **Adicionar logo**.
+2. Preencha **Título da logo** e selecione a imagem PNG, JPEG ou GIF.
+3. Preencha, se desejar, a sigla, o link e a descrição.
+4. Confira a prévia. Se precisar remover margens vazias, marque **Recortar bordas**.
+5. Salve o formulário da logo.
+
+As imagens enviadas são adicionadas apenas ao bloco em edição; elas não passam a fazer parte da galeria compartilhada.
+
+### Para que serve cada campo
+
+| Campo | Uso |
+| --- | --- |
+| **Título da logo** | Nome obrigatório, com até 200 caracteres. É usado como texto alternativo da imagem e como dica ao passar o mouse. |
+| **Sigla (opcional)** | Até 30 caracteres. Aparece em destaque na lista administrativa, ao lado do nome completo; não substitui o texto alternativo da imagem. |
+| **Link (opcional)** | Endereço HTTP ou HTTPS aberto em uma nova aba ao clicar na imagem. Sem link, a logo é apenas uma imagem. |
+| **Descrição (opcional)** | Texto simples de até 100 caracteres, exibido abaixo da imagem quando a exibição de descrições estiver habilitada para aquele local. Não aceita formatação HTML. |
+
+O título do bloco é multilíngue. Os campos de cada logo têm um único valor, usado em todos os idiomas da página.
+
+## Personalizar a exibição
+
+Abra o lápis (**Editar**) do bloco, ajuste as opções em **Personalização do bloco** e clique em **Salvar**.
+
+### Localização: lateral, rodapé ou ambos
+
+No campo **Selecione onde exibir o bloco**, escolha:
+
+| Opção | Resultado na página pública |
+| --- | --- |
+| **Exibir na lateral da revista** | Logos em uma lista na barra lateral. |
+| **Exibir no rodapé da revista** | Logos em uma faixa horizontal acima do rodapé padrão, sem exibir esse bloco na lateral. |
+| **Exibir em ambos os lugares** | O mesmo bloco aparece na lateral e acima do rodapé. |
+
+A faixa acima do rodapé quebra as logos em novas linhas quando falta espaço. Uma linha separa o conjunto de blocos do conteúdo da revista, sem separadores entre os blocos.
+
+A apresentação depende do tema. A faixa aparece nas páginas que carregam o plugin pela barra lateral e usam o rodapé padrão do OJS 3.3, ou um tema que preserve o elemento com a classe `pkp_structure_footer_wrapper`. Mantenha **Blocos de logos** selecionado na configuração da barra lateral mesmo ao escolher apenas o rodapé.
+
+### Descrições abaixo das logos
+
+Em **Exibição da descrição dos logos**, escolha **Não exibir**, **Exibir na lateral da revista**, **Exibir no rodapé da revista** ou **Exibir em ambos os lugares**.
+
+Essa opção controla somente o texto abaixo das imagens; ela não muda a localização do bloco. Por exemplo, uma descrição configurada apenas para o rodapé não aparece se o bloco estiver configurado apenas para a lateral. Logos sem descrição não exibem texto adicional.
+
+As descrições ficam ocultas por padrão. Selecionar **Não exibir** preserva os textos cadastrados.
+
+### Escala de cinza
+
+Marque **Ativar escala monocromática, ficam coloridas ao interagir.** e salve. As logos daquele bloco ficam em escala de cinza na lateral e acima do rodapé, recuperando as cores ao passar o mouse ou focar seu link pelo teclado. Ao sair, voltam a ficar cinzas.
+
+O efeito usa CSS e não modifica os arquivos das imagens. Desmarque a opção e salve para manter as cores sempre visíveis.
+
+## Editar, ordenar e salvar
+
+Para editar uma logo, use **Editar** na linha correspondente. Você pode alterar seus textos e link ou substituir a imagem. **Deixe o campo de arquivo vazio para preservar a imagem atual.** A edição mantém a posição da logo na lista; substituir a imagem remove o arquivo público anterior.
+
+Para reordenar logos ou blocos, arraste a **alça de pontos à esquerda** da linha. Também é possível focar a alça pelo teclado e usar as setas para cima e para baixo. A ordem é salva automaticamente ao soltar ou mover pelo teclado e vale tanto para a lateral quanto para a faixa acima do rodapé. Novos itens entram no final da lista. Em caso de falha na gravação, a tela restaura a ordem anterior e informa o erro.
+
+As ações não dependem todas do mesmo botão **Salvar**:
+
+| Ação | Quando é gravada |
+| --- | --- |
+| Criar ou editar título e personalização de um bloco | Ao clicar em **Salvar** no formulário do bloco. |
+| Adicionar ou editar uma logo | Ao salvar o formulário daquela logo. |
+| Reordenar logos ou blocos | Automaticamente, ao mudar a ordem. |
+| Ativar ou desativar um bloco pela pílula | Imediatamente. |
+| Excluir uma logo ou um bloco | Após confirmar a exclusão. |
+
+Fechar o formulário do bloco sem salvar não desfaz operações já gravadas nas logos, na ordem ou na visibilidade.
+
+## Ocultar, desativar ou excluir: o que acontece?
+
+| Ação | Efeito | Dados preservados? |
+| --- | --- | --- |
+| Desativar a pílula de um bloco | Oculta aquele bloco na lateral e acima do rodapé. Os demais continuam conforme suas configurações. | Sim: logos, textos, ordem e opções. |
+| Desabilitar o plugin em **Plugins instalados** | Oculta todos os blocos do plugin naquela revista. Não altera submissões, avaliações ou e-mails do OJS. | Sim: configurações e arquivos das logos permanecem armazenados. |
+| Retirar **Blocos de logos** da configuração da barra lateral | Impede seu carregamento pela barra lateral, afetando também a faixa acima do rodapé. | Sim. |
+| Excluir uma logo | Remove a logo do bloco e seu arquivo público. | Não para a logo excluída. |
+| Deletar um bloco pela lixeira | Remove o bloco, suas configurações, todas as suas logos e os arquivos públicos correspondentes. | Não para o bloco excluído. |
+
+A pílula ao lado do lápis fica **verde quando o bloco está ativado** e **cinza quando está desativado**. Novos blocos começam ativados. Para voltar a exibir um bloco oculto, reative sua pílula; se tiver desabilitado o plugin, habilite-o novamente e confira sua seleção na barra lateral.
+
+**Ocultar um bloco ou desabilitar o plugin não torna seus arquivos privados.** As imagens continuam no diretório público e podem ser acessadas por quem tiver seus endereços. Para remover uma logo e seu arquivo pelo plugin, use a exclusão.
+
+## Recorte, prévia e tamanho das imagens
+
+Ao enviar ou substituir uma imagem, a prévia mostra como ela será salva. **Recortar bordas** vem desmarcado: marque para conferir o recorte ou desmarque para voltar à versão sem recorte. Gerar a prévia não salva a logo; é necessário confirmar o formulário.
+
+O recorte remove margens externas totalmente transparentes ou de cor uniforme, como branco ou preto, antes do redimensionamento. Para fundos opacos, o plugin identifica uma cor predominante em pelo menos três cantos, com tolerância a pequenas variações de compressão. Preserva uma folga de um pixel da imagem original e a proporção do conteúdo restante. Em imagens com transparência, remove apenas margens totalmente transparentes, preservando desenhos brancos.
+
+O recorte não remove o fundo interno da logo. Gradientes, texturas e cantos sem cor predominante podem impedir o recorte; elementos de cor muito próxima à do fundo podem ser interpretados como margem. Imagens de cor única ou totalmente transparentes mantêm suas proporções.
+
+Na galeria, os cartões já mostram as imagens: não há recorte nem prévia adicional. A imagem escolhida é apenas redimensionada. Para recortar uma logo já cadastrada, abra **Editar** e envie novamente a imagem com **Recortar bordas** marcado. Alterar somente os textos ou o link preserva a imagem existente.
+
+### Formatos e limites
+
+- São aceitos **PNG, JPEG e GIF**, de até **5 MB** e **12 milhões de pixels** (largura × altura). SVG não é aceito.
+- Os limites `upload_max_filesize` e `post_max_size` do PHP também se aplicam. O segundo deve comportar o arquivo e os demais campos do formulário.
+- As imagens são convertidas em **PNG**, preservando a transparência. GIFs animados tornam-se imagens estáticas com o primeiro quadro.
+- O arquivo salvo tem **150 px de largura** e altura proporcional. Imagens menores também são ampliadas, o que pode reduzir a nitidez. Imagens cuja altura final ultrapasse **3000 px** são rejeitadas.
+- Na página pública, a altura de exibição é limitada a **100 px**, com redução proporcional da largura. Por isso, uma logo alta pode aparecer com menos de 150 px de largura. A exibição também se adapta ao espaço disponível na lateral.
+- Depois de um erro de validação, selecione o arquivo novamente antes de salvar.
+
+## Armazenamento e separação entre revistas
+
+As configurações são salvas por revista nas configurações de plugins do OJS; o plugin não cria uma tabela própria. Os arquivos processados ficam em `public/journals/<id>/`, ou no caminho correspondente definido por `public_files_dir`.
+
+Cada bloco mantém sua própria lista de logos e opções. As operações em uma revista não alteram os blocos de outras revistas. A única parte compartilhada é o catálogo de imagens que acompanha os arquivos do plugin.
+
+O gerenciamento usa o controle de acesso do OJS para plugins. As operações de gravação exigem requisições POST com token CSRF.
+
+## Problemas comuns
+
+| Situação | O que verificar |
+| --- | --- |
+| Nenhum bloco aparece | Confira se o plugin está habilitado e selecionado na barra lateral, se a pílula do bloco está ativada e se ele contém ao menos uma logo. |
+| O bloco aparece na lateral, mas não acima do rodapé | Confira a localização escolhida e salva no bloco e se o tema usa o elemento `pkp_structure_footer_wrapper`. |
+| A descrição não aparece | Preencha a descrição da logo e habilite sua exibição para um local onde o bloco também esteja visível. |
+| A imagem não pode ser salva | Confira formato, tamanho, quantidade de pixels, extensão GD, limites de upload do PHP e permissão de gravação do diretório público. Selecione o arquivo novamente após corrigir o problema. |
+| A logo não abre um endereço | Edite a logo e informe um link HTTP ou HTTPS. A galeria não preenche o endereço automaticamente. |
+| A ordem não foi salva | Reabra as configurações para atualizar a lista e tente novamente. |
+
+## Atualização de instalações com o nome antigo
+
+Esta orientação se aplica a quem já usava o plugin com o nome antigo de pasta.
+
+A pasta de instalação é `logoBlocks`, e o campo `<application>` de `version.xml` deve conter `logoBlocks`. Após renomear a pasta de uma instalação anterior de `sponsorsBlock` ou `sponsors` para `logoBlocks`, abra **Website → Plugins → Plugins instalados** para que o OJS registre o produto com o novo caminho. Depois, reabra **Website → Aparência → Configuração → Barra lateral** e confira a seleção do plugin.
+
+A classe é `LogoBlocksPlugin`, e a chave interna é `logoblocksplugin`. Essa chave corresponde ao nome da classe em minúsculas, como exige a busca de plugins habilitados do OJS 3.3. A pasta e o produto têm o nome definitivo `logoBlocks`.
+
+Configurações anteriormente salvas sob a chave `sponsorsblockplugin` precisam ser migradas para a nova chave para que a ativação, as logos e os títulos sejam reaproveitados. A seleção da barra lateral também precisa usar `logoblocksplugin`. Apenas renomear a pasta não transfere esses dados.
+
+## Validação para desenvolvimento
+
+A partir da raiz da instalação do OJS, execute:
 
 ```sh
-php plugins/blocks/sponsors/tests/image.php
-php plugins/blocks/sponsors/tests/grid.php
-php plugins/blocks/sponsors/tests/blocks.php
-php plugins/blocks/sponsors/tests/gallery.php
-php plugins/blocks/sponsors/tests/preview.php
+php plugins/blocks/logoBlocks/tests/image.php
+php plugins/blocks/logoBlocks/tests/grid.php
+php plugins/blocks/logoBlocks/tests/blocks.php
+php plugins/blocks/logoBlocks/tests/gallery.php
+php plugins/blocks/logoBlocks/tests/preview.php
 ```
 
-Para verificar o fluxo completo em uma instalação OJS 3.3: habilite o plugin, envie logos com e sem link, confira a proporção e os links na página pública, edite os dados e remova um logo. Confira também uma segunda revista para verificar a separação das configurações. Os testes da grade usam classes reais de formulário e GridHandler do OJS, com requisições e configurações simuladas em memória. Cobrem edição, validação de links, POST/CSRF, separação entre revistas, rotas de atualização e persistência/remoção dos arquivos a partir de imagens preparadas. Não executam upload HTTP nem autenticação no navegador e não substituem o teste do fluxo completo.
+Os testes cobrem processamento de imagens, prévia, galeria e gerenciamento de logos e blocos. Os testes da grade usam classes reais de formulário e GridHandler do OJS, com requisições e configurações simuladas em memória. Verificam edição, validação de links, POST/CSRF, separação entre revistas, ordenação e persistência ou remoção de arquivos a partir de imagens preparadas. **Não executam upload HTTP nem autenticação no navegador e não substituem a validação do fluxo completo.**
 
-Licença: GNU GPL v3, conforme `docs/COPYING` do OJS.
+Para verificar o fluxo em uma instalação OJS 3.3, crie um bloco, adicione logos da galeria e por upload, com e sem link, e confira a página pública. Verifique lateral e rodapé, descrições, escala de cinza, ordenação, edição, ocultação e exclusão. Confira também uma segunda revista para verificar a separação das configurações.
+
+## Licença
+
+GNU GPL v3, conforme `docs/COPYING` do OJS.

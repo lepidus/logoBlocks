@@ -7,10 +7,10 @@ class LogoBlocksPlugin extends BlockPlugin
 {
     private $blockId = null;
 
-    /** Preserve stored settings and sidebar selection from existing installations. */
+    /** Match the manifest class for OJS's enabled-product lookup. */
     public function getName()
     {
-        return 'sponsorsblockplugin';
+        return 'logoblocksplugin';
     }
 
     public function getBlockId()

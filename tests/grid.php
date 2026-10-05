@@ -365,8 +365,8 @@ $loadedPlugin = PluginRegistry::_instantiatePlugin(
     (string) $manifest->class
 );
 check($loadedPlugin instanceof LogoBlocksPlugin, 'OJS cannot instantiate the plugin from its registered product');
-check($loadedPlugin->getName() === 'sponsorsblockplugin', 'Renaming the folder changed the settings key');
-echo "PASS: manifest directory, native plugin loader and existing settings identity\n";
+check($loadedPlugin->getName() === strtolower((string) $manifest->class), 'Enabled-product lookup cannot match the settings key to the manifest class');
+echo "PASS: manifest directory, native plugin loader and enabled-product settings identity\n";
 
 $orderPlugin = new GridTestPlugin();
 $orderPlugin->settings = array(1 => array('logoBlock_existing-block_logos' => array('a' => $logo, 'b' => array_merge($logo, array('name' => 'Second')), 'c' => array_merge($logo, array('name' => 'Third')))), 2 => array('logoBlock_existing-block_logos' => array('foreign' => $logo)));
