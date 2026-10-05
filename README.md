@@ -1,199 +1,203 @@
-# Blocos de logos — OJS 3.3
+# Logo Blocks — OJS 3.3
 
-O plugin **Blocos de logos** permite apresentar logos de patrocinadores, apoiadores ou indexadores nas páginas públicas da revista, na **barra lateral**, em uma **faixa acima do rodapé** ou nos dois lugares. Cada logo pode ter um link e uma descrição curta.
+Other languages: [Português (Brasil)](docs/README.pt_BR.md) | [Español](docs/README.es.md)
 
-Por exemplo, a revista pode criar um bloco chamado “Indexadores” com logos e links para seus perfis nas bases, e outro chamado “Apoio” com as instituições que a apoiam. Cada revista configura seus próprios blocos, títulos, imagens e ordem de apresentação.
+The **Logo Blocks** plugin displays logos of sponsors, supporting organizations, or indexing services on the journal's public pages, in the **sidebar**, in a **strip above the footer**, or in both locations. Each logo can have a link and a short description.
 
-## O que o plugin faz
+For example, a journal can create an “Indexing services” block with logos and links to its database profiles, and a “Support” block with the institutions that support it. Each journal configures its own blocks, titles, images, and display order.
 
-- Permite criar vários blocos, com títulos traduzidos para os idiomas da revista.
-- Oferece uma galeria de logos incluída no plugin e permite enviar imagens próprias.
-- Redimensiona as imagens para 150 px de largura, mantendo a proporção, e oferece recorte opcional de margens no envio de imagens.
-- Permite ordenar, editar, ocultar e excluir blocos e logos.
-- Oferece opções por bloco para localização, exibição das descrições e efeito de escala de cinza.
+![Logo Blocks plugin demonstration](docs/logoBlocksDemo.gif)
 
-**A galeria é um catálogo de imagens, não uma integração com os indexadores.** Selecionar uma logo não cadastra a revista em uma base, não confirma sua indexação e não busca automaticamente o endereço de seu perfil. Cabe à equipe da revista escolher as logos e informar os links correspondentes.
+## Features
 
-O plugin não envia e-mails, não altera o fluxo de submissão ou avaliação e não cria tarefas agendadas. **Não é necessário configurar cron.** As imagens são processadas ao preparar a prévia ou salvar uma logo; os blocos são exibidos quando o OJS renderiza as páginas públicas.
+- Create multiple blocks, with titles translated into the journal's languages.
+- Choose from a logo gallery included with the plugin or upload your own images.
+- Resize images to 150 px wide while preserving their aspect ratio, with optional border cropping when uploading images.
+- Reorder, edit, hide, and delete blocks and logos.
+- Configure each block's location, description display, and grayscale effect.
 
-## Requisitos e instalação
+**The gallery is an image catalog, not an integration with indexing services.** Selecting a logo does not register the journal in a database, confirm its indexing status, or automatically retrieve its profile address. The journal's team must choose the logos and provide the corresponding links.
 
-Esta versão é destinada ao **OJS 3.3**. O servidor precisa ter:
+The plugin does not send emails, change the submission or review workflow, or create scheduled tasks. **No cron configuration is required.** Images are processed when preparing a preview or saving a logo; blocks are displayed when OJS renders public pages.
 
-- PHP com a extensão **GD** e suporte a PNG, JPEG e GIF.
-- Diretório público da revista gravável pelo OJS.
+## Requirements and installation
 
-Para instalar e habilitar:
+This version is intended for **OJS 3.3**. The server requires:
 
-1. Coloque a pasta `logoBlocks`, com os arquivos do plugin, em `plugins/blocks/` da instalação do OJS. O arquivo de versão deve ficar em `plugins/blocks/logoBlocks/version.xml`.
-2. Entre no OJS como gerente da revista ou administrador e acesse a revista que deseja configurar.
-3. Em **Configurações → Website → Plugins → Plugins instalados → Plugins de bloco**, habilite **Blocos de logos**.
-4. Em **Configurações → Website → Aparência → Configuração → Barra lateral**, inclua **Blocos de logos** na barra lateral e salve.
+- PHP with the **GD** extension and PNG, JPEG, and GIF support.
+- A journal public directory that OJS can write to.
 
-**O passo 4 também é necessário para exibir logos somente acima do rodapé.** O OJS carrega este plugin ao processar a barra lateral. A opção de localização de cada bloco determina onde ele será mostrado.
+To install and enable:
 
-Habilitar o plugin não cria blocos nem adiciona logos automaticamente. Siga os passos abaixo para cadastrar o primeiro bloco.
+1. Place the `logoBlocks` folder containing the plugin files in `plugins/blocks/` within your OJS installation. The version file must be at `plugins/blocks/logoBlocks/version.xml`.
+2. Log in to OJS as a journal manager or administrator and open the journal you want to configure.
+3. Under **Settings → Website → Plugins → Installed Plugins → Block Plugins**, enable **Logo Blocks**.
+4. Under **Settings → Website → Appearance → Setup → Sidebar**, add **Logo Blocks** to the sidebar and save.
 
-## Criar o primeiro bloco
+**Step 4 is also required to display logos only above the footer.** OJS loads this plugin when processing the sidebar. Each block's location setting determines where it appears.
 
-1. No menu do plugin **Blocos de logos**, abra **Configurações**.
-2. Clique em **Adicionar bloco**.
-3. Preencha o **Título do bloco**, por exemplo, “Indexadores”. Use o seletor de idiomas do OJS para preencher o idioma principal da revista e, opcionalmente, suas traduções. O limite é de 200 caracteres por idioma.
-4. Em **Personalização do bloco**, escolha onde exibi-lo. Por padrão, novos blocos aparecem na lateral, com descrições ocultas e imagens coloridas.
-5. Clique em **Salvar**. Na lista de blocos, clique no lápis (**Editar**) para abrir o bloco criado e adicionar suas logos.
-6. Inclua ao menos uma logo por uma das opções descritas a seguir e confira o resultado na página pública da revista.
+Enabling the plugin does not create blocks or add logos automatically. Follow the steps below to create your first block.
 
-O título público acompanha o idioma selecionado pelo visitante; se não houver tradução, usa o idioma principal da revista. Títulos antigos, cadastrados antes do suporte a traduções, são preservados no idioma principal. **Blocos sem logos não aparecem na página pública.**
+## Creating the first block
 
-## Adicionar logos
+1. Open **Settings** in the **Logo Blocks** plugin menu.
+2. Click **Add block**.
+3. Enter a **Block title**, such as “Indexing services”. Use the OJS language selector to fill in the journal's primary language and, optionally, its translations. The limit is 200 characters per language.
+4. Under **Block customization**, choose where to display it. By default, new blocks appear in the sidebar, with descriptions hidden and images in color.
+5. Click **Save**. In the block list, click the pencil (**Edit**) to open the new block and add its logos.
+6. Add at least one logo using one of the options below and check the result on the journal's public page.
 
-### Escolher uma logo da galeria
+The public title follows the language selected by the visitor; if no translation is available, it uses the journal's primary language. Older titles, entered before translation support was added, are preserved in the primary language. **Blocks without logos do not appear on the public page.**
 
-1. Abra a edição do bloco e clique em **Galeria de logos**.
-2. Selecione uma imagem. Abaixo da galeria, aparecem os campos de link e descrição.
-3. Se desejar, informe o endereço completo da página da revista no indexador, começando com `https://` ou `http://`, e uma descrição de até 100 caracteres. Ambos são opcionais.
-4. Clique em **Salvar**. A logo entra no final da lista, com o nome e a sigla definidos pelo catálogo. Depois, use **Editar** para ajustar esses dados.
+## Adding logos
 
-A galeria inclui, entre outros, DOAJ, Google Scholar, Latindex, SciELO, Scopus e Web of Science. Os cartões mostram a sigla, quando disponível, ou o nome, e são ordenados pelo nome completo. A lista de entradas está em [logos/catalog.json](logos/catalog.json).
+### Choosing a logo from the gallery
 
-O catálogo e suas imagens acompanham o plugin; não há download de imagens de serviços externos durante o uso. Todos os blocos compartilham esse catálogo, mas cada inclusão salva uma cópia processada no diretório público da revista. Editar ou excluir uma logo cadastrada não altera o catálogo nem as cópias de outros blocos ou revistas.
+1. Open the block for editing and click **Logo gallery**.
+2. Select an image. The link and description fields appear below the gallery.
+3. If desired, enter the full address of the journal's page on the indexing service, starting with `https://` or `http://`, and a description of up to 100 characters. Both are optional.
+4. Click **Save**. The logo is added to the end of the list, with the name and acronym defined in the catalog. You can then use **Edit** to adjust these details.
 
-### Enviar uma imagem própria
+The gallery includes DOAJ, Google Scholar, Latindex, SciELO, Scopus, and Web of Science, among others. Cards show the acronym, when available, or the name, and are sorted by full name. The list of entries is in [logos/catalog.json](logos/catalog.json).
 
-1. Abra a edição do bloco e clique em **Adicionar logo**.
-2. Preencha **Título da logo** e selecione a imagem PNG, JPEG ou GIF.
-3. Preencha, se desejar, a sigla, o link e a descrição.
-4. Confira a prévia. Se precisar remover margens vazias, marque **Recortar bordas**.
-5. Salve o formulário da logo.
+The catalog and its images are bundled with the plugin; images are not downloaded from external services during use. All blocks share this catalog, but each addition saves a processed copy in the journal's public directory. Editing or deleting an added logo does not change the catalog or copies in other blocks or journals.
 
-As imagens enviadas são adicionadas apenas ao bloco em edição; elas não passam a fazer parte da galeria compartilhada.
+### Uploading your own image
 
-### Para que serve cada campo
+1. Open the block for editing and click **Add logo**.
+2. Enter the **Logo title** and select a PNG, JPEG, or GIF image.
+3. Optionally, enter the acronym, link, and description.
+4. Check the preview. To remove empty margins, select **Crop borders**.
+5. Save the logo form.
 
-| Campo | Uso |
+Uploaded images are added only to the block being edited; they do not become part of the shared gallery.
+
+### Field reference
+
+| Field | Purpose |
 | --- | --- |
-| **Título da logo** | Nome obrigatório, com até 200 caracteres. É usado como texto alternativo da imagem e como dica ao passar o mouse. |
-| **Sigla (opcional)** | Até 30 caracteres. Aparece em destaque na lista administrativa, ao lado do nome completo; não substitui o texto alternativo da imagem. |
-| **Link (opcional)** | Endereço HTTP ou HTTPS aberto em uma nova aba ao clicar na imagem. Sem link, a logo é apenas uma imagem. |
-| **Descrição (opcional)** | Texto simples de até 100 caracteres, exibido abaixo da imagem quando a exibição de descrições estiver habilitada para aquele local. Não aceita formatação HTML. |
+| **Logo title** | Required name, up to 200 characters. Used as the image's alternative text and as a tooltip on hover. |
+| **Acronym (optional)** | Up to 30 characters. Highlighted in the administration list next to the full name; does not replace the image's alternative text. |
+| **Link (optional)** | HTTP or HTTPS address opened in a new tab when the image is clicked. Without a link, the logo is simply an image. |
+| **Description (optional)** | Plain text of up to 100 characters, displayed below the image when descriptions are enabled for that location. HTML formatting is not accepted. |
 
-O título do bloco é multilíngue. Os campos de cada logo têm um único valor, usado em todos os idiomas da página.
+The block title is multilingual. Each logo field has a single value, used in all page languages.
 
-## Personalizar a exibição
+## Customizing the display
 
-Abra o lápis (**Editar**) do bloco, ajuste as opções em **Personalização do bloco** e clique em **Salvar**.
+Click the block's pencil (**Edit**), adjust the options under **Block customization**, and click **Save**.
 
-### Localização: lateral, rodapé ou ambos
+### Location: sidebar, footer, or both
 
-No campo **Selecione onde exibir o bloco**, escolha:
+In **Select where to display the block**, choose:
 
-| Opção | Resultado na página pública |
+| Option | Result on the public page |
 | --- | --- |
-| **Exibir na lateral da revista** | Logos em uma lista na barra lateral. |
-| **Exibir no rodapé da revista** | Logos em uma faixa horizontal acima do rodapé padrão, sem exibir esse bloco na lateral. |
-| **Exibir em ambos os lugares** | O mesmo bloco aparece na lateral e acima do rodapé. |
+| **Show in the journal sidebar** | Logos in a list in the sidebar. |
+| **Show in the journal footer** | Logos in a horizontal strip above the standard footer, without showing this block in the sidebar. |
+| **Show in both locations** | The same block appears in the sidebar and above the footer. |
 
-A faixa acima do rodapé quebra as logos em novas linhas quando falta espaço. Uma linha separa o conjunto de blocos do conteúdo da revista, sem separadores entre os blocos.
+The strip above the footer wraps logos onto new lines when space is limited. A line separates the group of blocks from the journal's content, with no separators between blocks.
 
-A apresentação depende do tema. A faixa aparece nas páginas que carregam o plugin pela barra lateral e usam o rodapé padrão do OJS 3.3, ou um tema que preserve o elemento com a classe `pkp_structure_footer_wrapper`. Mantenha **Blocos de logos** selecionado na configuração da barra lateral mesmo ao escolher apenas o rodapé.
+The appearance depends on the theme. The strip appears on pages that load the plugin through the sidebar and use the standard OJS 3.3 footer, or a theme that preserves the element with the `pkp_structure_footer_wrapper` class. Keep **Logo Blocks** selected in the sidebar settings even when choosing only the footer.
 
-### Descrições abaixo das logos
+### Descriptions below logos
 
-Em **Exibição da descrição dos logos**, escolha **Não exibir**, **Exibir na lateral da revista**, **Exibir no rodapé da revista** ou **Exibir em ambos os lugares**.
+Under **Logo description display**, choose **Do not display**, **Show in the journal sidebar**, **Show in the journal footer**, or **Show in both locations**.
 
-Essa opção controla somente o texto abaixo das imagens; ela não muda a localização do bloco. Por exemplo, uma descrição configurada apenas para o rodapé não aparece se o bloco estiver configurado apenas para a lateral. Logos sem descrição não exibem texto adicional.
+This option controls only the text below images; it does not change the block's location. For example, a description configured only for the footer does not appear if the block is configured only for the sidebar. Logos without a description do not display additional text.
 
-As descrições ficam ocultas por padrão. Selecionar **Não exibir** preserva os textos cadastrados.
+Descriptions are hidden by default. Selecting **Do not display** preserves the saved text.
 
-### Escala de cinza
+### Grayscale
 
-Marque **Ativar escala monocromática, ficam coloridas ao interagir.** e salve. As logos daquele bloco ficam em escala de cinza na lateral e acima do rodapé, recuperando as cores ao passar o mouse ou focar seu link pelo teclado. Ao sair, voltam a ficar cinzas.
+Select **Enable monochrome mode, logos become colorful when interacting.** and save. The block's logos appear in grayscale in the sidebar and above the footer, returning to color when hovered over or when their links receive keyboard focus. They return to grayscale when the interaction ends.
 
-O efeito usa CSS e não modifica os arquivos das imagens. Desmarque a opção e salve para manter as cores sempre visíveis.
+The effect uses CSS and does not modify image files. Clear the option and save to keep colors visible at all times.
 
-## Editar, ordenar e salvar
+## Editing, ordering, and saving
 
-Para editar uma logo, use **Editar** na linha correspondente. Você pode alterar seus textos e link ou substituir a imagem. **Deixe o campo de arquivo vazio para preservar a imagem atual.** A edição mantém a posição da logo na lista; substituir a imagem remove o arquivo público anterior.
+To edit a logo, use **Edit** on its row. You can change its text and link or replace the image. **Leave the file field empty to preserve the current image.** Editing keeps the logo's position in the list; replacing the image removes the previous public file.
 
-Para reordenar logos ou blocos, arraste a **alça de pontos à esquerda** da linha. Também é possível focar a alça pelo teclado e usar as setas para cima e para baixo. A ordem é salva automaticamente ao soltar ou mover pelo teclado e vale tanto para a lateral quanto para a faixa acima do rodapé. Novos itens entram no final da lista. Em caso de falha na gravação, a tela restaura a ordem anterior e informa o erro.
+To reorder logos or blocks, drag the **dotted handle on the left** of the row. You can also focus the handle using the keyboard and use the up and down arrow keys. The order is saved automatically when you drop the item or move it using the keyboard, and applies to both the sidebar and the strip above the footer. New items are added to the end of the list. If saving fails, the screen restores the previous order and reports the error.
 
-As ações não dependem todas do mesmo botão **Salvar**:
+Not all actions use the same **Save** button:
 
-| Ação | Quando é gravada |
+| Action | When it is saved |
 | --- | --- |
-| Criar ou editar título e personalização de um bloco | Ao clicar em **Salvar** no formulário do bloco. |
-| Adicionar ou editar uma logo | Ao salvar o formulário daquela logo. |
-| Reordenar logos ou blocos | Automaticamente, ao mudar a ordem. |
-| Ativar ou desativar um bloco pela pílula | Imediatamente. |
-| Excluir uma logo ou um bloco | Após confirmar a exclusão. |
+| Create or edit a block's title and customization | When clicking **Save** in the block form. |
+| Add or edit a logo | When saving that logo's form. |
+| Reorder logos or blocks | Automatically, when the order changes. |
+| Enable or disable a block using its toggle | Immediately. |
+| Delete a logo or block | After confirming deletion. |
 
-Fechar o formulário do bloco sem salvar não desfaz operações já gravadas nas logos, na ordem ou na visibilidade.
+Closing the block form without saving does not undo changes already saved to logos, order, or visibility.
 
-## Ocultar, desativar ou excluir: o que acontece?
+## Hiding, disabling, or deleting: what happens?
 
-| Ação | Efeito | Dados preservados? |
+| Action | Effect | Data preserved? |
 | --- | --- | --- |
-| Desativar a pílula de um bloco | Oculta aquele bloco na lateral e acima do rodapé. Os demais continuam conforme suas configurações. | Sim: logos, textos, ordem e opções. |
-| Desabilitar o plugin em **Plugins instalados** | Oculta todos os blocos do plugin naquela revista. Não altera submissões, avaliações ou e-mails do OJS. | Sim: configurações e arquivos das logos permanecem armazenados. |
-| Retirar **Blocos de logos** da configuração da barra lateral | Impede seu carregamento pela barra lateral, afetando também a faixa acima do rodapé. | Sim. |
-| Excluir uma logo | Remove a logo do bloco e seu arquivo público. | Não para a logo excluída. |
-| Deletar um bloco pela lixeira | Remove o bloco, suas configurações, todas as suas logos e os arquivos públicos correspondentes. | Não para o bloco excluído. |
+| Turn off a block's toggle | Hides that block in the sidebar and above the footer. Other blocks keep their own settings. | Yes: logos, text, order, and options. |
+| Disable the plugin under **Installed Plugins** | Hides all plugin blocks in that journal. Does not change OJS submissions, reviews, or emails. | Yes: settings and logo files remain stored. |
+| Remove **Logo Blocks** from the sidebar settings | Prevents loading through the sidebar, also affecting the strip above the footer. | Yes. |
+| Delete a logo | Removes the logo from the block and deletes its public file. | No, for the deleted logo. |
+| Delete a block using the trash icon | Removes the block, its settings, all its logos, and their public files. | No, for the deleted block. |
 
-A pílula ao lado do lápis fica **verde quando o bloco está ativado** e **cinza quando está desativado**. Novos blocos começam ativados. Para voltar a exibir um bloco oculto, reative sua pílula; se tiver desabilitado o plugin, habilite-o novamente e confira sua seleção na barra lateral.
+The toggle next to the pencil is **green when the block is enabled** and **gray when disabled**. New blocks start enabled. To display a hidden block again, turn its toggle back on; if you disabled the plugin, enable it again and check that it is selected in the sidebar settings.
 
-**Ocultar um bloco ou desabilitar o plugin não torna seus arquivos privados.** As imagens continuam no diretório público e podem ser acessadas por quem tiver seus endereços. Para remover uma logo e seu arquivo pelo plugin, use a exclusão.
+**Hiding a block or disabling the plugin does not make its files private.** Images remain in the public directory and can be accessed by anyone with their addresses. To remove a logo and its file through the plugin, delete it.
 
-## Recorte, prévia e tamanho das imagens
+## Cropping, previews, and image sizes
 
-Ao enviar ou substituir uma imagem, a prévia mostra como ela será salva. **Recortar bordas** vem desmarcado: marque para conferir o recorte ou desmarque para voltar à versão sem recorte. Gerar a prévia não salva a logo; é necessário confirmar o formulário.
+When uploading or replacing an image, the preview shows how it will be saved. **Crop borders** is initially unchecked: select it to check the cropped result or clear it to return to the uncropped version. Generating a preview does not save the logo; you must confirm the form.
 
-O recorte remove margens externas totalmente transparentes ou de cor uniforme, como branco ou preto, antes do redimensionamento. Para fundos opacos, o plugin identifica uma cor predominante em pelo menos três cantos, com tolerância a pequenas variações de compressão. Preserva uma folga de um pixel da imagem original e a proporção do conteúdo restante. Em imagens com transparência, remove apenas margens totalmente transparentes, preservando desenhos brancos.
+Cropping removes fully transparent or uniformly colored outer margins, such as white or black, before resizing. For opaque backgrounds, the plugin identifies a predominant color in at least three corners, allowing for small compression variations. It preserves a one-pixel margin from the original image and the aspect ratio of the remaining content. For images with transparency, it removes only fully transparent margins, preserving white artwork.
 
-O recorte não remove o fundo interno da logo. Gradientes, texturas e cantos sem cor predominante podem impedir o recorte; elementos de cor muito próxima à do fundo podem ser interpretados como margem. Imagens de cor única ou totalmente transparentes mantêm suas proporções.
+Cropping does not remove the logo's internal background. Gradients, textures, and corners without a predominant color may prevent cropping; elements very close to the background color may be interpreted as margins. Images that are a single color or fully transparent keep their proportions.
 
-Na galeria, os cartões já mostram as imagens: não há recorte nem prévia adicional. A imagem escolhida é apenas redimensionada. Para recortar uma logo já cadastrada, abra **Editar** e envie novamente a imagem com **Recortar bordas** marcado. Alterar somente os textos ou o link preserva a imagem existente.
+Gallery cards already show the images: there is no cropping or additional preview. The selected image is only resized. To crop an existing logo, open **Edit** and upload the image again with **Crop borders** selected. Changing only the text or link preserves the existing image.
 
-### Formatos e limites
+### Formats and limits
 
-- São aceitos **PNG, JPEG e GIF**, de até **5 MB** e **12 milhões de pixels** (largura × altura). SVG não é aceito.
-- Os limites `upload_max_filesize` e `post_max_size` do PHP também se aplicam. O segundo deve comportar o arquivo e os demais campos do formulário.
-- As imagens são convertidas em **PNG**, preservando a transparência. GIFs animados tornam-se imagens estáticas com o primeiro quadro.
-- O arquivo salvo tem **150 px de largura** e altura proporcional. Imagens menores também são ampliadas, o que pode reduzir a nitidez. Imagens cuja altura final ultrapasse **3000 px** são rejeitadas.
-- Na página pública, a altura de exibição é limitada a **100 px**, com redução proporcional da largura. Por isso, uma logo alta pode aparecer com menos de 150 px de largura. A exibição também se adapta ao espaço disponível na lateral.
-- Depois de um erro de validação, selecione o arquivo novamente antes de salvar.
+- **PNG, JPEG, and GIF** are accepted, up to **5 MB** and **12 million pixels** (width × height). SVG is not accepted.
+- PHP's `upload_max_filesize` and `post_max_size` limits also apply. The latter must accommodate the file and the other form fields.
+- Images are converted to **PNG**, preserving transparency. Animated GIFs become static images using the first frame.
+- Saved files are **150 px wide**, with proportional height. Smaller images are also enlarged, which may reduce sharpness. Images whose final height exceeds **3000 px** are rejected.
+- On the public page, display height is limited to **100 px**, with width reduced proportionally. A tall logo may therefore appear less than 150 px wide. The display also adapts to the available sidebar space.
+- After a validation error, select the file again before saving.
 
-## Armazenamento e separação entre revistas
+## Storage and separation between journals
 
-As configurações são salvas por revista nas configurações de plugins do OJS; o plugin não cria uma tabela própria. Os arquivos processados ficam em `public/journals/<id>/`, ou no caminho correspondente definido por `public_files_dir`.
+Settings are saved per journal in OJS plugin settings; the plugin does not create its own table. Processed files are stored in `public/journals/<id>/`, or the corresponding path defined by `public_files_dir`.
 
-Cada bloco mantém sua própria lista de logos e opções. As operações em uma revista não alteram os blocos de outras revistas. A única parte compartilhada é o catálogo de imagens que acompanha os arquivos do plugin.
+Each block keeps its own logo list and options. Operations in one journal do not change blocks in other journals. The only shared component is the image catalog bundled with the plugin files.
 
-O gerenciamento usa o controle de acesso do OJS para plugins. As operações de gravação exigem requisições POST com token CSRF.
+Management uses OJS plugin access control. Write operations require POST requests with a CSRF token.
 
-## Problemas comuns
+## Troubleshooting
 
-| Situação | O que verificar |
+| Situation | What to check |
 | --- | --- |
-| Nenhum bloco aparece | Confira se o plugin está habilitado e selecionado na barra lateral, se a pílula do bloco está ativada e se ele contém ao menos uma logo. |
-| O bloco aparece na lateral, mas não acima do rodapé | Confira a localização escolhida e salva no bloco e se o tema usa o elemento `pkp_structure_footer_wrapper`. |
-| A descrição não aparece | Preencha a descrição da logo e habilite sua exibição para um local onde o bloco também esteja visível. |
-| A imagem não pode ser salva | Confira formato, tamanho, quantidade de pixels, extensão GD, limites de upload do PHP e permissão de gravação do diretório público. Selecione o arquivo novamente após corrigir o problema. |
-| A logo não abre um endereço | Edite a logo e informe um link HTTP ou HTTPS. A galeria não preenche o endereço automaticamente. |
-| A ordem não foi salva | Reabra as configurações para atualizar a lista e tente novamente. |
+| No blocks appear | Check that the plugin is enabled and selected in the sidebar settings, that the block's toggle is on, and that it contains at least one logo. |
+| The block appears in the sidebar but not above the footer | Check the location selected and saved for the block, and whether the theme uses the `pkp_structure_footer_wrapper` element. |
+| The description does not appear | Enter the logo's description and enable its display in a location where the block is also visible. |
+| The image cannot be saved | Check the format, size, pixel count, GD extension, PHP upload limits, and write permissions for the public directory. Select the file again after fixing the problem. |
+| The logo does not open an address | Edit the logo and enter an HTTP or HTTPS link. The gallery does not fill in the address automatically. |
+| The order was not saved | Reopen the settings to refresh the list and try again. |
 
-## Atualização de instalações com o nome antigo
+## Updating installations using the old name
 
-Esta orientação se aplica a quem já usava o plugin com o nome antigo de pasta.
+This guidance applies to installations that used the plugin's previous folder name.
 
-A pasta de instalação é `logoBlocks`, e o campo `<application>` de `version.xml` deve conter `logoBlocks`. Após renomear a pasta de uma instalação anterior de `sponsorsBlock` ou `sponsors` para `logoBlocks`, abra **Website → Plugins → Plugins instalados** para que o OJS registre o produto com o novo caminho. Depois, reabra **Website → Aparência → Configuração → Barra lateral** e confira a seleção do plugin.
+The installation folder is `logoBlocks`, and the `<application>` field in `version.xml` must contain `logoBlocks`. After renaming a previous installation's folder from `sponsorsBlock` or `sponsors` to `logoBlocks`, open **Website → Plugins → Installed Plugins** so that OJS registers the product with the new path. Then reopen **Website → Appearance → Setup → Sidebar** and check the plugin selection.
 
-A classe é `LogoBlocksPlugin`, e a chave interna é `logoblocksplugin`. Essa chave corresponde ao nome da classe em minúsculas, como exige a busca de plugins habilitados do OJS 3.3. A pasta e o produto têm o nome definitivo `logoBlocks`.
+The class is `LogoBlocksPlugin`, and the internal key is `logoblocksplugin`. This key matches the lowercase class name, as required by OJS 3.3 when looking up enabled plugins. The folder and product have the final name `logoBlocks`.
 
-Configurações anteriormente salvas sob a chave `sponsorsblockplugin` precisam ser migradas para a nova chave para que a ativação, as logos e os títulos sejam reaproveitados. A seleção da barra lateral também precisa usar `logoblocksplugin`. Apenas renomear a pasta não transfere esses dados.
+Settings previously saved under `sponsorsblockplugin` must be migrated to the new key to retain activation, logos, and titles. The sidebar selection must also use `logoblocksplugin`. Renaming the folder alone does not transfer this data.
 
-## Validação para desenvolvimento
+## Development validation
 
-A partir da raiz da instalação do OJS, execute:
+From the root of the OJS installation, run:
 
 ```sh
 php plugins/blocks/logoBlocks/tests/image.php
@@ -203,10 +207,10 @@ php plugins/blocks/logoBlocks/tests/gallery.php
 php plugins/blocks/logoBlocks/tests/preview.php
 ```
 
-Os testes cobrem processamento de imagens, prévia, galeria e gerenciamento de logos e blocos. Os testes da grade usam classes reais de formulário e GridHandler do OJS, com requisições e configurações simuladas em memória. Verificam edição, validação de links, POST/CSRF, separação entre revistas, ordenação e persistência ou remoção de arquivos a partir de imagens preparadas. **Não executam upload HTTP nem autenticação no navegador e não substituem a validação do fluxo completo.**
+The tests cover image processing, previews, the gallery, and logo and block management. Grid tests use real OJS form and GridHandler classes, with requests and settings simulated in memory. They check editing, link validation, POST/CSRF, separation between journals, ordering, and file persistence or removal using prepared images. **They do not perform HTTP uploads or browser authentication and do not replace validation of the complete workflow.**
 
-Para verificar o fluxo em uma instalação OJS 3.3, crie um bloco, adicione logos da galeria e por upload, com e sem link, e confira a página pública. Verifique lateral e rodapé, descrições, escala de cinza, ordenação, edição, ocultação e exclusão. Confira também uma segunda revista para verificar a separação das configurações.
+To check the workflow in an OJS 3.3 installation, create a block, add logos from the gallery and by uploading, with and without links, and check the public page. Check the sidebar and footer, descriptions, grayscale, ordering, editing, hiding, and deletion. Also check a second journal to verify that settings are separate.
 
-## Licença
+## License
 
-GNU GPL v3, conforme `docs/COPYING` do OJS.
+GNU GPL v3, as specified in OJS's `docs/COPYING`.
