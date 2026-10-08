@@ -1,4 +1,6 @@
-[![Release](https://img.shields.io/badge/release-v2.3.0.0-blue)](../version.xml) [![License](https://img.shields.io/badge/license-GPL--3.0-orange)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![GitHub release](https://img.shields.io/github/v/release/lepidus/logoBlocks)](https://github.com/lepidus/logoBlocks/releases)
+[![License](https://img.shields.io/badge/license-GPL--3.0-orange)](https://www.gnu.org/licenses/gpl-3.0.html)
+[![Number of downloads](https://img.shields.io/github/downloads/lepidus/logoBlocks/total?color=brightgreen)](https://github.com/lepidus/logoBlocks/releases)
 
 [English](../README.md) | **Português Brasileiro** | [Español](README.es.md)
 
