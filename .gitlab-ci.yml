@@ -1,5 +1,5 @@
 variables:
-    PLUGIN_NAME : 'sponsors'
+    PLUGIN_NAME : 'logoBlocks'
 
 include:
   - project: 'documentacao-e-tarefas/modelosparaintegracaocontinua'
