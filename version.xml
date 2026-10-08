@@ -4,7 +4,7 @@
 	<application>logoBlocks</application>
 	<type>plugins.blocks</type>
 	<release>2.3.0.0</release>
-	<date>2026-10-05</date>
+	<date>2026-10-08</date>
 	<lazy-load>1</lazy-load>
 	<class>LogoBlocksPlugin</class>
 </version>
